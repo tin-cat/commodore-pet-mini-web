@@ -1,0 +1,17 @@
+#UiComponentPanel > .header,
+#UiComponentPanel > .top {
+    background: <?=$colorPalette["defaultAccentColor"]?>;
+}
+
+#UiComponentPanel > .top .UiComponentMenuOption > .title {
+    color: #fff;
+}
+
+#UiComponentPanel > .main .UiComponentMenuOption > .title {
+    font-family: <?= $fonts["titles"]["family"] ?>;
+}
+
+#UiComponentPanel > .main .UiComponentMenuOptionWithSuboptions > .subOptions > .UiComponentMenuOption > .title {
+    font-family: <?= $fonts["interface"]["family"] ?>;
+    font-size: 11pt;
+}

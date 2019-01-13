@@ -1,0 +1,26 @@
+<?php
+
+/**
+ * Janitor config
+ *
+ * Holds the configuration for the Janitor module
+ *
+ * @package CherrycakeSkeleton
+ */
+
+namespace Cherrycake;
+
+$JanitorConfig = [
+	"key" => "", // The key string needed to run janitor tasks.
+	"logDatabaseProviderName" => "main", // The name of the DatabaseProvider to use for storing Janitor log
+	"cherrycakeJanitorTasks" => [ // An array of names of Cherrycake JanitorTask classes to be run
+		"JanitorTaskJanitorPurge",
+		"JanitorTaskSystemLogPurge",
+		"JanitorTaskSystemLogCommit",
+		"JanitorTaskSessionPurge",
+		"JanitorTaskStatsCommit",
+		"JanitorTaskLogCommit"
+	],
+	"appJanitorTasks" => [ // An array of names of App JanitorTask classes to be run
+	]
+];

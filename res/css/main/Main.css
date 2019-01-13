@@ -1,0 +1,100 @@
+html {
+	height: 100%;
+}
+
+body {
+	background-color: <?= $colorPalette["mainBackgroundColor"] ?>;
+	margin: 0;
+	font-family: <?= $fonts["interface"]["family"] ?>;
+	font-size: <?= $fonts["interface"]["size"] ?>;
+	font-weight: <?= $fonts["interface"]["weight"] ?>;
+	line-height: <?= $fonts["interface"]["height"] ?>;
+	color: <?= $colorPalette["defaultTextColor"] ?>;
+}
+
+body.dark {
+	background-color: <?= $colorPalette["darkBackgroundColor"] ?>;
+	color: <?= $colorPalette["darkBackgroundTextColor"] ?>;
+}
+
+h1, h2, h3, h4 {
+	font-family: <?= $fonts["titles"]["family"] ?>;
+	line-height: <?= $fonts["titles"]["height"] ?>;
+	font-weight: <?= $fonts["titles"]["weight"] ?>;
+	margin: 0;
+}
+
+h1 {
+	font-size: 29pt;
+	line-height: 1.3em;
+}
+
+h2 {
+	font-size: 19pt;
+}
+
+h3 {
+	font-size: 15pt;
+}
+
+<?= $e->Css->mediaQuery([
+	"maxWidthBreakpoint" => "tiny",
+	"css" => "
+		h1 {
+			font-size: 25pt;
+			letter-spacing: -1px;
+		}
+		h2 {
+			font-size: 18pt;
+		}
+		h3 {
+			font-size: 15pt;
+		}
+	"
+]) ?>
+
+a {
+	color: <?= $colorPalette["defaultAnchorColor"] ?>;
+	text-decoration: none;
+	border-bottom: solid 1px;
+}
+
+a:hover {
+	color: <?= $colorPalette["defaultAnchorColorHighlighted"] ?>;
+}
+
+::selection {
+	background: <?= $colorPalette["defaultAccentColor"]; ?>;
+	color: #fff;
+}
+::-moz-selection {
+	background: <?= $colorPalette["defaultAccentColor"]; ?>;
+	color: #fff;
+}
+
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+	outline: none;
+}
+
+.marginBottom {
+	margin-bottom: <?= $e->Css->unit($baseGap); ?> !important;
+}
+
+.marginBottomDouble {
+	margin-bottom: <?= $e->Css->unit($baseGap * 2); ?> !important;
+}
+
+.marginBottomTriple {
+	margin-bottom: <?= $e->Css->unit($baseGap * 3); ?> !important;
+}
+
+.marginBottomQuadruple {
+	margin-bottom: <?= $e->Css->unit($baseGap * 4); ?> !important;
+}
+
+.marginTop {
+	margin-top: <?= $e->Css->unit($baseGap); ?> !important;
+}

@@ -1,0 +1,28 @@
+<?php
+
+/**
+ * Database config
+ *
+ * Holds the configuration for the Database module
+ *
+ * @package CherrycakeSkeleton
+ */
+
+namespace Cherrycake;
+
+$DatabaseConfig = [
+	"providers" => [
+		"main" => [
+			"providerClassName" => "DatabaseProviderMysql",
+			"resultClassName" => "DatabaseResultMysql",
+			"config" => [
+				"host" => "localhost",
+				"user" => "",
+				"password" => "",
+				"database" => "cherrycake-skeleton",
+				"charset" => "utf8mb4",
+				"cacheProviderName" => "huge"
+			]
+		]
+	]
+];

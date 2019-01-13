@@ -1,0 +1,3 @@
+.UiComponentArticle > .file:hover {
+    border-color: <?= $colorPalette["defaultTextColor"] ?> !important;
+}

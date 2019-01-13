@@ -1,0 +1,29 @@
+<?= $e->HtmlDocument->Header() ?>
+
+<?
+	// Choose a random error gif
+	if ($handler = opendir('res/img/errorgifs')) {
+		while (false !== ($file = readdir($handler))) {
+			if ($file != "." && $file != "..") {
+				$errorGifs[] = $file;
+			}
+		}
+	}
+
+	$errorGif = $errorGifs[rand(0, sizeof($errorGifs)-1)];
+?>
+
+<div class="errorPage" style="background-image: url('/res/img/errorgifs/<?= $errorGif ?>');">
+	<h1>
+		<?
+			echo
+				$errorDescription
+				?
+				$errorDescription
+				:
+				"Not found"
+		?>
+	</h1>
+</div>
+
+<?= $e->HtmlDocument->Footer() ?>

@@ -1,0 +1,14 @@
+# Usr directory is ignored since here's where user files and images are uploaded
+usr/*/
+
+# Some README files are stored for information purposes in the directories banned above, let'em be tracked by git
+!README
+
+# Do not track files with sensible information
+config/Database.config.php
+config/Janitor.config.php
+
+# Annoying files
+.DS_Store
+thumbs.db
+._*
