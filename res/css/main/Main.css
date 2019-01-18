@@ -60,15 +60,15 @@ a {
 }
 
 a:hover {
-	color: <?= $colorPalette["defaultAnchorColorHighlighted"] ?>;
+	color: <?= $colorPalette["defaultAccentColorHighlighted"] ?>;
 }
 
 ::selection {
-	background: <?= $colorPalette["defaultAccentColor"]; ?>;
+	background: <?= $colorPalette["defaultAccentColorHighlighted"]; ?>;
 	color: #fff;
 }
 ::-moz-selection {
-	background: <?= $colorPalette["defaultAccentColor"]; ?>;
+	background: <?= $colorPalette["defaultAccentColorHighlighted"]; ?>;
 	color: #fff;
 }
 

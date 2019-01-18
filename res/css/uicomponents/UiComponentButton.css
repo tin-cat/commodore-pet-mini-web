@@ -1,0 +1,12 @@
+.UiComponentButton {
+    border: solid <?=$colorPalette["defaultTextColor"]?> 1px;
+    background: transparent;
+}
+
+.UiComponentButton > .title {
+    color: <?=$colorPalette["defaultTextColor"]?>;
+}
+
+.UiComponentButton:hover {
+    opacity: .8;
+}

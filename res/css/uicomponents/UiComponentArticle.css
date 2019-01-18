@@ -1,3 +1,11 @@
 .UiComponentArticle > .file:hover {
     border-color: <?= $colorPalette["defaultTextColor"] ?> !important;
 }
+
+.UiComponentArticle i {
+    font-style: normal;
+    background: rgba(255, 255, 255, .2);
+    padding: 1px 6px;
+    white-space: nowrap;
+    border-radius: 5px;
+}

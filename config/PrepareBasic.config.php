@@ -17,10 +17,11 @@ $PrepareBasicConfig = [
             "subPages" => [
                 "what-you-need" => ["title" => "What you'll need"],
                 "3d-printing" => ["title" => "3D printing the parts"],
-                "wiring-power-socket" => ["title" => "Wiring the power socket"],
-                "wiring-screen" => ["title" => "Wiring the screen"],
+                "pre-assembly" => ["title" => "Pre-assembly"],
                 "install-retropie" => ["title" => "Install RetroPie"],
                 "install-screen-drivers" => ["title" => "Install screen drivers"],
+                "wiring-power-socket" => ["title" => "Wiring the power socket"],
+                "wiring-screen" => ["title" => "Wiring the screen"],
                 "final-assembly" => ["title" => "Final assembly"]
             ]
         ],

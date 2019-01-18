@@ -45,7 +45,7 @@ class UserBuilds extends \Cherrycake\Module {
 					"pathComponents" => [
                         new \Cherrycake\RequestPathComponent([
 							"type" => \Cherrycake\REQUEST_PATH_COMPONENT_TYPE_FIXED,
-							"string" => "UserBuilds"
+							"string" => "user-builds"
                         ])
                     ]
 				])

@@ -1,9 +1,52 @@
 <article class="UiComponentArticle isolated">
 
-    <h2>Installing RetroPie</h2>
+    <h2>Install RetroPie</h2>
 
     <p>
-        <a href="https://retropie.org.uk/" target="retropie">RetroPie</a> is a fantastic Linux distribution to turn your Raspberry Pi into a fully featured game console and computer emulator. It can emulate the Commodore PET and many more platforms. Install it into your SD Card by following this <a href="https://retropie.org.uk/docs/First-Installation/" target="retropie">guide from the RetroPie site</a>.
+        <a href="https://retropie.org.uk/" target="retropie">RetroPie</a> is a fantastic Linux distribution to turn your Raspberry Pi into a fully featured game console and computer emulator. It can emulate the Commodore PET and many other retro computers a videogame consoles.
     </p>
+
+    <p>
+        You can follow the <a href="https://retropie.org.uk/docs/First-Installation/" target="retropie">RetroPie official installation instructions</a> to install RetroPie in your SD Card. If you're anxious, a basic installation boils down to this simple steps:
+    </p>
+
+    <ol class="isolated">
+        <li data-title="1"><a href="https://retropie.org.uk/download/" target="retropie">Download the RetroPie image</a> that suits your Raspberry Pi model.</li>
+        <li data-title="2">Unzip the file you've downloaded. You should get an <b>.img</b> file.</li>
+        <li data-title="3">Burn the image to the SD Card by using an app like <a href="https://www.balena.io/etcher/" target="retropie">Balena Etcher</a>.</li>
+    </ol>
+
+    <p>
+        RetroPie doesn't comes by default with the Commodore PET emulator installed, so we're going to solve that now.
+    </p>
+
+    <ul class="isolated">
+        <li>Put in the SD Card with RetroPie into the Raspberry Pi, plug in a keyboard, a regular HDMI monitor and the power cable to start it and go through the first time setup configuration process.</li>
+        <li>It's recommended that you also plug in a USB gamepad or joystick, since RetroPie is a lot easier to control with one of these. It will also allow you to play thousands of retro games in your PET, so why not? <a href="<?=SUPPLIES_LINK_GAMEPAD?>" target="supplies">This gamepad is compatible with RetroPie</a>.</li>
+        <li>Go through the initial RetroPie setup by following the on-screen instructions.</li>
+        <li>Connect RetroPie to the Internet by configuring your WIFI, or by plugging in a network cable.</li>
+        <li>Enter the RetroPie configuration screen from the main menu and then choose the <i>RetroPie-Setup</i> option. Enter the <i>Manage packages</i> option and then the <i>Optional</i> section.</li>
+        <li>Install the <i>Vice</i> package on that list, that's the emulator for C64, VIC-20 and PET computers.</li>
+    </ul>
+
+    <p>
+        Other recommended emulators to install now you're there are: <i>DosBox</i> for retro DOS games and <i>ScummVM</i> for retro adventure games. Can you imagine playing Maniac Mansion and Monkey Island in your Commodore PET Mini?
+    </p>
+
+    <p>
+        Don't turn off your Raspberry Pi yet, we're going work on it a little bit more on the next step.
+    </p>
+
+    <?=\Cherrycake\UiComponentButton::build([
+        "title" => "Next",
+        "isIsolated" => true,
+        "isCentered" => true,
+        "href" => $e->Actions->getAction("documentationSubPage")->request->buildUrl([
+            "parameterValues" => [
+                "sectionName" => "building",
+                "pageName" => "install-screen-drivers"
+            ]
+        ])
+    ])?>
 
 </article>

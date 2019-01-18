@@ -3,7 +3,36 @@
     <h2>Wiring the screen</h2>
 
     <p>
-        <a href="<?=SUPPLIES_LINK_SCREEN?>" target="supplies">The screen</a> is designed to be plugged right into Raspberry Pi's GPIO pins, but we're going to build an extension cable that goes from there to the screen box above through the pre-cut hole, using some <a href="<?=SUPPLIES_LINK_GPIO_HEADERS?>" target="supplies">GPIO headers</a> and <a href="<?=SUPPLIES_LINK_CABLE?>" target="supplies">cable</a>.
+        <a href="<?=SUPPLIES_LINK_SCREEN?>" target="supplies">The screen</a> is designed to be plugged on top of the Raspberry Pi using the GPIO pins, but we're going to build an extension that goes from the Raspberry Pi on the base to the screen inside the box above, using 26 <a href="<?=SUPPLIES_LINK_DUPONT_CABLE?>" target="supplies">male to female dupont cables</a>.
     </p>
+
+    <ul class="isolated">
+        <li>One by one, plug in cables from the Raspberry Pi to the screen, passing through the hole of the assembly.</li>
+        <li>You need to wire the thirteen leftmost pins in both rows, 26 pins in total.</li>
+        <li>Our goal is to reproduce exactly the connections if the screen were to be plugged on top of the Raspberry Pi.</li>
+    </ul>
+
+    <div class="image isolated">
+        <img src="/res/img/assembly_9.jpg" />
+        <div class="title">Don't forget to pass all the cables through the assembly like this.</div>
+    </div>
+
+    <div class="image isolated">
+        <img src="/res/img/Commodore PET Mini screen connection diagram.svg" />
+    </div>
+
+    
+
+    <?=\Cherrycake\UiComponentButton::build([
+        "title" => "Next",
+        "isIsolated" => true,
+        "isCentered" => true,
+        "href" => $e->Actions->getAction("documentationSubPage")->request->buildUrl([
+            "parameterValues" => [
+                "sectionName" => "building",
+                "pageName" => "final-assembly"
+            ]
+        ])
+    ])?>
 
 </article>

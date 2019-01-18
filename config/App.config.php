@@ -12,21 +12,26 @@ namespace CherrycakeApp;
 
 const DIR_RES = "res"; // The directory where resources like css, javascript, images and fonts are stored
 
-define("SUPPLIES_LINK_3D_PRINTER", "https://amzn.to/2QIGXsv");
-define("SUPPLIES_LINK_SD_CARD", "https://amzn.to/2ChOedn");
-define("SUPPLIES_LINK_POWER_SUPPLY", "https://amzn.to/2RLklMv");
-define("SUPPLIES_LINK_FILAMENT_BLACK", "https://amzn.to/2CjnDNn");
-define("SUPPLIES_LINK_FILAMENT_WHITE", "https://amzn.to/2RHz6Qq");
-define("SUPPLIES_LINK_RASPBERRY", "https://amzn.to/2CjrUQy");
-define("SUPPLIES_LINK_SCREEN", "https://amzn.to/2CeKzxc");
-define("SUPPLIES_LINK_GPIO_HEADERS", "https://amzn.to/2AHJspz");
-define("SUPPLIES_LINK_CABLE", "https://amzn.to/2H9OOzB");
-define("SUPPLIES_LINK_SWITCH", "https://amzn.to/2QGM3pd");
-define("SUPPLIES_LINK_USB_EXTENDER_CABLE", "https://amzn.to/2RI6zKx");
-define("SUPPLIES_LINK_MAGNETS", "https://amzn.to/2SP5LAU");
-define("SUPPLIES_LINK_AUDIO_AMPLIFIER", "https://amzn.to/2RLiV4x");
-define("SUPPLIES_LINK_SPEAKER", "https://amzn.to/2QDxaUx");
-define("SUPPLIES_LINK_CHARGER_BOARD", "https://amzn.to/2H7lj1i");
-define("SUPPLIES_LINK_BATTERY", "https://tienda.bricogeek.com/baterias-lipo/55-bateria-lipo-2000mah.html");
+define("REPOSITORY_URL", "https://github.com/tin-cat/commodore-pet-mini");
+define("REPOSITORY_URL_WEB", "https://github.com/tin-cat/commodore-pet-mini-web");
+
+define("SUPPLIES_LINK_3D_PRINTER", "http://geni.us/CrealityEnder3DPrinter");
+define("SUPPLIES_LINK_SD_CARD", "http://geni.us/CrealityEnder3DPrinter");
+define("SUPPLIES_LINK_POWER_SUPPLY", "http://geni.us/RPiPowerSupply5V3000Ma");
+define("SUPPLIES_LINK_FILAMENT_BLACK", "http://geni.us/PLAFilamentBlack");
+define("SUPPLIES_LINK_FILAMENT_WHITE", "http://geni.us/PLAFilamentWhite");
+define("SUPPLIES_LINK_RASPBERRY", "http://geni.us/RaspberryPi3ModelB");
+define("SUPPLIES_LINK_SCREEN", "http://geni.us/RPi2-8InchTouchScreen");
+define("SUPPLIES_LINK_DUPONT_CABLE", "http://geni.us/DupontCable");
+define("SUPPLIES_LINK_SWITCH", "http://geni.us/SwitchRockerPanel");
+define("SUPPLIES_LINK_USB_EXTENDER_CABLE", "http://geni.us/UsbExtenderPanelMount");
+define("SUPPLIES_LINK_MAGNETS", "http://geni.us/MiniRoundMagnets");
+define("SUPPLIES_LINK_AUDIO_AMPLIFIER", "http://geni.us/PAM8403AudioAmplifier");
+define("SUPPLIES_LINK_SPEAKER", "http://geni.us/MiniSpeaker");
+define("SUPPLIES_LINK_CHARGER_BOARD", "http://geni.us/ChargerBoard");
+define("SUPPLIES_LINK_BATTERY", "http://geni.us/LipoBattery3-7");
+define("SUPPLIES_LINK_SHRINK_TUBE", "http://geni.us/TermoShrinkTube");
+define("SUPPLIES_LINK_GAMEPAD", "http://geni.us/LogitechF310Gamepad");
+define("SUPPLIES_LINK_AUDIO_JACK", "http://geni.us/AudioJack");
 
 define("EMAIL", "lorenzo@tin.cat");

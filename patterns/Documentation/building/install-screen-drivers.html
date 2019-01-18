@@ -3,11 +3,37 @@
     <h2>Installing the screen drivers</h2>
 
     <p>
-        Almost there! The screen needs some configuration to work properly, so we'll need to turn on the Raspberry Pi and do some changes manually:
+        The 2.8 tiny screen needs some configuration to work properly because it's not a regular HDMI screen, so we'll need to turn on the Raspberry Pi and do some changes manually:
     </p>
 
     <ol class="isolated">
-        <li data-title="1">On the Raspberry Pi, put the SD Card you've just installed RetroPie on, plug in the power supply, your regular HDMI monitor and a USB keyboard.</li>
+        <li data-title="1">In the RetroPi main screen, hit <span class="keyboardKey">CONTROL</span> + <span class="keyboardKey">F4</span> in the keyboard. That should bring you to the Linux shell and a login prompt should appear.</li>
+        <li data-title="2">Enter <i>pi</i> as the username and <i>raspberry</i> as the password.</li>
+        <li data-title="3">
+            Download the screen drivers with the following command:
+            <code class="shell"><span class="prompt">$</span> git clone https://github.com/waveshare/LCD-show.git</code>
+        </li>
+        <li data-title="4">
+            Execute the installation command:
+            <code class="shell"><span class="prompt">$</span> sudo ./LCD28-show</code>
+        </li>
+        <li data-title="5">
+            You can now shutdown the Raspberry Pi with the command:
+            <code class="shell"><span class="prompt">$</span> sudo poweroff</code>
+        </li>
+        <li data-title="6">Unplug the HDMI cable and plug the mini screen on top of the Raspberry Pi. Turn it on again, the mini screen should be working now!</li>
     </ol>
+
+    <?=\Cherrycake\UiComponentButton::build([
+        "title" => "Next",
+        "isIsolated" => true,
+        "isCentered" => true,
+        "href" => $e->Actions->getAction("documentationSubPage")->request->buildUrl([
+            "parameterValues" => [
+                "sectionName" => "building",
+                "pageName" => "wiring-power-socket"
+            ]
+        ])
+    ])?>
 
 </article>

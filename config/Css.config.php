@@ -41,6 +41,7 @@ $CssConfig = [
 			"variablesFile" => [\CherrycakeApp\DIR_RES."/css/CommonVariables.php"], // A file (or an array of files) to include whenever parsing this set files, usually for defining variables that can be later used inside the css files
 			"directory" => \CherrycakeApp\DIR_RES."/css/uicomponents",
 			"files" => [ // The files that this set contains
+				"UiComponentButton.css",
 				"UiComponentPanel.css",
 				"UiComponentArticle.css"
 			]

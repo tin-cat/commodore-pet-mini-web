@@ -1,0 +1,65 @@
+<article class="UiComponentArticle isolated">
+    
+    <h2>Pre-assembly</h2>
+
+    <div class="images twoColumns">
+        <div class="image">
+            <img src="/res/img/assembly_1.jpg" />
+            <div class="title">Glue together the <i>Body shell</i>, the <i>Monitor stand</i> and the <i>Monitor box body</i></div>
+        </div>
+
+        <div class="image">
+            <img src="/res/img/assembly_2.jpg" />
+            <div class="title">Should end looking like this.</div>
+        </div>
+    </div>
+
+    <div class="images twoColumns">
+        <div class="image">
+            <img src="/res/img/assembly_3.jpg" />
+            <div class="title">Slot the assembly on top of the <i>Base</i> until it clicks. Should hinge upwards freely.</div>
+        </div>
+
+        <div class="image">
+            <img src="/res/img/assembly_4.jpg" />
+            <div class="title">You can also glue the keyboard now.</div>
+        </div>
+    </div>
+
+    <div class="images twoColumns">
+        <div class="image">
+            <img src="/res/img/assembly_5.jpg" />
+            <div class="title">Screw the display into the <i>Monitor frame</i></div>
+        </div>
+
+        <div class="image">
+            <img src="/res/img/assembly_6.jpg" />
+            <div class="title">Should look like this.</div>
+        </div>
+    </div>
+
+    <div class="images twoColumns">
+        <div class="image">
+            <img src="/res/img/assembly_7.jpg" />
+            <div class="title">Glue the <i>Monitor box front</i> to the <i>Monitor frame</i></div>
+        </div>
+
+        <div class="image">
+            <img src="/res/img/assembly_8.jpg" />
+            <div class="title">End piece. </div>
+        </div>
+    </div>
+
+    <?=\Cherrycake\UiComponentButton::build([
+        "title" => "Next",
+        "isIsolated" => true,
+        "isCentered" => true,
+        "href" => $e->Actions->getAction("documentationSubPage")->request->buildUrl([
+            "parameterValues" => [
+                "sectionName" => "building",
+                "pageName" => "install-retropie"
+            ]
+        ])
+    ])?>
+
+</article>

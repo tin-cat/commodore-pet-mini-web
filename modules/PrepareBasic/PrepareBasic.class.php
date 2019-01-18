@@ -41,7 +41,7 @@ class PrepareBasic extends \Cherrycake\Module {
 			[
 				"github" => \Cherrycake\UiComponentMenuOption::build([
 					"title" => "GitHub",
-					"href" => "https://github.com/tin-cat/commodore-pet-mini",
+					"href" => REPOSITORY_URL,
 					"isNewWindow" => true
 				])
 			]
@@ -83,6 +83,8 @@ class PrepareBasic extends \Cherrycake\Module {
 
 				unset($subOptions);
 				while(list($subPageName, $subPageSetup) = each($pageSetup["subPages"])) {
+					if (is_null($subPageSetup))
+						continue;
 					$subOptions[$subPageName] =
 						\Cherrycake\UiComponentMenuOption::build([
 							"title" => $subPageSetup["title"],

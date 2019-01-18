@@ -25,7 +25,8 @@ $colorPalette = [
 	"darkBackgroundTextColor" => new Color("withRgb", [255, 255, 255]),
 	"defaultAnchorColor" => new Color("withRgb", [255, 255, 255]),
 	"defaultAnchorColorHighlighted" => new Color("withRgb", [49, 240, 255]),
-	"defaultAccentColor" =>  new Color("withHex", "#ff114f")
+	"defaultAccentColor" =>  new Color("withHex", "#ff114f"),
+	"defaultAccentColorHighlighted" =>  new Color("withHex", "#ffb1bf")
 ];
 
 $baseGap = 10;

@@ -2,16 +2,79 @@
     
     <h2>3D printing the parts</h2>
     <p>
-        Download the ZIP file containing the 3D models ready to be sliced:
+        Download and print the 3D models from the official repository:
     </p>
 
-    <a class="file" href="">
+    <a class="file" href="<?=REPOSITORY_URL?>" target="repository">
         <div class="UiComponentIcon white download"></div>
-        <div class="title">commodore-pet-mini-3d-models.zip</div>
+        <div class="title">Commodore PET Mini files</div>
     </a>
 
     <p>
-        There are two STL files to print: One for the white parts and another for the black ones. Individual STL files for each piece are also provided in case you want to print it piece by piece, or your 3D printer bed is too small to fit all of them. Each piece in those files is oriented to optimize printing quality and minimize as much as possible the risk of a failed print. I recommend you to keep this orientation, and to add supports when slicing.
+        There are eight pieces to print, provided in individual STL files ready to be sliced. Each piece is oriented to optimize printing quality and minimize the risk of a failed print as much as possible. I recommend you to keep this orientation and to add supports when slicing. Also, don't forget to choose the right plastic color for each piece:
     </p>
+
+    <div class="images threeColumns">
+        <div class="image">
+            <img src="/res/img/pieces/Base.jpg" />
+            <div class="title">
+                <i>Base</i>
+            </div>
+        </div>
+        <div class="image">
+            <img src="/res/img/pieces/Body shell.jpg" />
+            <div class="title">
+                <i>Body shell</i>
+            </div>
+        </div>
+        <div class="image">
+            <img src="/res/img/pieces/Keyboard.jpg" />
+            <div class="title">
+                <i>Keyboard</i>
+            </div>
+        </div>
+        <div class="image">
+            <img src="/res/img/pieces/Monitor stand.jpg" />
+            <div class="title">
+                <i>Monitor stand</i>
+            </div>
+        </div>
+        <div class="image">
+            <img src="/res/img/pieces/Monitor box body.jpg" />
+            <div class="title">
+                <i>Monitor box body</i>
+            </div>
+        </div>
+        <div class="image">
+            <img src="/res/img/pieces/Monitor box rear cap.jpg" />
+            <div class="title">
+                <i>Monitor box rear cap</i>
+            </div>
+        </div>
+        <div class="image">
+            <img src="/res/img/pieces/Monitor box front.jpg" />
+            <div class="title">
+                <i>Monitor box front</i>
+            </div>
+        </div>
+        <div class="image">
+            <img src="/res/img/pieces/Monitor frame.jpg" />
+            <div class="title">
+                <i>Monitor frame</i>
+            </div>
+        </div>
+    </div>
+
+    <?=\Cherrycake\UiComponentButton::build([
+        "title" => "Next",
+        "isIsolated" => true,
+        "isCentered" => true,
+        "href" => $e->Actions->getAction("documentationSubPage")->request->buildUrl([
+            "parameterValues" => [
+                "sectionName" => "building",
+                "pageName" => "pre-assembly"
+            ]
+        ])
+    ])?>
 
 </article>
