@@ -13,6 +13,7 @@ namespace CherrycakeApp;
 const DIR_RES = "res"; // The directory where resources like css, javascript, images and fonts are stored
 
 define("REPOSITORY_URL", "https://github.com/tin-cat/commodore-pet-mini");
+define("REPOSITORY_URL_WEB", "https://github.com/tin-cat/commodore-pet-mini-web");
 
 define("SUPPLIES_LINK_3D_PRINTER", "https://amzn.to/2QIGXsv");
 define("SUPPLIES_LINK_SD_CARD", "https://amzn.to/2ChOedn");
