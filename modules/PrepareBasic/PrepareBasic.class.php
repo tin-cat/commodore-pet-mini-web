@@ -26,7 +26,8 @@ class PrepareBasic extends \Cherrycake\Module {
 	];
 	
 	var $dependentAppModules = [
-		"Documentation"
+		"Documentation",
+		"AffiliateLinks"
 	];
 	
 	function init() {
