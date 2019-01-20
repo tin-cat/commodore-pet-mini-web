@@ -29,7 +29,8 @@ $PrepareBasicConfig = [
             "title" => "Modding your PET",
             "subPages" => [
                 "sound" => ["title" => "Adding sound"],
-                "portable-commodore-pet-mini" => ["title" => "Make it portable"]
+                "portable-commodore-pet-mini" => ["title" => "Make it portable"],
+                "paint" => ["title" => "Paint it"]
             ]
         ]
     ]

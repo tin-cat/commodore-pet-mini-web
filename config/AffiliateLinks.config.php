@@ -550,6 +550,66 @@ $AffiliateLinksConfig = [
                 "countryCodes" => ["CA"],
                 "link" => "https://amzn.to/2W2Qxdv"
             ]
+        ],
+        "PaintPrimer" => [
+            [
+                "countryCodes" => ["ES", "AD", "PT"],
+                "link" => "https://amzn.to/2DlI2TE"
+            ],
+            [
+                "countryCodes" => ["US"],
+                "link" => "https://amzn.to/2DlaPHJ"
+            ],
+            [
+                "countryCodes" => ["FR", "LU", "BE", "CH"],
+                "link" => "https://amzn.to/2T4PlEz"
+            ],
+            [
+                "countryCodes" => ["UK", "IE"],
+                "link" => "https://amzn.to/2DlMYrA"
+            ],
+            [
+                "countryCodes" => ["DE", "PL", "CZ", "AT"],
+                "link" => "https://amzn.to/2W4m12V"
+            ],
+            [
+                "countryCodes" => ["IT"],
+                "link" => "https://amzn.to/2Hnxk2P"
+            ],
+            [
+                "countryCodes" => ["CA"],
+                "link" => "https://amzn.to/2syD8fK"
+            ]
+        ],
+        "PaintIvory" => [
+            [
+                "countryCodes" => ["ES", "AD", "PT"],
+                "link" => "https://amzn.to/2CyvkPP"
+            ],
+            [
+                "countryCodes" => ["US"],
+                "link" => "https://amzn.to/2RQrkUz"
+            ],
+            [
+                "countryCodes" => ["FR", "LU", "BE", "CH"],
+                "link" => "https://amzn.to/2RUBV0K"
+            ],
+            [
+                "countryCodes" => ["UK", "IE"],
+                "link" => "https://amzn.to/2AWgnai"
+            ],
+            [
+                "countryCodes" => ["DE", "PL", "CZ", "AT"],
+                "link" => "https://amzn.to/2RCTZx2"
+            ],
+            [
+                "countryCodes" => ["IT"],
+                "link" => "https://amzn.to/2AU6g5w"
+            ],
+            [
+                "countryCodes" => ["CA"],
+                "link" => "https://amzn.to/2DmdwJb"
+            ]
         ]
     ]
 ];
