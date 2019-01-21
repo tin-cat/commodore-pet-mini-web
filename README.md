@@ -1,5 +1,5 @@
 # Commodore PET Mini Web
 
-![Powered by Cherrycake](https://cherrycake.io/powered_by_cherrycake.svg)
+<a href="https://cherrycake.io" title="Powered by Cherrycake"><img src="https://cherrycake.io/powered_by_cherrycake.svg"/></a>
 
-This is the source the Cherrycake.io website, which contains the documentation and information about the Cherrycake project. Because this website is built using Cherrycake, it acts also as great example project for people learning Cherrycake.
+This is the official repository for the Commodore PET Mini project website, check it out at https://commodore-pet-mini.tin.cat
