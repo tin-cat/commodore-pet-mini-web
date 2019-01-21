@@ -1,0 +1,32 @@
+<article class="UiComponentArticle isolated">
+
+    <h2>To-do</h2>
+
+    <p>
+        Here's a list of things we would like to improve on the Commodore PET Mini:
+    </p>
+
+    <ul>
+        <li>
+            <b>A higher refresh rate for the screen</b><br>
+            The tiny 2,8 inches screen we're using connects to the Raspberry Pi via GPIO using a slow serial communication. This results in low framerates, probably around 10 - 15 fps. The Raspberry Pi is capable of much more, so this is a bottleneck that could be improved, specially if you plan to game in your PET.<br>
+            <br>
+            There are workarounds to increase the refresh rate in GPIO-based displays, they use compression and optimization tricks to increase FPS in certain situations. A very promising project to solve this is <a href="https://github.com/juj/fbcp-ili9341" target="outher">fbcp-ili9341 by juj</a>. Unfortunately, this doesn't support the <a href="<?=$e->AffiliateLinks->getLink("Screen")?>" target="supplies">Waveshare 2,8 inches display</a> we use.<br>
+            <br>
+            The optimal solution would be to find another 2,8 inches display that connects to the Raspberry Pi via HDMI, thus removing the bottleneck entirely. Optimally, this screen should fit in the existing <i>Monitor body</i>, be reasonably cheap and easily available around the globe.
+        </li>
+        <li>
+            <b>Provide some Commodore PET ROMs</b><br>
+            It would be great to provide some Commodore PET ROMs to download from this site, just to provide all the resources to complete the PET in one place. The provided ROMs should be legally downloadable.
+        </li>
+        <li>
+            <b>A working keyboard</b><br>
+            It would be nuts! And quite difficult to implement, as it would need some kind of interfacing board, and a lot of wiring. Maybe creating a custom PCB to solder tiny switches and then 3D printing and gluing individual keys on top of them? In any case, it would involve a redesign at least of the <i>Body shell</i> 3D model, most probably of all of them since it would force us to scale the whole PET up to fit the working keyboard.
+        </li>
+        <li>
+            <b>A disk drive unit</b><br>
+            Wouldn't it be great to have a <a href="https://en.wikipedia.org/wiki/Commodore_4040" target="outher">Commore 2040 or 3040 disk drive</a> for your PET Mini? We could even make it functional, connecting it to the PET via USB, and making it work like a real disk drive by mounting a couple of SD Card readers that would simulate the disk drives. The SD Cards would have a printed label to make them look like tiny 5.25 inch floppies!
+        </li>
+    </ul>
+
+</article>

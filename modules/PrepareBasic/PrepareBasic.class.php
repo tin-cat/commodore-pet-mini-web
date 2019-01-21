@@ -134,6 +134,16 @@ class PrepareBasic extends \Cherrycake\Module {
 			]
 		);
 
+		$e->Ui->uiComponents["UiComponentPanel"]->addBlocks(
+			"main",
+			[
+				"todo" => \Cherrycake\UiComponentMenuOption::build([
+					"title" => "To do",
+					"href" => $e->Actions->getAction("todo")->request->buildUrl()
+				])
+			]
+		);
+
 		return true;
 	}
 }
