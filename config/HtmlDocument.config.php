@@ -40,5 +40,7 @@ $HtmlDocumentConfig = [
 	"favIcons" => [ // Image SRCs for common favicon files. Must be in png format
 		"16x16" => "/res/favicons/favicon-16x16.png",
 		"32x32" => "/res/favicons/favicon-32x32.png"
-	]
+	],
+	"matomoServerUrl" => "//garfield.tin.cat",
+	"matomoTrackingId" => "19"
 ];
