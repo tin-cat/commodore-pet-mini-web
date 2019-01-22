@@ -61,7 +61,8 @@ class ToDo extends \Cherrycake\Module {
 		global $e;
 		$e->Ui->uiComponents["UiComponentPanel"]->setOutputResponse([
 			"content" => $e->Patterns->parse("ToDo/Home.html"),
-			"mainOptionSelected" => "todo"
+			"mainOptionSelected" => "todo",
+			"isAllMainOptionsOpen" => true
 		]);
 		return true;
 	}

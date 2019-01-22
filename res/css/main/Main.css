@@ -40,6 +40,9 @@ h3 {
 <?= $e->Css->mediaQuery([
 	"maxWidthBreakpoint" => "tiny",
 	"css" => "
+		body {
+			font-size: 15pt;
+		}
 		h1 {
 			font-size: 25pt;
 			letter-spacing: -1px;

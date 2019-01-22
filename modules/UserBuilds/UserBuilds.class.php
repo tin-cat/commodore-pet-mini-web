@@ -61,7 +61,8 @@ class UserBuilds extends \Cherrycake\Module {
 		global $e;
 		$e->Ui->uiComponents["UiComponentPanel"]->setOutputResponse([
 			"content" => $e->Patterns->parse("UserBuilds/Home.html"),
-			"mainOptionSelected" => "userBuilds"
+			"mainOptionSelected" => "userBuilds",
+			"isAllMainOptionsOpen" => true
 		]);
 		return true;
 	}

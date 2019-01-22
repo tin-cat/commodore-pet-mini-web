@@ -112,7 +112,8 @@ class Documentation extends \Cherrycake\Module {
         
 		$e->Ui->uiComponents["UiComponentPanel"]->setOutputResponse([
             "content" => $e->Patterns->parse($documentationPatternFileName),
-            "mainOptionSelected" => $request->pageName
+			"mainOptionSelected" => $request->pageName,
+			"isAllMainOptionsOpen" => true
 		]);
     }
     
@@ -134,7 +135,8 @@ class Documentation extends \Cherrycake\Module {
 		$e->Ui->uiComponents["UiComponentPanel"]->setOutputResponse([
             "content" => $e->Patterns->parse($documentationPatternFileName),
             "mainOptionSelected" => $request->sectionName,
-            "mainSubOptionSelected" => $request->pageName
+			"mainSubOptionSelected" => $request->pageName,
+			"isAllMainOptionsOpen" => true
 		]);
 	}
 }
