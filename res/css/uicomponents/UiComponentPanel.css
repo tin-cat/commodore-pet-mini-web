@@ -1,8 +1,8 @@
 #UiComponentPanel > .header,
 #UiComponentPanel > .top {
-    background: <?=$colorPalette["mainBackgroundColor"]?>;
+    background: <?=$colorPalette["defaultAccentColor"]?>;
 }
 
 #UiComponentPanel > .top .UiComponentMenuOption > .title {
-    color: <?=$colorPalette["defaultTextColor"]?>;
+    color: #fff;
 }

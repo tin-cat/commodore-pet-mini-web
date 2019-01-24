@@ -18,12 +18,12 @@ $fonts = [
 
 $colorPalette = [
 	// Main
-	"mainBackgroundColor" => new Color("withHex", "#ff114f"),
+	"mainBackgroundColor" => new Color("withHex", "#ffffff"),
 	"mainBackgroundColorLighter" => new Color("withHex", "#ff316f"),
 	"darkBackgroundColor" => new Color("withHex", "#111"),
-	"defaultTextColor" => new Color("withRgb", [255, 255, 255]),
+	"defaultTextColor" => new Color("withRgb", [30, 30, 30]),
 	"darkBackgroundTextColor" => new Color("withRgb", [255, 255, 255]),
-	"defaultAnchorColor" => new Color("withRgb", [255, 255, 255]),
+	"defaultAnchorColor" => new Color("withHex", "#ff114f"),
 	"defaultAnchorColorHighlighted" => new Color("withRgb", [49, 240, 255]),
 	"defaultAccentColor" =>  new Color("withHex", "#ff114f"),
 	"defaultAccentColorHighlighted" =>  new Color("withHex", "#ffb1bf")

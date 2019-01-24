@@ -3,25 +3,80 @@
     <h2>Wiring the screen</h2>
 
     <p>
-        <a href="<?=$e->AffiliateLinks->getLink("Screen")?>" target="supplies">The screen</a> is designed to be plugged on top of the Raspberry Pi using the GPIO pins, but we're going to build an extension that goes from the Raspberry Pi on the base to the screen inside the box above, using 26 <a href="<?=$e->AffiliateLinks->getLink("DupontCable")?>" target="supplies">male to female dupont cables</a>.
+        <a href="<?=$e->AffiliateLinks->getLink("Screen")?>" target="supplies">The screen</a> is designed to be plugged on top of the Raspberry Pi using the GPIO pins, but we're going to build an extension cable that goes from the Raspberry Pi on the <i>Base</i> to the screen inside the <i>Monitor box body</i> above.
     </p>
 
-    <ul class="isolated">
-        <li>One by one, plug in cables from the Raspberry Pi to the screen, passing through the hole of the assembly.</li>
-        <li>You need to wire the thirteen leftmost pins in both rows, 26 pins in total.</li>
-        <li>Our goal is to reproduce exactly the connections if the screen were to be plugged on top of the Raspberry Pi.</li>
-    </ul>
+    <p>
+        There are 26 pins in the screen, in two rows of 13. Since we need that many cables, we're going to need really thin and flexible cables to avoid cluttering the case. If you use cables that are too thick or too rigid, the case won't close.
+    </p>
 
-    <div class="image isolated">
-        <img src="/res/img/assembly_9.jpg" />
-        <div class="title">Don't forget to pass all the cables through the assembly like this.</div>
+    <div class="image isolated medium">
+        <img src="/res/img/IDC cable stock.svg" />
+        <div class="title">
+            The best solution I found is to use a <a href="<?=$e->AffiliateLinks->getLink("RibbonCable")?>" target="supplies">26 lane IDC ribbon cable like this</a>.
+        </div>
     </div>
 
-    <div class="image isolated">
+    <p>
+        Unfortunately, we can't simply connect the Raspberry Pi and the screen directly with this cable, as the wirings differ. This is the wiring we need:
+    </p>
+
+    <div class="image isolated medium">
         <img src="/res/img/Commodore PET Mini screen connection diagram.svg" />
     </div>
 
-    
+    <p>
+        Because the screen is designed to go on top of the Raspberry Pi, the manufacturer had to mirror the pins to make it match. If we were to connect the cable without modifying it, the connections would be as follows:
+    </p>
+
+    <ul>
+        <li>PIN 1 &rarr; PIN 2 ⚠️</li>
+        <li>PIN 2 &rarr; PIN 1 ⚠️</li>
+        <li>PIN 3 &rarr; PIN 4 ⚠️</li>
+        <li>PIN 4 &rarr; PIN 3 ⚠️</li>
+        <li>PIN 5 &rarr; PIN 6 ⚠️</li>
+        <li>PIN 6 &rarr; PIN 5 ⚠️</li>
+        <li>&hellip; same thing for the rest of the 26 pins</li>
+    </ul>
+
+    <p>
+        So, we're going to modify the cable to correct the mirroring. To do so, we need to switch every pair of cables, like so:
+    </p>
+
+    <ul>
+        <li>Cable 1 &rarr; Cable 2 ✅</li>
+        <li>Cable 2 &rarr; Cable 1 ✅</li>
+        <li>Cable 3 &rarr; Cable 4 ✅</li>
+        <li>Cable 4 &rarr; Cable 3 ✅</li>
+        <li>Cable 5 &rarr; Cable 6 ✅</li>
+        <li>Cable 6 &rarr; Cable 5 ✅</li>
+        <li>&hellip; same thing for the rest of the 26 pins</li>
+    </ul>
+
+    <div class="image isolated medium">
+        <img src="/res/img/IDC cable mirrored.svg" />
+        <div class="title">
+            The resulting mirrored cable should look like this.
+        </div>
+    </div>
+
+    <p>
+        This is probably the most laborious task, it requires soldering 26 tiny cables, but it will be worth the effort! Be sure to protect the exposed cables with <a href="<?=$e->AffiliateLinks->getLink("ShrinkTube")?>" target="supplies">something like this</a>. Once you're done, connect the screen to the Raspberry Pi using this cable as follows:
+    </p>
+
+    <div class="image isolated medium">
+        <img src="/res/img/Screen connected with modified ribbon cable.svg" />
+        <div class="title">
+            Check that PIN 1 on the Raspberry Pi is routed to the correct PIN 1 on the screen, just like in this image.
+        </div>
+    </div>
+
+    <div class="image isolated small">
+        <img src="/res/img/Raspberry Pi bent pins.svg" />
+        <div class="title">
+            You'll need to bend PINs 27 and 28 on the Raspberry Pi to let the IDC connector in. Do it carefully and protect them from shorting with pins 29 and 30.
+        </div>
+    </div>
 
     <?=\Cherrycake\UiComponentButton::build([
         "title" => "Next",

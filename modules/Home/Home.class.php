@@ -58,8 +58,7 @@ class Home extends \Cherrycake\Module {
 		$e->Ui->uiComponents["UiComponentPanel"]->setOutputResponse([
 			"content" => $e->Patterns->parse("Home/Home.html"),
 			"mainOptionSelected" => "home",
-			"isAllMainOptionsOpen" => true,
-			"logo" => false
+			"isAllMainOptionsOpen" => true
 		]);
 		return true;
 	}

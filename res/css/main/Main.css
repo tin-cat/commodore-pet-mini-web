@@ -59,11 +59,11 @@ h3 {
 a {
 	color: <?= $colorPalette["defaultAnchorColor"] ?>;
 	text-decoration: none;
-	border-bottom: solid 1px;
+	border-bottom: solid transparent 1px;
 }
 
 a:hover {
-	color: <?= $colorPalette["defaultAccentColorHighlighted"] ?>;
+	border-bottom: solid 1px;
 }
 
 ::selection {

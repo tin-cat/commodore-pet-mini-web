@@ -221,34 +221,34 @@ $AffiliateLinksConfig = [
                 "link" => "https://amzn.to/2U48uGV"
             ]
         ],
-        "DupontCable" => [
+        "RibbonCable" => [
             [
                 "countryCodes" => ["ES", "AD", "PT"],
-                "link" => "https://amzn.to/2DmudV3"
+                "link" => "https://amzn.to/2S0exyW"
             ],
             [
                 "countryCodes" => ["US"],
-                "link" => "https://amzn.to/2sJweEJ"
+                "link" => "https://amzn.to/2T9QqLg"
             ],
             [
                 "countryCodes" => ["FR", "LU", "BE", "CH"],
-                "link" => "https://amzn.to/2RBr3FG"
+                "link" => "https://amzn.to/2CAlD3g"
             ],
             [
                 "countryCodes" => ["UK", "IE"],
-                "link" => "https://amzn.to/2Rz8d1G"
+                "link" => "https://amzn.to/2T7jvqP"
             ],
             [
                 "countryCodes" => ["DE", "PL", "CZ", "AT"],
-                "link" => "https://amzn.to/2RUdP6a"
+                "link" => "https://amzn.to/2UcnT7R"
             ],
             [
                 "countryCodes" => ["IT"],
-                "link" => "https://amzn.to/2REvMX9"
+                "link" => "https://amzn.to/2HsgK22"
             ],
             [
                 "countryCodes" => ["CA"],
-                "link" => "https://amzn.to/2AUTGTG"
+                "link" => "https://amzn.to/2MqeTJR"
             ]
         ],
         "Switch" => [
