@@ -118,7 +118,7 @@ class PrepareBasic extends \Cherrycake\Module {
 			"main",
 			[
 				"userBuilds" => \Cherrycake\UiComponentMenuOption::build([
-					"title" => "User builds",
+					"title" => "Builds",
 					"href" => $e->Actions->getAction("userBuilds")->request->buildUrl()
 				])
 			]

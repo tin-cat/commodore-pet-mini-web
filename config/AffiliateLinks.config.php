@@ -224,31 +224,61 @@ $AffiliateLinksConfig = [
         "RibbonCable" => [
             [
                 "countryCodes" => ["ES", "AD", "PT"],
-                "link" => "https://amzn.to/2S0exyW"
+                "link" => "https://amzn.to/2CGK4fn"
             ],
             [
                 "countryCodes" => ["US"],
-                "link" => "https://amzn.to/2T9QqLg"
+                "link" => "https://amzn.to/2FN56Nz"
             ],
             [
                 "countryCodes" => ["FR", "LU", "BE", "CH"],
-                "link" => "https://amzn.to/2CAlD3g"
+                "link" => "https://amzn.to/2S9VqCi"
             ],
             [
                 "countryCodes" => ["UK", "IE"],
-                "link" => "https://amzn.to/2T7jvqP"
+                "link" => "https://amzn.to/2S2sSLg"
             ],
             [
                 "countryCodes" => ["DE", "PL", "CZ", "AT"],
-                "link" => "https://amzn.to/2UcnT7R"
+                "link" => "https://amzn.to/2CFMg75"
             ],
             [
                 "countryCodes" => ["IT"],
-                "link" => "https://amzn.to/2HsgK22"
+                "link" => "https://amzn.to/2DxiAuy"
             ],
             [
                 "countryCodes" => ["CA"],
-                "link" => "https://amzn.to/2MqeTJR"
+                "link" => "https://amzn.to/2FWnwdV"
+            ]
+        ],
+        "IDCMale" => [
+            [
+                "countryCodes" => ["ES", "AD", "PT"],
+                "link" => "https://amzn.to/2S0tctS"
+            ],
+            [
+                "countryCodes" => ["US"],
+                "link" => "https://amzn.to/2S0sCwc"
+            ],
+            [
+                "countryCodes" => ["FR", "LU", "BE", "CH"],
+                "link" => "https://amzn.to/2Wdx3Tv"
+            ],
+            [
+                "countryCodes" => ["UK", "IE"],
+                "link" => "https://amzn.to/2CGQV8B"
+            ],
+            [
+                "countryCodes" => ["DE", "PL", "CZ", "AT"],
+                "link" => "https://amzn.to/2TbWBPd"
+            ],
+            [
+                "countryCodes" => ["IT"],
+                "link" => "https://amzn.to/2S50QP4"
+            ],
+            [
+                "countryCodes" => ["CA"],
+                "link" => "https://amzn.to/2Bbv2i3"
             ]
         ],
         "Switch" => [
@@ -314,31 +344,31 @@ $AffiliateLinksConfig = [
         "Magnets" => [
             [
                 "countryCodes" => ["ES", "AD", "PT"],
-                "link" => "https://amzn.to/2AR3aPW"
+                "link" => "https://amzn.to/2S6J3Hc"
             ],
             [
                 "countryCodes" => ["US"],
-                "link" => "https://amzn.to/2sC7rSG"
+                "link" => "https://amzn.to/2sITPVJ"
             ],
             [
                 "countryCodes" => ["FR", "LU", "BE", "CH"],
-                "link" => "https://amzn.to/2AVU8kH"
+                "link" => "https://amzn.to/2CG1AjR"
             ],
             [
                 "countryCodes" => ["UK", "IE"],
-                "link" => "https://amzn.to/2HmnkqN"
+                "link" => "https://amzn.to/2AWJvOn"
             ],
             [
                 "countryCodes" => ["DE", "PL", "CZ", "AT"],
-                "link" => "https://amzn.to/2T3hmfV"
+                "link" => "https://amzn.to/2B0ffCC"
             ],
             [
                 "countryCodes" => ["IT"],
-                "link" => "https://amzn.to/2AVVnQT"
+                "link" => "https://amzn.to/2HvsFMB"
             ],
             [
                 "countryCodes" => ["CA"],
-                "link" => "https://amzn.to/2Dl5qk9"
+                "link" => "https://amzn.to/2MujhHP"
             ]
         ],
         "AudioAmplifier" => [

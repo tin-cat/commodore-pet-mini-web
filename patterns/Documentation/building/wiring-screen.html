@@ -13,16 +13,37 @@
     <div class="image isolated medium">
         <img src="/res/img/IDC cable stock.svg" />
         <div class="title">
-            The best solution I found is to use a <a href="<?=$e->AffiliateLinks->getLink("RibbonCable")?>" target="supplies">26 lane IDC ribbon cable like this</a>.
+            The best solution I found is to use a <a href="<?=$e->AffiliateLinks->getLink("RibbonCable")?>" target="supplies">26 pin IDC ribbon cable like this</a>.
         </div>
     </div>
 
     <p>
-        Unfortunately, we can't simply connect the Raspberry Pi and the screen directly with this cable, as the wirings differ. This is the wiring we need:
+        First of all, since the screen is designed to be plugged on top of the male GPIO pins on the Raspberry Pi, the manufacturer soldered a female socket on the back of the display to make it fit perfectly. Unfortunately, 26 pin IDC male-to-female ribbon cables are quite hard to find.
+    </p>
+    <p>
+        Luckily, the display manufacturer thought of that and placed 26 replicated connections to the side where you can solder the socket of your liking. We're going to solder there a <a href="<?=$e->AffiliateLinks->getLink("IDCMale")?>" target="supplies">26 Pin IDC male socket</a>, so we'll end up with the same connection, but male instead of female.
     </p>
 
+    <div class="images twoColumns gap">
+        <div class="image">
+            <img src="/res/img/Waveshare 2,8 inch RPi display.svg" />
+            <div class="title">
+                Before
+            </div>
+        </div>
+        <div class="image">
+            <img src="/res/img/Waveshare 2,8 inch RPi display with IDC male socket.svg" />
+            <div class="title">
+                After soldering the socket
+            </div>
+        </div>
+    </div>
+
     <div class="image isolated medium">
-        <img src="/res/img/Commodore PET Mini screen connection diagram.svg" />
+        <img src="/res/img/Screen wrongly connected with unmodified ribbon cable.svg" />
+        <div class="title">
+            Do not connect the Raspberry Pi to the screen yet, you might burn something!
+        </div>
     </div>
 
     <p>
@@ -67,7 +88,7 @@
     <div class="image isolated medium">
         <img src="/res/img/Screen connected with modified ribbon cable.svg" />
         <div class="title">
-            Check that PIN 1 on the Raspberry Pi is routed to the correct PIN 1 on the screen, just like in this image.
+            Check that PIN 1 on the Raspberry Pi is routed to the correct PIN 1 on the screen, take a look at the orientation of the cable on the image above.
         </div>
     </div>
 
@@ -77,6 +98,10 @@
             You'll need to bend PINs 27 and 28 on the Raspberry Pi to let the IDC connector in. Do it carefully and protect them from shorting with pins 29 and 30.
         </div>
     </div>
+
+    <p>
+        Finally you're ready to connect the Raspberry Pi to the screen using this custom cable and turn it on. It should work!
+    </p>
 
     <?=\Cherrycake\UiComponentButton::build([
         "title" => "Next",

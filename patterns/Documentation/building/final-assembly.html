@@ -35,4 +35,21 @@
         <div class="title">You're done. Here's your very own Commore PET Mini in all its cuteness!</div>
     </div>
 
+    <?=\Cherrycake\UiComponentButton::build([
+        "title" => "See other people's PETs and add yours",
+        "isCentered" => true,
+        "href" => $e->Actions->getAction("userBuilds")->request->buildUrl()
+    ])?>
+
+    <?=\Cherrycake\UiComponentButton::build([
+        "title" => "Mod your Commodore PET Mini",
+        "isCentered" => true,
+        "href" => $e->Actions->getAction("documentationSubPage")->request->buildUrl([
+            "parameterValues" => [
+                "sectionName" => "modding",
+                "pageName" => "sound"
+            ]
+        ])
+    ])?>
+
 </article>
