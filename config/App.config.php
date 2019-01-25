@@ -15,4 +15,6 @@ const DIR_RES = "res"; // The directory where resources like css, javascript, im
 define("REPOSITORY_URL", "https://github.com/tin-cat/commodore-pet-mini");
 define("REPOSITORY_URL_WEB", "https://github.com/tin-cat/commodore-pet-mini-web");
 
+define("TWITTER_URL", "https://twitter.com/lorenzoherrera");
+
 define("EMAIL", "lorenzo@tin.cat");

@@ -42,7 +42,22 @@ class PrepareBasic extends \Cherrycake\Module {
 			[
 				"github" => \Cherrycake\UiComponentMenuOption::build([
 					"title" => "GitHub",
+					"iconName" => "github",
+					"iconVariant" => "white",
 					"href" => REPOSITORY_URL,
+					"isNewWindow" => true
+				])
+			]
+		);
+
+		$e->Ui->uiComponents["UiComponentPanel"]->addBlocks(
+			"topRight",
+			[
+				"twitter" => \Cherrycake\UiComponentMenuOption::build([
+					"title" => "Twitter",
+					"iconName" => "twitter",
+					"iconVariant" => "white",
+					"href" => TWITTER_URL,
 					"isNewWindow" => true
 				])
 			]
