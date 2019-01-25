@@ -25,6 +25,36 @@
         <li data-title="6">Unplug the HDMI cable and plug the mini screen on top of the Raspberry Pi. Turn it on again, the mini screen should be working now!</li>
     </ol>
 
+    <h2>Improving FPS</h2>
+
+    <p>
+        The display communicates with the Raspberry Pi via SPI, a serial communication bus which is quite slow by default, resulting in very low framerates. Fortunately, we can increase Raspberry Pi's SPI speed to solve this. Get into the console like you did above and edit the <i>/boot/config.txt</i> file with the following command:
+    </p>
+
+    <code class="shell"><span class="prompt">$</span> sudo nano /boot/config.txt</code>
+
+    <p>
+        Find the line that looks like this:
+    </p>
+
+    <code class="text">dtoverlay=waveshare32b:rotate=270</code>
+
+    <p>
+        And modify it so it looks like this:
+    </p>
+
+    <code class="text">dtoverlay=waveshare32b:rotate=270,speed=80000000,fps=60</code>
+
+    <p>
+        Save the changes by hitting <span class="keyboardKey">CONTROL</span> + <span class="keyboardKey">O</span> and then <span class="keyboardKey">&crarr;</span>. Exit the editor with <span class="keyboardKey">CONTROL</span> + <span class="keyboardKey">X</span>. Now you can reboot the Raspberry Pi with the following command:
+    </p>
+
+    <code class="shell"><span class="prompt">$</span> sudo reboot</code>
+
+    <p>
+        You should notice everything looks a lot more fluid now!
+    </p>
+
     <?=\Cherrycake\UiComponentButton::build([
         "title" => "Next",
         "isIsolated" => true,
