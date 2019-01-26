@@ -65,6 +65,17 @@
         </div>
     </div>
 
+    <p>
+        If you want to <a href="<?=
+            $e->Actions->getAction("documentationSubPage")->request->buildUrl([
+                "parameterValues" => [
+                    "sectionName" => "modding",
+                    "pageName" => "paint"
+                ]
+            ])
+        ?>">paint your Commodore PET Mini</a>, now it's the time to do so! Or just go ahead and proceed to the next step:
+    </p>
+
     <?=\Cherrycake\UiComponentButton::build([
         "title" => "Next",
         "isIsolated" => true,
