@@ -1,0 +1,54 @@
+<article class="UiComponentArticle isolated">
+
+    <h2>Final touch: Labels</h2>
+
+    <p>
+        There are two labels to print: One for the front plate on the <i>Body shell</i> and another for the <i>Monitor box rear cap</i>. Download the labels from the official repository:
+    </p>
+
+    <a class="file" href="<?=REPOSITORY_URL?>" target="repository">
+        <div class="UiComponentIcon black download"></div>
+        <div class="title">Commodore PET Mini files</div>
+    </a>
+
+    <div class="image medium">
+        <img src="/res/img/Labels print settings.jpg" />
+        <div class="title">If you're printing the PDF file, be sure to set the scale to 100%. If you're printing the PNG file, use the 600dpi setting.</div>
+    </div>
+
+    <div class="images twoColumns">
+        <div class="image">
+            <img src="/res/img/Commodore_PET_Mini_CBM_8032_Front_with_labels.jpg" />
+            <div class="title">Cut the labels following the included guiding lines and glue them.</div>
+        </div>
+
+        <div class="image">
+                <img src="/res/img/Commodore_PET_Mini_CBM_8032_Back_with_labels.jpg" />
+                <div class="title">You can protect the labels by adding a clear cello tape layer on top.</div>
+            </div>
+    </div>
+
+    <hr class="isolated short">
+
+    <p align=center>
+        You're done! You now have your very own Commore PET Mini in all its cuteness!
+    </p>
+
+    <?=\Cherrycake\UiComponentButton::build([
+        "title" => "See other people's PETs and add yours",
+        "isCentered" => true,
+        "href" => $e->Actions->getAction("userBuilds")->request->buildUrl()
+    ])?>
+
+    <?=\Cherrycake\UiComponentButton::build([
+        "title" => "Mod your Commodore PET Mini",
+        "isCentered" => true,
+        "href" => $e->Actions->getAction("documentationSubPage")->request->buildUrl([
+            "parameterValues" => [
+                "sectionName" => "modding",
+                "pageName" => "sound"
+            ]
+        ])
+    ])?>
+
+</article>

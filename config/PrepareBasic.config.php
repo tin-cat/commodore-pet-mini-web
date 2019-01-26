@@ -22,7 +22,8 @@ $PrepareBasicConfig = [
                 "install-screen-drivers" => ["title" => "Install screen drivers"],
                 "wiring-power-socket" => ["title" => "Wiring the power socket"],
                 "wiring-screen" => ["title" => "Wiring the screen"],
-                "final-assembly" => ["title" => "Final assembly"]
+                "assembly" => ["title" => "Assembly"],
+                "labels" => ["title" => "The final touch"]
             ]
         ],
         "modding" => [

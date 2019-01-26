@@ -1,6 +1,6 @@
 <article class="UiComponentArticle isolated">
 
-    <h2>Final assembly</h2>
+    <h2>Assembly</h2>
 
     <p>
         Looks like you're good to go for the final assembly:
@@ -30,26 +30,17 @@
         </div>
     </div>
 
-    <div class="image isolated">
-        <img src="/res/img/assembly_13.jpg" />
-        <div class="title">You're done. Here's your very own Commore PET Mini in all its cuteness!</div>
-    </div>
-
     <?=\Cherrycake\UiComponentButton::build([
-        "title" => "See other people's PETs and add yours",
-        "isCentered" => true,
-        "href" => $e->Actions->getAction("userBuilds")->request->buildUrl()
-    ])?>
-
-    <?=\Cherrycake\UiComponentButton::build([
-        "title" => "Mod your Commodore PET Mini",
+        "title" => "Next",
+        "isIsolated" => true,
         "isCentered" => true,
         "href" => $e->Actions->getAction("documentationSubPage")->request->buildUrl([
             "parameterValues" => [
-                "sectionName" => "modding",
-                "pageName" => "sound"
+                "sectionName" => "building",
+                "pageName" => "labels"
             ]
         ])
     ])?>
+
 
 </article>

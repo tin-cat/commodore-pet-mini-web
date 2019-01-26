@@ -44,3 +44,7 @@
     border-bottom-left-radius: 2px;
     border-bottom-right-radius: 2px;
 }
+
+.UiComponentArticle > hr {
+    border-bottom: dotted rgba(0, 0, 0, 0.2) 5px;
+}
