@@ -4,8 +4,8 @@
         <h2><span class="line">Build your own Commodore PET model 8032, </span><span class="line">possibly the prettiest retro computer ever</span></h2>
     </hgroup>
     
-    <div class="image isolated medium">
-        <img src="/res/img/Commodore_PET_Mini_CBM_8032_Front_with_labels.jpg" />
+    <div class="image isolated">
+        <img src="/res/photos/Commodore PET Mini Shooting Retrowave lowres.jpg" />
     </div>
 
     <p>
@@ -16,9 +16,13 @@
         This project is based on the <a href="https://en.wikipedia.org/wiki/Commodore_PET" target="wikipedia">Commodore PET model 8032</a>. You'll 3D print a case that contains a Raspberry Pi computer and a tiny screen to emulate the almighty PET (and many other computers and game consoles). It has been carefully designed to be as accurate as possible to the original design, all the connections are made on the back panel and it even hinges upwards to reveal its guts, just like the original!
     </p>
 
+    <div class="video">
+        <iframe src="https://www.youtube.com/embed/0hGumrRKukM" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+
     <?=\Cherrycake\UiComponentButton::build([
         "title" => "Build your own!",
-        "additionalCssClasses" => "big",
+        "additionalCssClasses" => "big isolated",
         "isCentered" => true,
         "href" => $e->Actions->getAction("documentationSubPage")->request->buildUrl([
             "parameterValues" => [
@@ -29,8 +33,9 @@
     ])?>
 
 
-    <div class="image isolated medium">
-        <img src="res/img/Commodore_PET_Mini_CBM_8032_Back_with_labels.jpg" title="Nice bum" />
+    <div class="image">
+        <img src="/res/photos/Commodore PET Mini Shooting 2 lowres.jpg" title="Nice bum" />
+        <!-- <img src="res/img/Commodore_PET_Mini_CBM_8032_Back_with_labels.jpg" title="Nice bum" /> -->
     </div>
 
 </article>

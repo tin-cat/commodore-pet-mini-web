@@ -20,12 +20,12 @@ $colorPalette = [
 	// Main
 	"mainBackgroundColor" => new Color("withHex", "#ffffff"),
 	"mainBackgroundColorLighter" => new Color("withHex", "#ff316f"),
-	"darkBackgroundColor" => new Color("withHex", "#111"),
+	"darkBackgroundColor" => new Color("withHex", "#1e1e1e"),
 	"defaultTextColor" => new Color("withRgb", [30, 30, 30]),
 	"darkBackgroundTextColor" => new Color("withRgb", [255, 255, 255]),
-	"defaultAnchorColor" => new Color("withHex", "#ff114f"),
+	"defaultAnchorColor" => new Color("withRgb", [255, 17, 149]),
 	"defaultAnchorColorHighlighted" => new Color("withRgb", [49, 240, 255]),
-	"defaultAccentColor" =>  new Color("withHex", "#ff114f"),
+	"defaultAccentColor" =>  new Color("withRgb", [255, 17, 149]),
 	"defaultAccentColorHighlighted" =>  new Color("withHex", "#ffb1bf")
 ];
 
