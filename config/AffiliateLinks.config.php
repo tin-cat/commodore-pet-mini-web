@@ -434,7 +434,7 @@ $AffiliateLinksConfig = [
         "ChargerBoard" => [
             [
                 "countryCodes" => ["ES", "AD", "PT"],
-                "link" => "https://amzn.to/2Cv58Fz"
+                "link" => "https://amzn.to/2Ux3Y3F"
             ],
             [
                 "countryCodes" => ["US"],
@@ -446,15 +446,15 @@ $AffiliateLinksConfig = [
             ],
             [
                 "countryCodes" => ["UK", "IE"],
-                "link" => "https://amzn.to/2HlsVxy"
+                "link" => "https://amzn.to/2HJfHuG"
             ],
             [
                 "countryCodes" => ["DE", "PL", "CZ", "AT"],
-                "link" => "https://amzn.to/2RUjjxS"
+                "link" => "https://amzn.to/2UywfXT"
             ],
             [
                 "countryCodes" => ["IT"],
-                "link" => "https://amzn.to/2HxUunx"
+                "link" => "https://amzn.to/2UBTxw7"
             ],
             [
                 "countryCodes" => ["CA"],
@@ -464,7 +464,7 @@ $AffiliateLinksConfig = [
         "Battery" => [
             [
                 "countryCodes" => ["ES", "AD", "PT"],
-                "link" => "https://amzn.to/2Hnj6yY"
+                "link" => "https://amzn.to/2CZCTiH"
             ],
             [
                 "countryCodes" => ["US"],
@@ -472,7 +472,7 @@ $AffiliateLinksConfig = [
             ],
             [
                 "countryCodes" => ["FR", "LU", "BE", "CH"],
-                "link" => "https://amzn.to/2CAMqMK"
+                "link" => "https://amzn.to/2Uyx4zX"
             ],
             [
                 "countryCodes" => ["UK", "IE"],
