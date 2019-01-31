@@ -284,31 +284,31 @@ $AffiliateLinksConfig = [
         "Switch" => [
             [
                 "countryCodes" => ["ES", "AD", "PT"],
-                "link" => "https://amzn.to/2HlUNBt"
+                "link" => "https://amzn.to/2SiST99"
             ],
             [
                 "countryCodes" => ["US"],
-                "link" => "https://amzn.to/2ARRLPW"
+                "link" => "https://amzn.to/2CWbe20"
             ],
             [
                 "countryCodes" => ["FR", "LU", "BE", "CH"],
-                "link" => "https://amzn.to/2CtJMbQ"
+                "link" => "https://amzn.to/2DLYnAY"
             ],
             [
                 "countryCodes" => ["UK", "IE"],
-                "link" => "https://amzn.to/2HlwZhl"
+                "link" => "https://amzn.to/2CRWkcY"
             ],
             [
                 "countryCodes" => ["DE", "PL", "CZ", "AT"],
-                "link" => "https://amzn.to/2AP16aX"
+                "link" => "https://amzn.to/2S1OuIq"
             ],
             [
                 "countryCodes" => ["IT"],
-                "link" => "https://amzn.to/2Cweyka"
+                "link" => "https://amzn.to/2Bdd2nn"
             ],
             [
                 "countryCodes" => ["CA"],
-                "link" => "https://amzn.to/2RRe1Dh"
+                "link" => "https://amzn.to/2MH7cz2"
             ]
         ],
         "USBExtender" => [
