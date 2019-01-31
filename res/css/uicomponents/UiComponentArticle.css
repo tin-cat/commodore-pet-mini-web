@@ -21,6 +21,12 @@
     background: <?= $colorPalette["defaultAccentColor"]; ?>;
 }
 
+.UiComponentArticle > .images > a.image:hover {
+    opacity: 1;
+    background: <?= $colorPalette["defaultAccentColor"]; ?>;
+    border-radius: 15px;
+}
+
 .UiComponentArticle .keyboardKey {
     border: none;
     background: #fbeaa8;

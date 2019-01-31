@@ -5,4 +5,31 @@
         <a href="mailto:<?=EMAIL?>">Send me a photo</a> of your PET and I will feature it here! Include your name, a link and some message for PET fans and I will publish it here along with your photo.
     </p>
 
+    <?
+        $userBuilds = $e->UserBuilds->getUserBuilds();
+        foreach ($userBuilds as $userBuild) {
+            ?>
+                <h3>Serial No.<?=$userBuild->getSerialNumber()?></h3>
+                <p>
+                    <b>Build by <a href="<?=$userBuild->getUrl()?>" target="builder"><?=$userBuild->getName()?></a></b><br>
+                    <b>Date</b> <?=$userBuild->getDate()?><br>
+                </p>
+                <?=($userBuild->getText() ? "<p>".$userBuild->getText()."</p>" : null)?>
+                
+            <?
+
+            if ($images = $userBuild->getImages()) {
+                ?><div class="images gap threeColumns"><?
+                foreach ($images as $image) {
+                    ?>
+                        <a class="image" href="<?=$image["fullSizeUrl"]?>" target="zoomedImage">
+                            <img src="<?=$image["thumbnailUrl"]?>" />
+                        </a>
+                    <?
+                }
+                ?></div><?
+            }
+        }
+    ?>
+
 </article>

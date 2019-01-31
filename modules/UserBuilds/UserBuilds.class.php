@@ -18,6 +18,7 @@ namespace CherrycakeApp\Modules;
  */
 
 class UserBuilds extends \Cherrycake\Module {
+	protected $isConfigFile = true;
 	
 	var $dependentCherrycakeModules = [
 		"Patterns",
@@ -60,10 +61,23 @@ class UserBuilds extends \Cherrycake\Module {
 	function home() {
 		global $e;
 		$e->Ui->uiComponents["UiComponentPanel"]->setOutputResponse([
-			"content" => $e->Patterns->parse("UserBuilds/Home.html"),
+			"content" => $e->Patterns->parse("UserBuilds/Home.html", [
+				"variables" => [
+					"builds" => $builds
+				]
+			]),
 			"mainOptionSelected" => "userBuilds",
 			"isAllMainOptionsOpen" => true
 		]);
 		return true;
+	}
+
+	function getUserBuilds() {
+		$builds = $this->getConfig("builds");
+		foreach ($builds as $buildData) {
+			$userBuild = \CherrycakeApp\UserBuild::build($buildData);
+			$userBuilds[] = $userBuild;
+		}
+		return $userBuilds;
 	}
 }
