@@ -254,7 +254,7 @@ $AffiliateLinksConfig = [
         "IDCMale" => [
             [
                 "countryCodes" => ["ES", "AD", "PT"],
-                "link" => "https://amzn.to/2S0tctS"
+                "link" => "https://amzn.to/2BeFN2P"
             ],
             [
                 "countryCodes" => ["US"],
@@ -270,11 +270,11 @@ $AffiliateLinksConfig = [
             ],
             [
                 "countryCodes" => ["DE", "PL", "CZ", "AT"],
-                "link" => "https://amzn.to/2TbWBPd"
+                "link" => "https://amzn.to/2SlqHSU"
             ],
             [
                 "countryCodes" => ["IT"],
-                "link" => "https://amzn.to/2S50QP4"
+                "link" => "https://amzn.to/2DN6H3F"
             ],
             [
                 "countryCodes" => ["CA"],
