@@ -13,8 +13,8 @@
     background: rgba(0, 0, 0, .3);
     color: #fff;
     padding: 1px 6px;
-    white-space: nowrap;
     border-radius: 5px;
+    white-space: nowrap;
 }
 
 .UiComponentArticle > .image.framed > img {
@@ -23,8 +23,10 @@
 
 .UiComponentArticle > .images > a.image:hover {
     opacity: 1;
-    background: <?= $colorPalette["defaultAccentColor"]; ?>;
-    border-radius: 15px;
+}
+
+.UiComponentArticle > .images > a.image:hover > img {
+    box-shadow: 0 0 0 5px <?= $colorPalette["defaultAccentColor"]; ?>;
 }
 
 .UiComponentArticle .keyboardKey {

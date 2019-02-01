@@ -23,6 +23,7 @@ $ActionsConfig = [
 		"Home",
 		"Documentation",
 		"UserBuilds",
+		"Order",
 		"Contribute",
 		"ToDo"
 	]

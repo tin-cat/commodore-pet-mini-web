@@ -1,0 +1,167 @@
+<article class="UiComponentArticle isolated">
+
+    <h2>Order part kits</h2>
+    <p>
+        Some of the components needed are difficult to find, and the recommended links to Amazon might not work for your country, or might not be available. This is why I'm thinking on providing you with complete component kits you could buy, so you get everything you need to build your Commodore PET Mini, with just one shipping fee, and just one shipment to wait for. You can print and paint the parts while it arrives!
+    </p>
+    <p>
+        To determine whether it would be worth the effort to me, if you might be interested in buying one of the kits, please <a href="<?=ORDER_INTEREST_FORM_URL?>" target="orderIntentionForm">register your intention here</a>.
+    </p>
+    <p>
+        With this information, I will make a decision and contact you back to let you know if the kits are finally available for sale, so you will be able to place your order if you decide so. I won't be using your email address for any other purpose.
+    </p>
+
+
+    <div class="card isolated"><div>
+        <h2 class="title">Commodore PET Mini Parts Kit #1</h2>
+        <div class="content">
+            <h3>Basic wired kit</h3>
+            <p>Includes all the components you need to build a basic working Commodore PET Mini already wired, soldered and modified as explained in the build instructions, except for the 3D printed pieces. It doesn't includes the parts to add audio, or the parts to make the PET battery powered. Only thing left to do is put them in your PET.</p>
+            <p>Parts included:</p>
+            <ul>
+                <li class="withIcon"><div class="UiComponentIcon color included"></div><b>Waveshare 2.8 inch 320x240 LCD screen for Raspberry Pi</b><br>With IDC male socket fitted as detailed in the <a href="<?=$e->Actions->getAction("documentationSubPage")->request->buildUrl([
+                    "parameterValues" => [
+                        "sectionName" => "building",
+                        "pageName" => "wiring-screen"
+                    ]
+                ])?>">Wiring the screen</a> section.</li>
+                <li class="withIcon"><div class="UiComponentIcon color included"></div><b>Modified screen cable</b><br>As detailed in the <a href="<?=$e->Actions->getAction("documentationSubPage")->request->buildUrl([
+                    "parameterValues" => [
+                        "sectionName" => "building",
+                        "pageName" => "wiring-screen"
+                    ]
+                ])?>">Wiring the screen</a> section.</li>
+                <li class="withIcon"><div class="UiComponentIcon color included"></div><b>Power switch</b><br>Wired and soldered as detailed in the <a href="<?=$e->Actions->getAction("documentationSubPage")->request->buildUrl([
+                    "parameterValues" => [
+                        "sectionName" => "building",
+                        "pageName" => "wiring-power-socket"
+                    ]
+                ])?>">Wiring the power socket</a> section.</li>
+                <li class="withIcon"><div class="UiComponentIcon color included"></div><b>Micro USB extension cable</b><br>Wired and soldered as detailed in the <a href="<?=$e->Actions->getAction("documentationSubPage")->request->buildUrl([
+                        "parameterValues" => [
+                            "sectionName" => "building",
+                            "pageName" => "wiring-power-socket"
+                        ]
+                    ])?>">Wiring the power socket</a> section.</li>
+                <li class="withIcon"><div class="UiComponentIcon color included"></div><b>Neodymium magnets</b><br>2x Round 10x2 mm. strong neodymium magnets to be glued on the 3D printed pieces.</li>
+                <li class="withIcon"><div class="UiComponentIcon color included"></div><b>Screws</b><br>10 appropriate screws to screw the Raspberry Pi, the screen, the USB extender and the monitor rear cap. </li>
+                <li class="withIcon"><div class="UiComponentIcon color included"></div><b>Label stickers</b><br>One set of handmade stickers including the front panel sticker and the monitor back sticker, printed in high resolution.</li>
+            </ul>
+        </div>
+        <div class="footer">Price: <?=$e->Locale->formatCurrency($e->Order->getProductPrice("kit1"))?></div>
+    </div></div>
+
+    <div class="card isolated"><div>
+        <h2 class="title">Commodore PET Mini Parts Kit #2</h2>
+        <div class="content">
+            <h3>Basic + Audio wired kit</h3>
+            <p>Everything included in Kit #1 plus the parts to add audio<sup>*</sup> to your Commodore PET Mini, also wired, soldered and ready to be fitted.</p>
+            <p>Parts included:</p>
+            <ul>
+                <li class="withIcon"><div class="UiComponentIcon color included"></div><i>Kit #1</i></li>
+                <li class="withIcon"><div class="UiComponentIcon color additional"></div>Audio amplifier</li>
+                <li class="withIcon"><div class="UiComponentIcon color additional"></div>1 Speaker for mono audio</li>
+            </ul>
+            <p>
+                Parts are wired, soldered and protected as explained in the <a href="<?=$e->Actions->getAction("documentationSubPage")->request->buildUrl([
+                    "parameterValues" => [
+                        "sectionName" => "modding",
+                        "pageName" => "sound"
+                    ]
+                ])?>">Adding sound</a> section.
+            </p>
+        </div>
+        <div class="footer">Price: <?=$e->Locale->formatCurrency($e->Order->getProductPrice("kit2"))?></div>
+    </div></div>
+
+    <div class="card isolated"><div>
+        <h2 class="title">Commodore PET Mini Parts Kit #3</h2>
+        <div class="content">
+            <h3>Basic + Audio + Battery wired kit</h3>
+            <p>Everything included in Kit #2 plus the parts to make your Commodore PET Mini run completely wireless with battery, also wired, soldered and ready to be fitted.</p>
+            <p>Parts included:</p>
+            <ul>
+                <li class="withIcon"><div class="UiComponentIcon color included"></div><i>Kit #2</i></li>
+                <li class="withIcon"><div class="UiComponentIcon color additional"></div>Battery charging board</li>
+                <li class="withIcon"><div class="UiComponentIcon color additional"></div>1.200 mAh battery</li>
+            </ul>
+            <p>
+                Parts are wired, soldered and protected as explained both in the <a href="<?=$e->Actions->getAction("documentationSubPage")->request->buildUrl([
+                    "parameterValues" => [
+                        "sectionName" => "modding",
+                        "pageName" => "sound"
+                    ]
+                ])?>">Adding sound</a> and <a href="<?=$e->Actions->getAction("documentationSubPage")->request->buildUrl([
+                    "parameterValues" => [
+                        "sectionName" => "modding",
+                        "pageName" => "portable-commodore-pet-mini"
+                    ]
+                ])?>">Make it portable</a> sections.
+            </p>
+        </div>
+        <div class="footer">Price: <?=$e->Locale->formatCurrency($e->Order->getProductPrice("kit3"))?></div>
+    </div></div>
+
+    <div class="card isolated"><div>
+        <h2 class="title">Commodore PET Mini Parts Kit #4</h2>
+        <div class="content">
+            <h3>Basic + Audio + Battery non-wired kit: 87€</h3>
+            <p>Includes the same as <i>Kit #3</i>, but nothing is assembled, wired nor soldered. All the fun work is up to you!</p>
+            <p>Be aware that this kit does not include wires nor thermo-retractable protective tube.</p>
+        </div>
+        <div class="footer">Price: <?=$e->Locale->formatCurrency($e->Order->getProductPrice("kit4"))?></div>
+    </div></div>
+
+    <div class="card isolated"><div>
+        <h2 class="title">Commodore PET Mini Parts Kit #5</h2>
+        <div class="content">
+            <h3>Complete wired kit: Basic + Audio + Battery + Raspberry Pi + SD Card + Power supply</h3>
+            <p>This kit includes absolutely everything you need to build your complete Commodore PET Mini with all the features, except the 3D printed parts:</p>
+            <p>Parts included:</p>
+            <ul>
+                <li class="withIcon"><div class="UiComponentIcon color included"></div><i>Kit #3</i></li>
+                <li class="withIcon"><div class="UiComponentIcon color additional"></div><b>Raspberry Pi 3 Model B+</b><br>The latest and most powerful availale Raspberry.</li>
+                <li class="withIcon"><div class="UiComponentIcon color additional"></div><b>16Gb. Kingston SD Card</b><br>Pre-installed with Retropie, plus the proper drivers and tweaks to make it all work perfectly.</li>
+                <li class="withIcon"><div class="UiComponentIcon color additional"></div><b>3 Amp Power supply</b><br>A micro USB power supply<sup>*</sup></li>
+            </ul>
+        </div>
+        <div class="footer">Price: <?=$e->Locale->formatCurrency($e->Order->getProductPrice("kit5"))?></div>
+    </div></div>
+
+    <h2>Pricing</h2>
+
+    <p>
+        Prices are approximate, they will be adjusted if/when the project to provide this kits for sale is finally confirmed. All prices include taxes. Shipping and import fees not included.
+    </p>
+
+    <p>
+        Prices are set like this: I'm adding a 10% commission to the price of the parts as they're available to me via Amazon, eBay and similar sellers. I'm not considering buying huge quantities to get discounts as this will imply a much wider scope and time consuming task than I'm able to deliver. The main cost of the labour comes from wiring the ribbon cable, which is quite a laborious and delicate task. <i>Kit #1</i> has an added labour cost of 35€, <i>Kit #2</i> of 45€, <i>Kit #3</i> of 55€, <i>Kit #4</i> of 10€ and <i>Kit #5</i> of 65€. All kits have an added cost of 5€ for packaging. Finally, labour prices and part commissions have an added 21% VAT.
+    </p>
+
+    <h2>Shipping</h2>
+
+    <p>
+        Shipping to all european countries and most other countries including USA and Canada will be provided. The shipment pricing is not known yet, it will be a tracked shipment service and won't include any needed import fees if those apply for your contry when receiving shipments from Spain.
+    </p>
+
+    <h2>Responsibilities</h2>
+
+    <p>
+        Please be aware that this is not a commercial product, and it does not comes with any guarantee, nor do I take any responsibility regarding any harm that may be caused while using this electronics.
+    </p>
+
+    <h2>The limitations <sup>*</sup></h2>
+
+    <p>
+        Please be aware of the limitations and known flaws of the Commodore PET Mini, such as the background noise caused by the Raspberry Pi audio jack, and the low power warning that might appear in some cases, as described in the <a href="<?=$e->Actions->getAction("todo")->request->buildUrl()?>">To do section</a>
+    </p>
+
+    <?=\Cherrycake\UiComponentButton::build([
+        "title" => "I would be interested in buying one of this kits",
+        "href" => ORDER_INTEREST_FORM_URL,
+        "target" => "orderIntentionForm",
+        "isCentered" => true,
+        "additionalCssClasses" => "big isolated"
+    ])?>
+
+</article>

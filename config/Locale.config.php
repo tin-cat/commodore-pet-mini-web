@@ -17,7 +17,7 @@ $LocaleConfig = [
 			"language" => \Cherrycake\Modules\LANGUAGE_ENGLISH, // The default language
 			"dateFormat" => \Cherrycake\Modules\DATE_FORMAT_MIDDLE_ENDIAN, // The default date format
 			"temperatureUnits" => \Cherrycake\Modules\TEMPERATURE_UNITS_FAHRENHEIT, // The default temperature units
-			"currency" => \Cherrycake\Modules\CURRENCY_USD, // The default currency
+			"currency" => \Cherrycake\Modules\CURRENCY_EURO, // The default currency
 			"decimalMark" => \Cherrycake\Modules\DECIMAL_MARK_POINT,
 			"measurementSystem" => \Cherrycake\Modules\MEASUREMENT_SYSTEM_IMPERIAL,
 			"timeZone" => 216 // The default timezone id, from the cherrycake_location_timezones table (216 = "America/New_York")

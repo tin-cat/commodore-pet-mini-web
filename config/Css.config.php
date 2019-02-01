@@ -15,7 +15,7 @@ $CssConfig = [
 	"cacheProviderName" => "fast", // The cache provider for CSS sets
 	"isCache" => IS_CACHE, // The default value for isCache in each set
 	"isHttpCache" => IS_HTTP_CACHE, // Whether to send HTTP Cache headers or not
-	"lastModifiedTimestamp" => mktime(2, 0, 0, 31, 1, 2019), // The global version
+	"lastModifiedTimestamp" => mktime(0, 0, 0, 1, 2, 2019), // The global version
 	"httpCacheMaxAge" => \Cherrycake\Modules\CACHE_TTL_LONGEST,
 	"isMinify" => !IS_DEVEL_ENVIRONMENT,
 	"responsiveWidthBreakpoints" => [
@@ -34,7 +34,8 @@ $CssConfig = [
 			"directory" => \CherrycakeApp\DIR_RES."/css/main",
 			"files" => [ // The files that this set contains
 				"Main.css",
-				"ErrorPage.css"
+				"ErrorPage.css",
+				"Card.css"
 			]
 		],
 		"uicomponents" => [

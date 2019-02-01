@@ -9,6 +9,16 @@
     <ul>
         <li class="withIcon">
             <div class="UiComponentIcon color todo"></div>
+            <b>Noisy audio</b><br>
+            The audio is quite noisy. This is a well known Raspberry Pi design flaw when using the 3.5mm. jack connector. When audio is playing it becomes much less noticeable, but it's definitely a problem. A workaround would be to take the audio from the HDMI port, but that involves a whole new circuit board to decode the HDMI signal. Another solution would be to use a USB audio card.
+        </li>
+        <li class="withIcon">
+            <div class="UiComponentIcon color todo"></div>
+            <b>Low power warning when using battery</b><br>
+            When using the battery power solution plus the audio amplifier, and specially if you plug something else on the Raspberry Pi's USB ports, it seems the recommended MP2636 charger module from DFRobot can't provide juice enough to power the entire setup, and the Raspberry Pi shows a "low power" warning. The whole thing works, but the Raspberry Pi might throttle down CPU cycles in order to adapt to the scarce amperage. A solution would be to use another charging board that is capable to deliver more than the 2.5 amps this one delivers.
+        </li>
+        <li class="withIcon">
+            <div class="UiComponentIcon color todo"></div>
             <b>Provide some Commodore PET ROMs</b><br>
             It would be great to provide some Commodore PET ROMs to download from this site, just to provide all the resources to complete the PET in one place. The provided ROMs should be legally downloadable.
         </li>
@@ -24,7 +34,7 @@
         </li>
         <li class="withIcon">
             <div class="UiComponentIcon color done"></div>
-            <b>Done: A higher refresh rate for the screen</b><br>
+            <b>Solved: A higher refresh rate for the screen</b><br>
             The tiny 2,8 inches screen we're using connects to the Raspberry Pi via GPIO using a slow serial communication. This results in low framerates, probably around 10 - 15 fps. The Raspberry Pi is capable of much more, so this is a bottleneck that could be improved, specially if you plan to game in your PET.<br>
             <br>
             This has been solved by increasing the SPI speed on the Raspberry Pi config, check out the <a href="<?=

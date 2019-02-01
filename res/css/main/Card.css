@@ -1,0 +1,31 @@
+.card > div {
+    border-radius: 20px;
+    border: solid <?= $colorPalette["defaultAccentColor"]; ?> 4px;
+}
+
+.card > div > .title {
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    background: <?= $colorPalette["defaultAccentColor"]; ?>;
+    color: #fff;
+    padding: 7px 15px;
+}
+
+.card > div > .content {
+    padding: 30px;
+}
+
+.card > div > .footer {
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    background: <?= $colorPalette["defaultAccentColor"]; ?>;
+    color: #fff;
+    padding: 5px 10px;
+
+    font-family: <?= $fonts["titles"]["family"] ?>;
+	line-height: <?= $fonts["titles"]["height"] ?>;
+	font-weight: <?= $fonts["titles"]["weight"] ?>;
+    margin: 0;
+    
+    font-size: 18pt;
+}

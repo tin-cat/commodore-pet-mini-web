@@ -26,7 +26,7 @@ $colorPalette = [
 	"defaultAnchorColor" => new Color("withRgb", [255, 17, 149]),
 	"defaultAnchorColorHighlighted" => new Color("withRgb", [49, 240, 255]),
 	"defaultAccentColor" =>  new Color("withRgb", [255, 17, 149]),
-	"defaultAccentColorHighlighted" =>  new Color("withHex", "#ffb1bf")
+	"defaultAccentColorHighlighted" =>  new Color("withRgb", [255, 150, 220]),
 ];
 
 $baseGap = 10;

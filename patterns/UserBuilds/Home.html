@@ -19,7 +19,7 @@
             <?
 
             if ($images = $userBuild->getImages()) {
-                ?><div class="images gap threeColumns"><?
+                ?><div class="images columns threeColumns gap alignVerticalTop"><?
                 foreach ($images as $image) {
                     ?>
                         <a class="image" href="<?=$image["fullSizeUrl"]?>" target="zoomedImage">

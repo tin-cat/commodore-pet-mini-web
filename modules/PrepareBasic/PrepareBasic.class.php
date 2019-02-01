@@ -142,6 +142,16 @@ class PrepareBasic extends \Cherrycake\Module {
 		$e->Ui->uiComponents["UiComponentPanel"]->addBlocks(
 			"main",
 			[
+				"order" => \Cherrycake\UiComponentMenuOption::build([
+					"title" => "Order part kits",
+					"href" => $e->Actions->getAction("order")->request->buildUrl()
+				])
+			]
+		);
+
+		$e->Ui->uiComponents["UiComponentPanel"]->addBlocks(
+			"main",
+			[
 				"contribute" => \Cherrycake\UiComponentMenuOption::build([
 					"title" => "Contribute",
 					"href" => $e->Actions->getAction("contribute")->request->buildUrl()
