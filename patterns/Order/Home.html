@@ -48,7 +48,9 @@
                 <li class="withIcon"><div class="UiComponentIcon color included"></div><b>Label stickers</b><br>One set of handmade stickers including the front panel sticker and the monitor back sticker, printed in high resolution.</li>
             </ul>
         </div>
-        <div class="footer">Price: <?=$e->Locale->formatCurrency($e->Order->getProductPrice("kit1"))?></div>
+        <div class="footer">
+            Price: <?=$e->Locale->formatCurrency($e->Order->getProductPrice("kit1"))?>
+        </div>
     </div></div>
 
     <div class="card isolated"><div>
@@ -128,6 +130,14 @@
         <div class="footer">Price: <?=$e->Locale->formatCurrency($e->Order->getProductPrice("kit5"))?></div>
     </div></div>
 
+    <?=\Cherrycake\UiComponentButton::build([
+        "title" => "I would be interested in buying one of this kits",
+        "href" => ORDER_INTEREST_FORM_URL,
+        "target" => "orderIntentionForm",
+        "isCentered" => true,
+        "additionalCssClasses" => "big isolated"
+    ])?>
+
     <h2>Pricing</h2>
 
     <p>
@@ -155,13 +165,5 @@
     <p>
         Please be aware of the limitations and known flaws of the Commodore PET Mini, such as the background noise caused by the Raspberry Pi audio jack, and the low power warning that might appear in some cases, as described in the <a href="<?=$e->Actions->getAction("todo")->request->buildUrl()?>">To do section</a>
     </p>
-
-    <?=\Cherrycake\UiComponentButton::build([
-        "title" => "I would be interested in buying one of this kits",
-        "href" => ORDER_INTEREST_FORM_URL,
-        "target" => "orderIntentionForm",
-        "isCentered" => true,
-        "additionalCssClasses" => "big isolated"
-    ])?>
 
 </article>
