@@ -2,4 +2,4 @@
 
     // Include the cherrycake loader script, set this to the proper path to your installation of the Cherrycake engine
     // Since the Cherrycake engine is installed via composer, this should normally be set to "vendor/tin-cat/cherrycake/load.php"
-    require "vendor/tin-cat/cherrycake/load.php";
+    require gethostname() == "lenny" ? "/opt/cherrycake/load.php" : "vendor/tin-cat/cherrycake/load.php";

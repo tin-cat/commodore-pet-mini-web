@@ -10,7 +10,7 @@
 namespace CherrycakeApp;
 
 // Include the cherrycake loader script
-require "load.php";
+require "../load.php";
 
 // Creates a cherrycake engine
 $e = new \Cherrycake\Engine;
