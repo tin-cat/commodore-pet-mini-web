@@ -5,10 +5,6 @@ input {
     padding: 10px 15px;
 }
 
-input[type=radio] {
-    background: red;
-}
-
 label {
     cursor: pointer;
 }

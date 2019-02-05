@@ -1,5 +1,5 @@
 {
     "require": {
-        "tin-cat/cherrycake": "^0.3.0-alpha"
+        "tin-cat/cherrycake": "dev-master"
     }
 }
