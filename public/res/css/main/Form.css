@@ -1,0 +1,14 @@
+input {
+    border: solid #aaa 1px;
+    font-size: <?= $fonts["interface"]["size"] ?>;
+    border-radius: 5px;
+    padding: 10px 15px;
+}
+
+input[type=radio] {
+    background: red;
+}
+
+label {
+    cursor: pointer;
+}

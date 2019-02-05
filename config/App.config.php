@@ -19,7 +19,5 @@ define("TWITTER_URL", "https://twitter.com/lorenzoherrera");
 
 define("EMAIL", "lorenzo@tin.cat");
 
-define("ORDER_INTEREST_FORM_URL", "https://goo.gl/forms/gSckRTzcKz9SGq552");
-
 define("YOUTUBE_INTRO_CODE", "voZE2_1uBWg");
 define("YOUTUBE_INTRO_2_CODE", "f-ac46LwUuI");

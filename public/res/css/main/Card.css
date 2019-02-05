@@ -16,16 +16,13 @@
 }
 
 .card > div > .footer {
-    border-bottom-left-radius: 15px;
-    border-bottom-right-radius: 15px;
-    background: <?= $colorPalette["defaultAccentColor"]; ?>;
-    color: #fff;
+    border-top: solid <?= $colorPalette["defaultAccentColor"]; ?> 4px;
     padding: 5px 10px;
 
-    font-family: <?= $fonts["titles"]["family"] ?>;
 	line-height: <?= $fonts["titles"]["height"] ?>;
 	font-weight: <?= $fonts["titles"]["weight"] ?>;
     margin: 0;
     
     font-size: 18pt;
+    color: <?= $colorPalette["defaultAccentColor"]; ?>;
 }

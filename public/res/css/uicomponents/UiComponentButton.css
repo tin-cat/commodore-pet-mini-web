@@ -5,6 +5,11 @@
 
 .UiComponentButton > .title {
     color: <?=$colorPalette["defaultTextColor"]?>;
+    font-family: <?= $fonts["interface"]["family"] ?>;
+	line-height: <?= $fonts["interface"]["height"] ?>;
+    font-weight: <?= $fonts["interface"]["weight"] ?>;
+    font-size: <?= $fonts["interface"]["size"] ?>;
+    margin: 0;
 }
 
 .UiComponentButton:hover {

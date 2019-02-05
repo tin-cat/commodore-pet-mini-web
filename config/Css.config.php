@@ -35,6 +35,7 @@ $CssConfig = [
 			"files" => [ // The files that this set contains
 				"Main.css",
 				"ErrorPage.css",
+				"Form.css",
 				"Card.css"
 			]
 		],

@@ -2,15 +2,8 @@
 
     <h2>Order part kits</h2>
     <p>
-        Some of the components needed are difficult to find, and the recommended links to Amazon might not work for your country, or might not be available. This is why I'm thinking on providing you with complete component kits you could buy, so you get everything you need to build your Commodore PET Mini, with just one shipping fee, and just one shipment to wait for. You can print and paint the parts while it arrives!
+        Some of the components needed are difficult to find, and the recommended links to Amazon might not work for your country, or might not be available. This is why I'm thinking on providing you with the following complete component kits you could buy, so you get everything you need to build your Commodore PET Mini except the 3D printed parts. Just one shipping fee, just one shipment to wait for, and the exact parts ready to be fitted in your Commodore PET Mini.
     </p>
-    <p>
-        To determine whether it would be worth the effort to me, if you might be interested in buying one of the kits, please <a href="<?=ORDER_INTEREST_FORM_URL?>" target="orderIntentionForm">register your intention here</a>.
-    </p>
-    <p>
-        With this information, I will make a decision and contact you back to let you know if the kits are finally available for sale, so you will be able to place your order if you decide so. I won't be using your email address for any other purpose.
-    </p>
-
 
     <div class="card isolated"><div>
         <h2 class="title">Commodore PET Mini Parts Kit #1</h2>
@@ -48,9 +41,7 @@
                 <li class="withIcon"><div class="UiComponentIcon color included"></div><b>Label stickers</b><br>One set of handmade stickers including the front panel sticker and the monitor back sticker, printed in high resolution.</li>
             </ul>
         </div>
-        <div class="footer">
-            Price: <?=$e->Locale->formatCurrency($e->Order->getProductPrice("kit1"))?>
-        </div>
+        <div class="footer">Price: <?=$e->Locale->formatCurrency($e->Order->getProductPrice("kit1"))?></div>
     </div></div>
 
     <div class="card isolated"><div>
@@ -130,13 +121,73 @@
         <div class="footer">Price: <?=$e->Locale->formatCurrency($e->Order->getProductPrice("kit5"))?></div>
     </div></div>
 
-    <?=\Cherrycake\UiComponentButton::build([
-        "title" => "I would be interested in buying one of this kits",
-        "href" => ORDER_INTEREST_FORM_URL,
-        "target" => "orderIntentionForm",
-        "isCentered" => true,
-        "additionalCssClasses" => "big isolated"
-    ])?>
+    <p>
+        To determine whether it would be worth the effort to me, if you're interested in buying one of the kits, please enter your email address below and select the Kit you're interested in. If I get enough registrations I'll start providing this kits and I'll send you an email when they become available for sale. You'll then be able to place your order if you want. Filling this form does not represent any buying obligation, and I won't use your email for anything else:
+    </p>
+
+    <!-- Begin Mailchimp Signup Form -->
+        <form action="https://commodorepetmini.us20.list-manage.com/subscribe/post?u=7cb6be7970821a4a3c71626f4&amp;id=3fd69bb19a" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+
+            <h2>Register to be notified when this kits become available</h2>
+
+            <ol class="isolated">
+                <li>
+                    <label for="mce-MMERGE2-0">
+                    <b>Kit #1</b>
+                    <input type="radio" value="Kit #1: basic assembled kit for 87€" name="MMERGE2" id="mce-MMERGE2-0">
+                    Basic assembled kit for <?=$e->Locale->formatCurrency($e->Order->getProductPrice("kit1"))?>
+                    </label>
+                </li>
+                <li>
+                    <label for="mce-MMERGE2-1">
+                    <b>Kit #2</b>
+                    <input type="radio" value="Kit #2: basic + audio assembled kit for 104€" name="MMERGE2" id="mce-MMERGE2-1">
+                    Basic + audio assembled kit for <?=$e->Locale->formatCurrency($e->Order->getProductPrice("kit2"))?>
+                    </label>
+                </li>
+                <li>
+                    <label for="mce-MMERGE2-2">
+                    <b>Kit #3</b>
+                    <input type="radio" value="Kit #3: basic + audio + battery assembled kit for 138€" name="MMERGE2" id="mce-MMERGE2-2">
+                    Basic + audio + battery assembled kit for <?=$e->Locale->formatCurrency($e->Order->getProductPrice("kit3"))?>
+                    </label>
+                </li>
+                <li>
+                    <label for="mce-MMERGE2-3">
+                    <b>Kit #4</b>
+                    <input type="radio" value="Kit #4: basic + audio + battery unassembled kit for 84€" name="MMERGE2" id="mce-MMERGE2-3">
+                    Basic + audio + battery unassembled kit for <?=$e->Locale->formatCurrency($e->Order->getProductPrice("kit4"))?>
+                    </label>
+                </li>
+                <li>
+                    <label for="mce-MMERGE2-4">
+                    <b>Kit #5</b>
+                    <input type="radio" value="Kit #5: complete assembled kit: basic + audio + battery + Raspberry Pi + SD Card + power supply for 209€" name="MMERGE2" id="mce-MMERGE2-4">
+                    Complete assembled kit: basic + audio + battery + Raspberry Pi + SD Card + power supply for <?=$e->Locale->formatCurrency($e->Order->getProductPrice("kit5"))?>
+                    </label>
+                </li>
+            </ol>
+
+            <div align=center>
+                <input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL" placeholder="Email address" />
+            </div>
+
+            <div class="response" id="mce-error-response" style="display:none"></div>
+            <div class="response" id="mce-success-response" style="display:none"></div>
+            <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+            <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_7cb6be7970821a4a3c71626f4_3fd69bb19a" tabindex="-1" value=""></div>
+
+            <?=\Cherrycake\UiComponentButton::build([
+                "title" => "Register to be notified",
+                "isIsolated" => true,
+                "isCentered" => true,
+                "onClick" => "function() { $('#mc-embedded-subscribe-form').submit() }",
+                "iconName" => "ok",
+                "iconVariant" => "black"    
+            ])?>
+        </form>
+        
+        <!--End mc_embed_signup-->
 
     <h2>Pricing</h2>
 
