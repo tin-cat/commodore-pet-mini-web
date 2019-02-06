@@ -10,15 +10,4 @@
         <img src="/res/img/Commodore PET Mini battery diagram.png" />
     </div>
 
-    <?=\Cherrycake\UiComponentButton::build([
-        "title" => "Paint it",
-        "isCentered" => true,
-        "href" => $e->Actions->getAction("documentationSubPage")->request->buildUrl([
-            "parameterValues" => [
-                "sectionName" => "modding",
-                "pageName" => "paint"
-            ]
-        ])
-    ])?>
-
 </article>

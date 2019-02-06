@@ -15,3 +15,12 @@
 .UiComponentButton:hover {
     opacity: .8;
 }
+
+.UiComponentButton.accent {
+    border-color: transparent;
+    background: <?=$colorPalette["defaultAccentColor"]?>;
+}
+
+.UiComponentButton.accent > .title {
+    color: #fff;
+}

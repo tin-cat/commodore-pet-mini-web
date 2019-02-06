@@ -194,7 +194,7 @@ $AffiliateLinksConfig = [
         "Screen" => [
             [
                 "countryCodes" => ["ES", "AD", "PT"],
-                "link" => "https://amzn.to/2ATg7IV"
+                "link" => "https://amzn.to/2SdVeDb"
             ],
             [
                 "countryCodes" => ["US"],
@@ -202,15 +202,15 @@ $AffiliateLinksConfig = [
             ],
             [
                 "countryCodes" => ["FR", "LU", "BE", "CH"],
-                "link" => "https://amzn.to/2CwcB7k"
+                "link" => "https://amzn.to/2UNRh4Z"
             ],
             [
                 "countryCodes" => ["UK", "IE"],
-                "link" => "https://amzn.to/2T3ALNB"
+                "link" => "https://amzn.to/2GdrIXQ"
             ],
             [
                 "countryCodes" => ["DE", "PL", "CZ", "AT"],
-                "link" => "https://amzn.to/2SZVOAA"
+                "link" => "https://amzn.to/2ULJCEe"
             ],
             [
                 "countryCodes" => ["IT"],
@@ -549,6 +549,36 @@ $AffiliateLinksConfig = [
             [
                 "countryCodes" => ["CA"],
                 "link" => "https://amzn.to/2FJXCtI"
+            ]
+        ],
+        "Keyboard" => [
+            [
+                "countryCodes" => ["ES", "AD", "PT"],
+                "link" => "https://amzn.to/2GfZifE"
+            ],
+            [
+                "countryCodes" => ["US"],
+                "link" => "https://amzn.to/2WKPa3B"
+            ],
+            [
+                "countryCodes" => ["FR", "LU", "BE", "CH"],
+                "link" => "https://amzn.to/2UFMT7S"
+            ],
+            [
+                "countryCodes" => ["UK", "IE"],
+                "link" => "https://amzn.to/2TypyVF"
+            ],
+            [
+                "countryCodes" => ["DE", "PL", "CZ", "AT"],
+                "link" => "https://amzn.to/2GeVsmQ"
+            ],
+            [
+                "countryCodes" => ["IT"],
+                "link" => "https://amzn.to/2GaIdDT"
+            ],
+            [
+                "countryCodes" => ["CA"],
+                "link" => "https://amzn.to/2SuBWIN"
             ]
         ],
         "AudioJack" => [

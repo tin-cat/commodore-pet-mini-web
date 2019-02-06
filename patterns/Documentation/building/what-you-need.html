@@ -2,37 +2,92 @@
     
     <h2>What you'll need</h2>
 
-    <ol class="isolated">
-        <li data-title="1">A 3D printer. I did mine <a href="<?=$e->AffiliateLinks->getLink("3dPrinter")?>" target="supplies">with this one</a>.</li>
-        <li data-title="2"><a href="<?=$e->AffiliateLinks->getLink("FilamentBlack")?>" target="supplies">Black</a> and <a href="<?=$e->AffiliateLinks->getLink("FilamentWhite")?>" target="supplies">White</a> filament.</li>
-        <li data-title="3"><a href="<?=$e->AffiliateLinks->getLink("RaspberryPi")?>" target="supplies">A Raspberry Pi</a>, any model from A to B+ will do.</li>
-        <li data-title="4">A small <a href="<?=$e->AffiliateLinks->getLink("SDCard")?>" target="supplies">MicroSD card</a>, 16 Gb will be more than enough.</li>
-        <li data-title="4">A <a href="<?=$e->AffiliateLinks->getLink("GamePad")?>" target="supplies">compatible USB gamepad</a> is strongly recommended, but not a requisite.</li>
-        <li data-title="5">A micro USB power supply with a little more juice than the standard Raspberry Pi one, because we'll be driving a screen too, <a href="<?=$e->AffiliateLinks->getLink("PowerSupply")?>" target="supplies">like this one</a>.</li>
-        <li data-title="6"><a href="<?=$e->AffiliateLinks->getLink("Screen")?>" target="supplies">This specific screen</a>, because size matters here.</li>
-        <li data-title="7"><a href="<?=$e->AffiliateLinks->getLink("RibbonCable")?>" target="supplies">26-lane IDC ribbon cable with connector</a> to connect the screen to the Raspberry Pi</li>
-        <li data-title="8"><a href="<?=$e->AffiliateLinks->getLink("IDCMale")?>" target="supplies">A male IDC 26 pin socket like this</a> to make it easier to plug and unplug the display.</li>
-        <li data-title="9">Screws</li>
-        <li data-title="10">A <a href="<?=$e->AffiliateLinks->getLink("Switch")?>" target="supplies">panel mount switch button</a>.</li>
-        <li data-title="11">A <a href="<?=$e->AffiliateLinks->getLink("USBExtender")?>" target="supplies">micro USB panel mount cable extender</a>.</li>
-        <li data-title="12">Two <a href="<?=$e->AffiliateLinks->getLink("Magnets")?>" target="supplies">tiny round 10 x 2mm magnets</a> for that satisfying clicky sound when it closes.</li>
-        <li data-title="13">The usual simple soldering stuff, glue and some patience.</li>
-    </ol>
+    <div class="images columns threeColumns gap">
+        <div class="image">
+            <img src="/res/img/parts/3DPrinter.jpg" />
+            <div class="title">A 3D printer. I did mine with a <a href="<?=$e->AffiliateLinks->getLink("3dPrinter")?>" target="supplies">Creality Ender 3</a>.</div>
+        </div>
+        <div class="image">
+            <img src="/res/img/parts/Filament.jpg" />
+            <div class="title"><a href="<?=$e->AffiliateLinks->getLink("FilamentBlack")?>" target="supplies">Black</a> and <a href="<?=$e->AffiliateLinks->getLink("FilamentWhite")?>" target="supplies">White</a> filament</div>
+        </div>
+        <div class="image">
+            <img src="/res/img/parts/Raspberry Pi.jpg" />
+            <div class="title">A <a href="<?=$e->AffiliateLinks->getLink("RaspberryPi")?>" target="supplies">Raspberry Pi</a>, any model up to the latest model 3 B+ will do.</div>
+        </div>
+        <div class="image">
+            <img src="/res/img/parts/SD Card.jpg" />
+            <div class="title">A small <a href="<?=$e->AffiliateLinks->getLink("SDCard")?>" target="supplies">MicroSD card</a>, 16 Gb will be more than enough.</div>
+        </div>
+        <div class="image">
+            <img src="/res/img/parts/Gamepad and keyboard.jpg" />
+            <div class="title">A <a href="<?=$e->AffiliateLinks->getLink("GamePad")?>" target="supplies">compatible USB gamepad</a> and a <a href="<?=$e->AffiliateLinks->getLink("Keyboard")?>" target="supplies">wireless mini keyboard</a> are strongly recommended, but not a requisite.</div>
+        </div>
+        <div class="image">
+            <img src="/res/img/parts/Power supply.jpg" />
+            <div class="title">A micro USB power supply with a little more juice than the standard Raspberry Pi one, because we'll be driving a screen too. 3 Amps will be enough, <a href="<?=$e->AffiliateLinks->getLink("PowerSupply")?>" target="supplies">like this one</a>.</div>
+        </div>
+        <div class="image">
+            <img src="/res/img/parts/Waveshare display.jpg" />
+            <div class="title">The <a href="<?=$e->AffiliateLinks->getLink("Screen")?>" target="supplies">Waveshare 2,8 inch. screen for Raspberry Pi</a>, the exact model is important here.</div>
+        </div>
+        <div class="image">
+            <img src="/res/img/parts/Ribbon cable.jpg" />
+            <div class="title"><a href="<?=$e->AffiliateLinks->getLink("RibbonCable")?>" target="supplies">26-lane IDC ribbon cable with connector</a> to connect the screen to the Raspberry Pi.</div>
+        </div>
+        <div class="image">
+            <img src="/res/img/parts/IDC Socket.jpg" />
+            <div class="title"><a href="<?=$e->AffiliateLinks->getLink("IDCMale")?>" target="supplies">A male IDC 26 pin socket like this</a> to make it easier to plug and unplug the display.</div>
+        </div>
+        <div class="image">
+            <img src="/res/img/parts/Screws.jpg" />
+            <div class="title">Screws.</div>
+        </div>
+        <div class="image">
+            <img src="/res/img/parts/Switch button.jpg" />
+            <div class="title">A panel mount switch button that fits the 15x10 mm. rectangular hole in the <i>Base</i>, <a href="<?=$e->AffiliateLinks->getLink("Switch")?>" target="supplies">this one fits perfectly</a>.</div>
+        </div>
+        <div class="image">
+            <img src="/res/img/parts/Cable extender.jpg" />
+            <div class="title">A micro USB cable extender with panel mount. The <i>Base</i> is prepared for one with a 28mm. distance between the mounting screw holes, <a href="<?=$e->AffiliateLinks->getLink("USBExtender")?>" target="supplies">this one fits perfectly</a>.</div>
+        </div>
+        <div class="image">
+            <img src="/res/img/parts/Magnets.jpg" />
+            <div class="title">Two <a href="<?=$e->AffiliateLinks->getLink("Magnets")?>" target="supplies">tiny round 10 x 2mm magnets</a> for that satisfying clicky sound when it closes.</div>
+        </div>
+        <div class="image">
+            <img src="/res/img/parts/Soldering stuff.jpg" />
+            <div class="title">The usual simple soldering stuff, glue and some patience.</div>
+        </div>
+    </div>
 
     <p>
-        Would you be interested in buying a kit that includes all this parts? Even a ready-made kit with everything assembled, except for the 3D printed parts? <a href="<?=$e->Actions->getAction("order")->request->buildUrl()?>">Please let me know</a>.
+        Would you be interested in buying a kit that includes all this parts? Maybe a pre-built kit with everything assembled, except for the 3D printed parts?
     </p>
 
-    <?=\Cherrycake\UiComponentButton::build([
-        "title" => "Next",
-        "isIsolated" => true,
-        "isCentered" => true,
-        "href" => $e->Actions->getAction("documentationSubPage")->request->buildUrl([
-            "parameterValues" => [
-                "sectionName" => "building",
-                "pageName" => "3d-printing"
-            ]
-        ])
-    ])?>
+    <div class="UiComponentButtons centered isolated">
+
+        <?=\Cherrycake\UiComponentButton::build([
+            "title" => "Order part kits",
+            "iconName" => "shop",
+            "iconVariant" => "black",
+            "href" => $e->Actions->getAction("order")->request->buildUrl()
+        ])?>
+
+        <?=\Cherrycake\UiComponentButton::build([
+            "title" => "Next",
+            "iconName" => "next",
+            "iconVariant" => "white",
+            "iconIsLeft" => false,
+            "additionalCssClasses" => "accent",
+            "href" => $e->Actions->getAction("documentationSubPage")->request->buildUrl([
+                "parameterValues" => [
+                    "sectionName" => "building",
+                    "pageName" => "3d-printing"
+                ]
+            ])
+        ])?>
+
+    </div>
 
 </article>
