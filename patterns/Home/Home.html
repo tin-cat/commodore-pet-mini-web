@@ -16,13 +16,9 @@
         This project is based on the <a href="https://en.wikipedia.org/wiki/Commodore_PET" target="wikipedia">Commodore PET model 8032</a>. You'll 3D print a case that contains a Raspberry Pi computer and a tiny screen to emulate the almighty PET (and many other computers and game consoles). It has been carefully designed to be as accurate as possible to the original design, all the connections are made on the back panel and it even hinges upwards to reveal its guts, just like the original!
     </p>
 
-    <div class="video isolated">
-        <iframe src="https://www.youtube.com/embed/<?=YOUTUBE_INTRO_CODE?>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-    </div>
-
     <?=\Cherrycake\UiComponentButton::build([
         "title" => "Build your own!",
-        "additionalCssClasses" => "big isolated",
+        "additionalCssClasses" => "big isolated accent",
         "isCentered" => true,
         "href" => $e->Actions->getAction("documentationSubPage")->request->buildUrl([
             "parameterValues" => [
@@ -31,6 +27,10 @@
             ]
         ])
     ])?>
+
+    <div class="video isolated">
+        <iframe src="https://www.youtube.com/embed/<?=YOUTUBE_INTRO_CODE?>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
 
 
     <div class="image isolated">
