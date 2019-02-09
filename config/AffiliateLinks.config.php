@@ -9,7 +9,7 @@
 namespace Cherrycake;
 
 $AffiliateLinksConfig = [
-    "defaultCountryCode" => "ES",
+    "defaultCountryCode" => "US",
     "links" => [
         "3dPrinter" => [
             [

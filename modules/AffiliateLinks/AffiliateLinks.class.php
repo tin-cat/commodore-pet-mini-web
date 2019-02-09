@@ -31,12 +31,25 @@ class AffiliateLinks extends \Cherrycake\Module {
         else
             $countryCode = $location->getCountry()["code"];
         
+        $countryCode = "XX";
+        
+        // If found, return the link for the detected country
+        if ($link = $this->getLinkForCountryCode($key, $countryCode))
+            return $link;
+
+        // If no link for the detected country has been found, return the default country one
+        return $this->getLinkForCountryCode($key, $this->getConfig("defaultCountryCode"));
+    }
+
+    function getLinkForCountryCode($key, $countryCode) {
         $linkData = $this->getConfig("links")[$key];
         foreach ($linkData as $countryVariant) {
             if (!in_array($countryCode, $countryVariant["countryCodes"]))
                 continue;
-            return $countryVariant["link"];
+            if ($countryVariant["link"])
+                return $countryVariant["link"];
         }
+        return false;
     }
 
 }
