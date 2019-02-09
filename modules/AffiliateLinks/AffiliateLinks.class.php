@@ -31,8 +31,6 @@ class AffiliateLinks extends \Cherrycake\Module {
         else
             $countryCode = $location->getCountry()["code"];
         
-        $countryCode = "XX";
-        
         // If found, return the link for the detected country
         if ($link = $this->getLinkForCountryCode($key, $countryCode))
             return $link;
