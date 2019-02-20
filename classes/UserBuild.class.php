@@ -93,6 +93,8 @@ class UserBuild extends \Cherrycake\BasicObject {
 
         }
 
+        array_multisort(array_keys($r), SORT_ASC, $r);
+
         return $r;
     }
 }   

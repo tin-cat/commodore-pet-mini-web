@@ -25,6 +25,7 @@ $ActionsConfig = [
 		"UserBuilds",
 		"Order",
 		"Contribute",
-		"ToDo"
+		"ToDo",
+		"Press"
 	]
 ];

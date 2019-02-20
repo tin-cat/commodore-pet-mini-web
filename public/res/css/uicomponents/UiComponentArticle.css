@@ -29,6 +29,37 @@
     box-shadow: 0 0 0 5px <?= $colorPalette["defaultAccentColor"]; ?>;
 }
 
+.UiComponentArticle > .image {
+    position: relative;
+}
+
+.UiComponentArticle > .image > .badge {
+    position: absolute;
+    right: -20px;
+    bottom: -20px;
+    
+    background-image: url('/res/img/AssSeenOnTv.png');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-position: center;
+
+    color: #fff;
+
+    text-transform: uppercase;
+    text-align: center;
+    font-size: 12pt;
+    line-height: 1.3em;
+    
+    transform: rotate(5deg);
+
+    padding: 1em;
+}
+
+.UiComponentArticle > .image > .badge > .secondLine {
+    font-size: 180%;
+    font-weight: normal;
+}
+
 .UiComponentArticle .keyboardKey {
     border: none;
     background: #fbeaa8;

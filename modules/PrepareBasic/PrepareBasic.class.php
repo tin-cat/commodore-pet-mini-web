@@ -169,6 +169,16 @@ class PrepareBasic extends \Cherrycake\Module {
 			]
 		);
 
+		$e->Ui->uiComponents["UiComponentPanel"]->addBlocks(
+			"main",
+			[
+				"press" => \Cherrycake\UiComponentMenuOption::build([
+					"title" => "Press",
+					"href" => $e->Actions->getAction("press")->request->buildUrl()
+				])
+			]
+		);
+
 		return true;
 	}
 }
