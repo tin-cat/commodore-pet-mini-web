@@ -66,8 +66,7 @@ class UserBuilds extends \Cherrycake\Module {
 					"builds" => $builds
 				]
 			]),
-			"mainOptionSelected" => "userBuilds",
-			"isAllMainOptionsOpen" => true
+			"mainOptionSelected" => "userBuilds"
 		]);
 		return true;
 	}

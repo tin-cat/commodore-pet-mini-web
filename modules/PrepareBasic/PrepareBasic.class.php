@@ -69,6 +69,7 @@ class PrepareBasic extends \Cherrycake\Module {
 				"home" => \Cherrycake\UiComponentMenuOption::build([
 					"title" => "Home",
 					"href" => $e->Actions->getAction("homePage")->request->buildUrl(),
+					"iconName" => "home",
 					"iconVariant" => "white"
 				])
 			]
@@ -134,6 +135,8 @@ class PrepareBasic extends \Cherrycake\Module {
 			[
 				"userBuilds" => \Cherrycake\UiComponentMenuOption::build([
 					"title" => "Builds",
+					"iconName" => "builds",
+					"iconVariant" => "white",
 					"href" => $e->Actions->getAction("userBuilds")->request->buildUrl()
 				])
 			]
@@ -144,6 +147,8 @@ class PrepareBasic extends \Cherrycake\Module {
 			[
 				"order" => \Cherrycake\UiComponentMenuOption::build([
 					"title" => "Order part kits",
+					"iconName" => "order",
+					"iconVariant" => "white",
 					"href" => $e->Actions->getAction("order")->request->buildUrl()
 				])
 			]
@@ -154,6 +159,8 @@ class PrepareBasic extends \Cherrycake\Module {
 			[
 				"contribute" => \Cherrycake\UiComponentMenuOption::build([
 					"title" => "Contribute",
+					"iconName" => "contribute",
+					"iconVariant" => "white",
 					"href" => $e->Actions->getAction("contribute")->request->buildUrl()
 				])
 			]
@@ -164,7 +171,21 @@ class PrepareBasic extends \Cherrycake\Module {
 			[
 				"todo" => \Cherrycake\UiComponentMenuOption::build([
 					"title" => "To do",
+					"iconName" => "todo",
+					"iconVariant" => "white",
 					"href" => $e->Actions->getAction("todo")->request->buildUrl()
+				])
+			]
+		);
+
+		$e->Ui->uiComponents["UiComponentPanel"]->addBlocks(
+			"main",
+			[
+				"goodies" => \Cherrycake\UiComponentMenuOption::build([
+					"title" => "Goodies",
+					"iconName" => "goodies",
+					"iconVariant" => "white",
+					"href" => $e->Actions->getAction("goodies")->request->buildUrl()
 				])
 			]
 		);
@@ -174,6 +195,8 @@ class PrepareBasic extends \Cherrycake\Module {
 			[
 				"press" => \Cherrycake\UiComponentMenuOption::build([
 					"title" => "Press",
+					"iconName" => "press",
+					"iconVariant" => "white",
 					"href" => $e->Actions->getAction("press")->request->buildUrl()
 				])
 			]

@@ -61,25 +61,11 @@ class Order extends \Cherrycake\Module {
 	function home() {
 		global $e;
 		$e->Ui->uiComponents["UiComponentPanel"]->setOutputResponse([
-			"content" => $e->Patterns->parse("Order/Home.html", [
-				"variables" => [
-					"builds" => $builds
-				]
-			]),
-			"mainOptionSelected" => "userBuilds",
-			"isAllMainOptionsOpen" => true
+			"content" => $e->Patterns->parse("Order/Home.html"),
+			"mainOptionSelected" => "order"
 		]);
 		return true;
 	}
-
-	function getUserBuilds() {
-		$builds = $this->getConfig("builds");
-		foreach ($builds as $buildData) {
-			$userBuild = \CherrycakeApp\UserBuild::build($buildData);
-			$userBuilds[] = $userBuild;
-		}
-		return $userBuilds;
-    }
     
     function getProductConfig($productCode) {
         return $this->getConfig("products")[$productCode];

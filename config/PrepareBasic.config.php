@@ -14,6 +14,8 @@ $PrepareBasicConfig = [
 	"documentationPages" => [
         "building" => [
             "title" => "Build it",
+            "iconName" => "buildit",
+			"iconVariant" => "white",
             "subPages" => [
                 "what-you-need" => ["title" => "What you'll need"],
                 "3d-printing" => ["title" => "3D printing the parts"],
@@ -28,6 +30,8 @@ $PrepareBasicConfig = [
         ],
         "modding" => [
             "title" => "Modding your PET",
+            "iconName" => "modding",
+			"iconVariant" => "white",
             "subPages" => [
                 "sound" => ["title" => "Adding sound"],
                 "portable-commodore-pet-mini" => ["title" => "Make it portable"],

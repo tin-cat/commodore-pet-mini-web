@@ -26,6 +26,7 @@ $ActionsConfig = [
 		"Order",
 		"Contribute",
 		"ToDo",
+		"Goodies",
 		"Press"
 	]
 ];

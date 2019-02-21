@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Home
+ * Press
  *
  * @package CherrycakeApp
  */
@@ -61,8 +61,7 @@ class Press extends \Cherrycake\Module {
 		global $e;
 		$e->Ui->uiComponents["UiComponentPanel"]->setOutputResponse([
 			"content" => $e->Patterns->parse("Press/Home.html"),
-			"mainOptionSelected" => "press",
-			"isAllMainOptionsOpen" => true
+			"mainOptionSelected" => "press"
 		]);
 		return true;
 	}

@@ -61,8 +61,7 @@ class Contribute extends \Cherrycake\Module {
 		global $e;
 		$e->Ui->uiComponents["UiComponentPanel"]->setOutputResponse([
 			"content" => $e->Patterns->parse("Contribute/Home.html"),
-			"mainOptionSelected" => "contribute",
-			"isAllMainOptionsOpen" => true
+			"mainOptionSelected" => "contribute"
 		]);
 		return true;
 	}
