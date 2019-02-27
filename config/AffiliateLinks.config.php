@@ -30,7 +30,7 @@ $AffiliateLinksConfig = [
             ],
             [
                 "countryCodes" => ["DE", "PL", "CZ", "AT"],
-                "link" => "https://amzn.to/2CyKN28"
+                "link" => "https://amzn.to/2GPmD83"
             ],
             [
                 "countryCodes" => ["IT"],
@@ -60,7 +60,7 @@ $AffiliateLinksConfig = [
             ],
             [
                 "countryCodes" => ["DE", "PL", "CZ", "AT"],
-                "link" => "https://amzn.to/2RBFpFV"
+                "link" => "https://amzn.to/2GPn6qP"
             ],
             [
                 "countryCodes" => ["IT"],
@@ -90,7 +90,7 @@ $AffiliateLinksConfig = [
             ],
             [
                 "countryCodes" => ["DE", "PL", "CZ", "AT"],
-                "link" => "https://amzn.to/2AV52Hw"
+                "link" => "https://amzn.to/2T2YWjs"
             ],
             [
                 "countryCodes" => ["IT"],
@@ -120,7 +120,7 @@ $AffiliateLinksConfig = [
             ],
             [
                 "countryCodes" => ["DE", "PL", "CZ", "AT"],
-                "link" => "https://amzn.to/2ASZSeO"
+                "link" => "https://amzn.to/2GOrq9U"
             ],
             [
                 "countryCodes" => ["IT"],
@@ -150,7 +150,7 @@ $AffiliateLinksConfig = [
             ],
             [
                 "countryCodes" => ["DE", "PL", "CZ", "AT"],
-                "link" => "https://amzn.to/2Cv8b0t"
+                "link" => "https://amzn.to/2BVlxnk"
             ],
             [
                 "countryCodes" => ["IT"],
@@ -180,7 +180,7 @@ $AffiliateLinksConfig = [
             ],
             [
                 "countryCodes" => ["DE", "PL", "CZ", "AT"],
-                "link" => "https://amzn.to/2RUK0T3"
+                "link" => "https://amzn.to/2NvAfGg"
             ],
             [
                 "countryCodes" => ["IT"],
@@ -210,7 +210,7 @@ $AffiliateLinksConfig = [
             ],
             [
                 "countryCodes" => ["DE", "PL", "CZ", "AT"],
-                "link" => "https://amzn.to/2ULJCEe"
+                "link" => "https://amzn.to/2XsD3bC"
             ],
             [
                 "countryCodes" => ["IT"],
@@ -240,7 +240,7 @@ $AffiliateLinksConfig = [
             ],
             [
                 "countryCodes" => ["DE", "PL", "CZ", "AT"],
-                "link" => "https://amzn.to/2CFMg75"
+                "link" => "https://amzn.to/2XtF5bt"
             ],
             [
                 "countryCodes" => ["IT"],
@@ -270,7 +270,7 @@ $AffiliateLinksConfig = [
             ],
             [
                 "countryCodes" => ["DE", "PL", "CZ", "AT"],
-                "link" => "https://amzn.to/2SlqHSU"
+                "link" => "https://amzn.to/2T27Spe"
             ],
             [
                 "countryCodes" => ["IT"],
@@ -300,7 +300,7 @@ $AffiliateLinksConfig = [
             ],
             [
                 "countryCodes" => ["DE", "PL", "CZ", "AT"],
-                "link" => "https://amzn.to/2S1OuIq"
+                "link" => "https://amzn.to/2Ua0jcn"
             ],
             [
                 "countryCodes" => ["IT"],
@@ -330,7 +330,7 @@ $AffiliateLinksConfig = [
             ],
             [
                 "countryCodes" => ["DE", "PL", "CZ", "AT"],
-                "link" => "https://amzn.to/2AWpyY9"
+                "link" => "https://amzn.to/2UgUzOl"
             ],
             [
                 "countryCodes" => ["IT"],
@@ -360,7 +360,7 @@ $AffiliateLinksConfig = [
             ],
             [
                 "countryCodes" => ["DE", "PL", "CZ", "AT"],
-                "link" => "https://amzn.to/2B0ffCC"
+                "link" => "https://amzn.to/2VnnIHu"
             ],
             [
                 "countryCodes" => ["IT"],
@@ -390,7 +390,7 @@ $AffiliateLinksConfig = [
             ],
             [
                 "countryCodes" => ["DE", "PL", "CZ", "AT"],
-                "link" => "https://amzn.to/2CGrapd"
+                "link" => "https://amzn.to/2VnpacT"
             ],
             [
                 "countryCodes" => ["IT"],
@@ -420,7 +420,7 @@ $AffiliateLinksConfig = [
             ],
             [
                 "countryCodes" => ["DE", "PL", "CZ", "AT"],
-                "link" => "https://amzn.to/2RGQG88"
+                "link" => "https://amzn.to/2U8wIA4"
             ],
             [
                 "countryCodes" => ["IT"],
@@ -450,7 +450,7 @@ $AffiliateLinksConfig = [
             ],
             [
                 "countryCodes" => ["DE", "PL", "CZ", "AT"],
-                "link" => "https://amzn.to/2UywfXT"
+                "link" => "https://amzn.to/2T4FWAM"
             ],
             [
                 "countryCodes" => ["IT"],
@@ -480,7 +480,7 @@ $AffiliateLinksConfig = [
             ],
             [
                 "countryCodes" => ["DE", "PL", "CZ", "AT"],
-                "link" => "https://amzn.to/2HtKWKe"
+                "link" => "https://amzn.to/2NxZNCq"
             ],
             [
                 "countryCodes" => ["IT"],
@@ -510,7 +510,7 @@ $AffiliateLinksConfig = [
             ],
             [
                 "countryCodes" => ["DE", "PL", "CZ", "AT"],
-                "link" => "https://amzn.to/2TVikL0"
+                "link" => "https://amzn.to/2GPAuvn"
             ],
             [
                 "countryCodes" => ["IT"],
@@ -540,7 +540,7 @@ $AffiliateLinksConfig = [
             ],
             [
                 "countryCodes" => ["DE", "PL", "CZ", "AT"],
-                "link" => "https://amzn.to/2RXJK5A"
+                "link" => "https://amzn.to/2Nyr7R9"
             ],
             [
                 "countryCodes" => ["IT"],
@@ -570,7 +570,7 @@ $AffiliateLinksConfig = [
             ],
             [
                 "countryCodes" => ["DE", "PL", "CZ", "AT"],
-                "link" => "https://amzn.to/2GeVsmQ"
+                "link" => "https://amzn.to/2T1NLHN"
             ],
             [
                 "countryCodes" => ["IT"],
@@ -600,7 +600,7 @@ $AffiliateLinksConfig = [
             ],
             [
                 "countryCodes" => ["DE", "PL", "CZ", "AT"],
-                "link" => "https://amzn.to/2AVVdcf"
+                "link" => "https://amzn.to/2GOBuQs"
             ],
             [
                 "countryCodes" => ["IT"],
@@ -630,7 +630,7 @@ $AffiliateLinksConfig = [
             ],
             [
                 "countryCodes" => ["DE", "PL", "CZ", "AT"],
-                "link" => "https://amzn.to/2W4m12V"
+                "link" => "https://amzn.to/2BVlNmi"
             ],
             [
                 "countryCodes" => ["IT"],
@@ -660,7 +660,7 @@ $AffiliateLinksConfig = [
             ],
             [
                 "countryCodes" => ["DE", "PL", "CZ", "AT"],
-                "link" => "https://amzn.to/2RCTZx2"
+                "link" => "https://amzn.to/2UaOYJd"
             ],
             [
                 "countryCodes" => ["IT"],
