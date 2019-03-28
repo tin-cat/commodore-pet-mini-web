@@ -142,6 +142,7 @@ class PrepareBasic extends \Cherrycake\Module {
 			]
 		);
 
+		/*
 		$e->Ui->uiComponents["UiComponentPanel"]->addBlocks(
 			"main",
 			[
@@ -153,6 +154,7 @@ class PrepareBasic extends \Cherrycake\Module {
 				])
 			]
 		);
+		*/
 
 		$e->Ui->uiComponents["UiComponentPanel"]->addBlocks(
 			"main",
