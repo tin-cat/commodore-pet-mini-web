@@ -4,14 +4,18 @@
     <p>
         <a href="mailto:<?=EMAIL?>">Send me a photo</a> of your PET and I will feature it here! Include your name, a link and some message for PET fans and I will publish it here along with your photo.
     </p>
+	<p>
+        Check out the <a href="#0001">Commodore PET Mini Serial No.0001 by Vince Weaver</a>, Chuck Peddle itself got it on his hands and there's a photo proving it!
+    </p>
 
     <?
         $userBuilds = $e->UserBuilds->getUserBuilds();
         foreach ($userBuilds as $userBuild) {
             ?>
+				<a name="<?=$userBuild->getSerialNumber()?>"></a>
                 <h3>Serial No.<?=$userBuild->getSerialNumber()?></h3>
                 <p>
-                    <b>Build by <a href="<?=$userBuild->getUrl()?>" target="builder"><?=$userBuild->getName()?></a></b><br>
+                    <b>Build by <? if ($userBuild->getUrl()){ ?><a href="<?=$userBuild->getUrl()?>" target="builder"><?=$userBuild->getName()?></a><? }else{ ?><?=$userBuild->getName()?><?}?></b><br>
                     <b>Date</b> <?=$userBuild->getDate()?><br>
                 </p>
                 <?=($userBuild->getText() ? "<p>".$userBuild->getText()."</p>" : null)?>
