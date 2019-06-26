@@ -15,9 +15,9 @@ $UserBuildsConfig = [
 		[
             "serialNumber" => 4,
             "name" => "Matt Kasdorf",
-            "url" => "",
+            "url" => false,
             "date" => mktime(0, 0, 0, 6, 16, 2019),
-            "text" => false
+            "text" => "I came upon the CommodorePETmini.com website through a posting to the <a href=\"http://calgarycommodore.ca\" target=\"_newwindow\">Calgary Commodore Users Group</a> forum. My build turned out to be more difficult as I substituted the recommended display for a cheaper 2.8\" SPI display. I ended up using an older version of RetroPie, and a RPi3B. My kids and I decided keep the 3D printed appearance, but I'm going to paint the inside black to help retain the light leakage. I too tried Combian64, and was unsuccessful getting it to work with my TFT display.  I'm currently modifying it and hope to release a version, which I'm calling \"CommPi\", with a bunch of PET 2001/4032 software pre-installed."
         ],
 		[
             "serialNumber" => 3,
