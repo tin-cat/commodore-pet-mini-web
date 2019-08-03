@@ -19,5 +19,5 @@ $ErrorsConfig = [
 		\Cherrycake\Modules\ERROR_NOT_FOUND => "Errors/NotFound.html",
 		\Cherrycake\Modules\ERROR_NO_PERMISSION => "Errors/NoPermission.html"
 	], // An array of pattern names to user when an error occurs, when isPattern is set to true. Defaults to "errors/error.html"
-	"notificationEmail" => ADMIN_TECHNICAL_EMAIL
+	"notificationEmail" => "lorenzo@tin.cat"
 ];
