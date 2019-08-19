@@ -14,10 +14,10 @@ $UserBuildsConfig = [
 	"builds" => [
 		[
             "serialNumber" => 5,
-            "name" => "Noveo",
-            "url" => "https://twitter.com/Noveox3",
+            "name" => "Luca H.",
+            "url" => false,
             "date" => mktime(0, 0, 0, 8, 18, 2019),
-            "text" => false
+            "text" => "It was fun to make the Mini PET as a small project. The 3D-printing files were great to print out and the finished model looks pretty neat. Because I already had the PiTFT Plus 2.8 display at home, I used that one. I had to mirror the Monitor frame so I could attach the display to the frame. It was real fun to do and I can definitely recommend this project. Thanks a lot for these great instructions!"
         ],
 		[
             "serialNumber" => 4,
