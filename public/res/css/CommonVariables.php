@@ -23,9 +23,9 @@ $colorPalette = [
 	"darkBackgroundColor" => new Color("withHex", "#1e1e1e"),
 	"defaultTextColor" => new Color("withRgb", [30, 30, 30]),
 	"darkBackgroundTextColor" => new Color("withRgb", [255, 255, 255]),
-	"defaultAnchorColor" => new Color("withRgb", [255, 17, 149]),
+	"defaultAnchorColor" => new Color("withRgb", [255, 3, 85]),
 	"defaultAnchorColorHighlighted" => new Color("withRgb", [49, 240, 255]),
-	"defaultAccentColor" =>  new Color("withRgb", [255, 17, 149]),
+	"defaultAccentColor" =>  new Color("withRgb", [255, 3, 85]),
 	"defaultAccentColorHighlighted" =>  new Color("withRgb", [255, 150, 220]),
 ];
 
