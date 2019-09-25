@@ -13,6 +13,13 @@ namespace Cherrycake;
 $UserBuildsConfig = [
 	"builds" => [
 		[
+            "serialNumber" => 6,
+            "name" => "Shon Burton",
+            "url" => "https://twitter.com/Shon",
+            "date" => mktime(0, 0, 0, 9, 25, 2019),
+            "text" => "The hardest parts of the build were getting the screen holder to print nicely, finding good screws, and placing the front PET label 😂. I plan to connect this first pet to a 20TB drive array and use it as a home file server and interactive display. <blockquote>Fun fact: Shon's PET Mini has now a storage capacity more than 670 million times bigger than the original Commodore PET!</blockquote>"
+        ],
+		[
             "serialNumber" => 5,
             "name" => "Luca H.",
             "url" => false,
