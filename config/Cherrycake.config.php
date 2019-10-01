@@ -10,6 +10,7 @@
 
 namespace Cherrycake;
 
+const APP_NAME = "CommodorePetMini"; // A unique name for this App.
 define("IS_DEVEL_ENVIRONMENT", gethostname() == "lenny"); // Whether the app is running in the devel environment or not.
 const IS_CACHE = false; // Whether to use caches or not.
 const IS_HTTP_CACHE = false; // Whether to send HTTP headers caches or not.
