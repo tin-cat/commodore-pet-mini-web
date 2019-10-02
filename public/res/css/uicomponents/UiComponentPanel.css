@@ -1,6 +1,6 @@
 #UiComponentPanel > .header,
 #UiComponentPanel > .top {
-    background: <?=$colorPalette["defaultAccentColor"]?>;
+    background: <?=$colorPalette["defaultAccentColor"]?> !important;
 }
 
 #UiComponentPanel > .top .UiComponentMenuOption > .title {
