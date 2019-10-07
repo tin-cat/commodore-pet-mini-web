@@ -1,4 +1,4 @@
 #!/bin/sh
 # Cherrycake command console CLI interface
 # Copyright Tin.cat 2014
-php -f ./cli.php $1
+php -f ./cli.php $@
