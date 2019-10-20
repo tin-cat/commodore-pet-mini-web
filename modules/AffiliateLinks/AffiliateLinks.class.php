@@ -25,6 +25,7 @@ class AffiliateLinks extends \Cherrycake\Module {
     
     function getLink($key) {
         global $e;
+
         $location = $e->Locale->guessLocation();
         if (!$location)
             $countryCode = $this->getConfig("defaultCountryCode");
@@ -33,14 +34,14 @@ class AffiliateLinks extends \Cherrycake\Module {
         
         // If found, return the link for the detected country
         if ($link = $this->getLinkForCountryCode($key, $countryCode))
-            return $link;
+            return $this->getHtmlLink($link, $this->getTitle($key));
 
         // If no link for the detected country has been found, return the default country one
-        return $this->getLinkForCountryCode($key, $this->getConfig("defaultCountryCode"));
+        return $this->getHtmlLink($this->getLinkForCountryCode($key, $this->getConfig("defaultCountryCode")), $title);
     }
 
     function getLinkForCountryCode($key, $countryCode) {
-        $linkData = $this->getConfig("links")[$key];
+        $linkData = $this->getConfig("links")[$key]["linkData"];
         foreach ($linkData as $countryVariant) {
             if (!in_array($countryCode, $countryVariant["countryCodes"]))
                 continue;
@@ -49,5 +50,14 @@ class AffiliateLinks extends \Cherrycake\Module {
         }
         return false;
     }
+
+	function getTitle($key) {
+		$linkData = $this->getConfig("links")[$key];
+		return $linkData["title"];
+	}
+
+	function getHtmlLink($href, $title) {
+		return "<a href=\"".$href."\" data-linkInfo=\"paid\">".$title."</a>";
+	}
 
 }

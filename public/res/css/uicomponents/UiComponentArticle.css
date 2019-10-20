@@ -17,6 +17,24 @@
     white-space: nowrap;
 }
 
+.UiComponentArticle a[data-linkInfo] {
+	position: relative;
+}
+
+.UiComponentArticle a[data-linkInfo]:after {
+	content: attr(data-linkInfo);
+	font-size: 75%;
+	line-height: 0;
+	position: relative;
+	top: -0.5em;
+	margin-left: .5em;
+	color: #999;
+}
+
+.UiComponentArticle .disclaimer {
+	opacity: .5;
+}
+
 .UiComponentArticle > .image.framed > img {
     background: <?= $colorPalette["defaultAccentColor"]; ?>;
 }
