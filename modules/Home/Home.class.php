@@ -37,7 +37,7 @@ class Home extends \Cherrycake\Module {
 		global $e;
 		$e->Actions->mapAction(
 			"homePage",
-			new \Cherrycake\Action([
+			new \Cherrycake\ActionHtml([
 				"moduleType" => \Cherrycake\ACTION_MODULE_TYPE_APP,
 				"moduleName" => "Home",
 				"methodName" => "homePage",

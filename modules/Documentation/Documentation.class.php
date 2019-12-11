@@ -38,7 +38,7 @@ class Documentation extends \Cherrycake\Module {
         
 		$e->Actions->mapAction(
 			"documentationPage",
-			new \Cherrycake\Action([
+			new \Cherrycake\ActionHtml([
 				"moduleType" => \Cherrycake\ACTION_MODULE_TYPE_APP,
 				"moduleName" => "Documentation",
 				"methodName" => "viewPage",
@@ -62,7 +62,7 @@ class Documentation extends \Cherrycake\Module {
         
         $e->Actions->mapAction(
 			"documentationSubPage",
-			new \Cherrycake\Action([
+			new \Cherrycake\ActionHtml([
 				"moduleType" => \Cherrycake\ACTION_MODULE_TYPE_APP,
 				"moduleName" => "Documentation",
 				"methodName" => "viewSubPage",

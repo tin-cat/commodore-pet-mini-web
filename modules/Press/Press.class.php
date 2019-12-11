@@ -37,7 +37,7 @@ class Press extends \Cherrycake\Module {
 		global $e;
 		$e->Actions->mapAction(
 			"press",
-			new \Cherrycake\Action([
+			new \Cherrycake\ActionHtml([
 				"moduleType" => \Cherrycake\ACTION_MODULE_TYPE_APP,
 				"moduleName" => "Press",
 				"methodName" => "home",

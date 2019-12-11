@@ -37,7 +37,7 @@ class Goodies extends \Cherrycake\Module {
 		global $e;
 		$e->Actions->mapAction(
 			"goodies",
-			new \Cherrycake\Action([
+			new \Cherrycake\ActionHtml([
 				"moduleType" => \Cherrycake\ACTION_MODULE_TYPE_APP,
 				"moduleName" => "Goodies",
 				"methodName" => "home",
