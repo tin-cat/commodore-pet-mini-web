@@ -14,7 +14,7 @@ $UserBuildsConfig = [
 	"builds" => [
 		[
             "serialNumber" => 7,
-            "name" => "Max Sernesi",
+            "name" => "Massimo 'Max' Sernesi",
             "date" => mktime(0, 0, 0, 12, 10, 2019),
             "text" => "I enjoyed a lot building this little PET, I have a regular working one, and his little brother is so cute. So cute that I had to build another one for a friend &hellip; Hardest part is the display cable: building it with pins, connectors and thin cables is easy but boring work. I have decided to keep the 3D print raw appearance, but I didn't like the all black keyboard, so I painted it like a real 8032 PET, a good result, I think. I've also used a common barrel connector so I can use an old no-USB power supply. <blockquote>Max has contributed ideas to create printable keycaps for an astounding looking mini keyboard and a serial plaque that makes his PET Mini unique!</blockquote>"
         ],
