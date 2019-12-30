@@ -13,6 +13,12 @@ namespace Cherrycake;
 $UserBuildsConfig = [
 	"builds" => [
 		[
+            "serialNumber" => 8,
+            "name" => "Massimo 'Max' Sernesi",
+            "date" => mktime(0, 0, 0, 12, 17, 2019),
+            "text" => "I send you the photos of the last minipet I made. I have build 3 in total, this one will be put on the market probably via eBay, then I end the production. This one have audio capabilities also. It’s a fun project and a joy to build, but it need patience and some skill for a good result. In the two last models I have put two tiny screws to keep closed the monitor."
+        ],
+		[
             "serialNumber" => 7,
             "name" => "Massimo 'Max' Sernesi",
             "date" => mktime(0, 0, 0, 12, 10, 2019),
