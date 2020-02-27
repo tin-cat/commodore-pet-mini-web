@@ -19,8 +19,8 @@ $CacheConfig = [
 			"providerClassName" => "CacheProviderRedis",
 			"config" => [
 				"scheme" => "tcp",
-				"host" => "localhost",
-				"port" => 6379,
+				"host" => "redis", // Example: localhost
+				"port" => 6379, // Example: 6379
 				"database" => 0,
 				"prefix" => "CherrycakeApp:"
 			]

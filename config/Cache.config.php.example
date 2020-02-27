@@ -1,0 +1,29 @@
+<?php
+
+/**
+ * Cache config
+ *
+ * Holds the configuration for the Cache module
+ *
+ * @package CherrycakeApp
+ */
+
+namespace Cherrycake;
+
+$CacheConfig = [
+	"providers" => [
+		"fast" => [
+			"providerClassName" => "CacheProviderApcu"
+		],
+		"huge" => [
+			"providerClassName" => "CacheProviderRedis",
+			"config" => [
+				"scheme" => "tcp",
+				"host" => "[replace_with_your_redis_host]", // Example: localhost
+				"port" => [replace_with_your_redis_port], // Example: 6379
+				"database" => 0,
+				"prefix" => "CherrycakeApp:"
+			]
+		]
+	]
+];

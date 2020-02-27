@@ -8,7 +8,7 @@
         Check out the <a href="#0001">Commodore PET Mini Serial No.0001 by Vince Weaver</a>, Chuck Peddle itself got it on his hands and there's a photo proving it!
     </p>
 
-    <?
+    <?php
         $userBuilds = $e->UserBuilds->getUserBuilds();
         foreach ($userBuilds as $userBuild) {
             ?>
@@ -20,18 +20,18 @@
                 </p>
                 <?=($userBuild->getText() ? "<p>".$userBuild->getText()."</p>" : null)?>
                 
-            <?
+            <?php
 
             if ($images = $userBuild->getImages()) {
-                ?><div class="images columns threeColumns gap alignVerticalTop"><?
+                ?><div class="images columns threeColumns gap alignVerticalTop"><?php
                 foreach ($images as $image) {
                     ?>
                         <a class="image" href="<?=$image["fullSizeUrl"]?>" target="zoomedImage">
                             <img src="<?=$image["thumbnailUrl"]?>" />
                         </a>
-                    <?
+                    <?php
                 }
-                ?></div><?
+                ?></div><?php
             }
         }
     ?>

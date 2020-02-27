@@ -11,7 +11,7 @@
 namespace Cherrycake;
 
 $JanitorConfig = [
-	"key" => "", // The key string needed to run janitor tasks.
+	"key" => "[replace_with_your_janitor_key]", // The key string needed to run janitor tasks.
 	"logDatabaseProviderName" => "main", // The name of the DatabaseProvider to use for storing Janitor log
 	"cherrycakeJanitorTasks" => [ // An array of names of Cherrycake JanitorTask classes to be run
 		"JanitorTaskJanitorPurge",

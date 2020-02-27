@@ -77,7 +77,7 @@ class PrepareBasic extends \Cherrycake\Module {
 
 		// Go through the documentationPages config array and add the options to the main section of  UiComponentPanel
 		$documentationPages = $this->getConfig("documentationPages");
-		while (list($pageName, $pageSetup) = each($documentationPages)) {
+		foreach ($documentationPages as $pageName => $pageSetup) {
 			if (!is_array($pageSetup["subPages"])) {
 
 				$e->Ui->uiComponents["UiComponentPanel"]->addBlock(
@@ -99,13 +99,13 @@ class PrepareBasic extends \Cherrycake\Module {
 			else {
 
 				unset($subOptions);
-				while(list($subPageName, $subPageSetup) = each($pageSetup["subPages"])) {
+				foreach ($pageSetup["subPages"] as $subPageName => $subPageSetup) {
 					if (is_null($subPageSetup))
 						continue;
 					$subOptions[$subPageName] =
 						\Cherrycake\UiComponentMenuOption::build([
-							"title" => $subPageSetup["title"],
-							"iconName" => $subPageSetup["iconName"],
+							"title" => isset($subPageSetup["title"]) ? $subPageSetup["title"] : false,
+							"iconName" => isset($subPageSetup["iconName"]) ? $subPageSetup["iconName"] : false,
 							"iconVariant" => "white",
 							"href" => $e->Actions->getAction("documentationSubPage")->request->buildUrl([
 								"parameterValues" => [

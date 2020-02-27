@@ -1,0 +1,6 @@
+composer.lock
+
+# Annoying files
+.DS_Store
+thumbs.db
+._*

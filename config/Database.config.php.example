@@ -16,10 +16,10 @@ $DatabaseConfig = [
 			"providerClassName" => "DatabaseProviderMysql",
 			"resultClassName" => "DatabaseResultMysql",
 			"config" => [
-				"host" => "localhost",
-				"user" => "",
-				"password" => "",
-				"database" => "cherrycake-skeleton",
+				"host" => "[replace_with_your_database_host]",
+				"user" => "[replace_with_your_database_user]",
+				"password" => "[replace_with_your_database_password]",
+				"database" => "[replace_with_your_database_name]",
 				"charset" => "utf8mb4",
 				"cacheProviderName" => "huge"
 			]

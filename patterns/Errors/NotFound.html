@@ -1,6 +1,6 @@
 <?= $e->HtmlDocument->Header() ?>
 
-<?
+<?php
 	// Choose a random error gif
 	if ($handler = opendir('res/img/errorgifs')) {
 		while (false !== ($file = readdir($handler))) {
@@ -13,9 +13,9 @@
 	$errorGif = $errorGifs[rand(0, sizeof($errorGifs)-1)];
 ?>
 
-<div class="errorPage" style="background-image: url('/res/img/errorgifs/<?= $errorGif ?>');">
+<div class="errorPage" style="background-image: url('/res/img/errorgifs/<?= $errorGif ?? false ?>');">
 	<h1>
-		<?
+		<?php
 			echo
 				$errorDescription
 				?
