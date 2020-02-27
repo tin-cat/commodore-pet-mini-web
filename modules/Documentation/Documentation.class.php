@@ -100,9 +100,6 @@ class Documentation extends \Cherrycake\Module {
         
         $documentationPatternFileName = "Documentation/".$request->pageName.".html";
 
-        if (!$e->Patterns->isPatternExists($documentationPatternFileName))
-            return false;
-
         $e->Stats->trigger(new \CherrycakeApp\StatsEventDocumentationPageView([
             "pageName" => $request->pageName
         ]));
@@ -115,6 +112,8 @@ class Documentation extends \Cherrycake\Module {
 			"mainOptionSelected" => $request->pageName,
 			"isAllMainOptionsOpen" => true
 		]);
+
+		return true;
     }
     
     /**
@@ -124,9 +123,6 @@ class Documentation extends \Cherrycake\Module {
 		global $e;
         
         $documentationPatternFileName = "Documentation/".$request->sectionName."/".$request->pageName.".html";
-
-        if (!$e->Patterns->isPatternExists($documentationPatternFileName))
-            return false;
         
         $e->Stats->trigger(new \CherrycakeApp\StatsEventDocumentationPageView([
             "pageName" => $request->section."/".$request->pageName
@@ -137,5 +133,7 @@ class Documentation extends \Cherrycake\Module {
             "mainOptionSelected" => $request->sectionName,
 			"mainSubOptionSelected" => $request->pageName
 		]);
+
+		return true;
 	}
 }

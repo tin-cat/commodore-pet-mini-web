@@ -15,7 +15,18 @@
 				<a name="<?=$userBuild->getSerialNumber()?>"></a>
                 <h3>Serial No.<?=$userBuild->getSerialNumber()?></h3>
                 <p>
-                    <b>Build by <? if ($userBuild->getUrl()){ ?><a href="<?=$userBuild->getUrl()?>" target="builder"><?=$userBuild->getName()?></a><? }else{ ?><?=$userBuild->getName()?><?}?></b><br>
+                    <b>Build by <?php
+						if ($userBuild->getUrl()){
+							?>
+								<a href="<?=$userBuild->getUrl()?>" target="builder">
+									<?=$userBuild->getName()?>
+								</a>
+							<?php
+						}else{
+							?>
+								<?=$userBuild->getName()?>
+						<?php }?>
+					</b><br>
                     <b>Date</b> <?=$userBuild->getDate()?><br>
                 </p>
                 <?=($userBuild->getText() ? "<p>".$userBuild->getText()."</p>" : null)?>

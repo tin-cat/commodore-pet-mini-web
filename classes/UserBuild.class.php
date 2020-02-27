@@ -26,7 +26,7 @@ class UserBuild extends \Cherrycake\BasicObject {
     }
 
     function getUrl() {
-        return $this->url;
+        return $this->url ?? false;
     }
 
     function getDate() {
