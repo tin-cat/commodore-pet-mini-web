@@ -36,11 +36,11 @@ class Contribute extends \Cherrycake\Module {
 	public static function mapActions() {
 		global $e;
 		$e->Actions->mapAction(
-			"contribute",
+			"howToContribute",
 			new \Cherrycake\ActionHtml([
 				"moduleType" => \Cherrycake\ACTION_MODULE_TYPE_APP,
 				"moduleName" => "Contribute",
-				"methodName" => "home",
+				"methodName" => "howToContribute",
 				"request" => new \Cherrycake\Request([
 					"pathComponents" => [
                         new \Cherrycake\RequestPathComponent([
@@ -51,17 +51,122 @@ class Contribute extends \Cherrycake\Module {
 				])
 			])
 		);
+
+		$e->Actions->mapAction(
+			"contributionKeycaps",
+			new \Cherrycake\ActionHtml([
+				"moduleType" => \Cherrycake\ACTION_MODULE_TYPE_APP,
+				"moduleName" => "Contribute",
+				"methodName" => "contributionKeycaps",
+				"request" => new \Cherrycake\Request([
+					"pathComponents" => [
+                        new \Cherrycake\RequestPathComponent([
+							"type" => \Cherrycake\REQUEST_PATH_COMPONENT_TYPE_FIXED,
+							"string" => "contribute"
+                        ]),
+						new \Cherrycake\RequestPathComponent([
+							"type" => \Cherrycake\REQUEST_PATH_COMPONENT_TYPE_FIXED,
+							"string" => "keycaps"
+                        ])
+                    ]
+				])
+			])
+		);
+
+		$e->Actions->mapAction(
+			"contributionHDMIMod",
+			new \Cherrycake\ActionHtml([
+				"moduleType" => \Cherrycake\ACTION_MODULE_TYPE_APP,
+				"moduleName" => "Contribute",
+				"methodName" => "contributionHDMIMod",
+				"request" => new \Cherrycake\Request([
+					"pathComponents" => [
+                        new \Cherrycake\RequestPathComponent([
+							"type" => \Cherrycake\REQUEST_PATH_COMPONENT_TYPE_FIXED,
+							"string" => "contribute"
+                        ]),
+						new \Cherrycake\RequestPathComponent([
+							"type" => \Cherrycake\REQUEST_PATH_COMPONENT_TYPE_FIXED,
+							"string" => "hdmi-mod"
+                        ])
+                    ]
+				])
+			])
+		);
+
+		$e->Actions->mapAction(
+			"contributionKeyboardGamePad",
+			new \Cherrycake\ActionHtml([
+				"moduleType" => \Cherrycake\ACTION_MODULE_TYPE_APP,
+				"moduleName" => "Contribute",
+				"methodName" => "keyboardGamePad",
+				"request" => new \Cherrycake\Request([
+					"pathComponents" => [
+                        new \Cherrycake\RequestPathComponent([
+							"type" => \Cherrycake\REQUEST_PATH_COMPONENT_TYPE_FIXED,
+							"string" => "contribute"
+                        ]),
+						new \Cherrycake\RequestPathComponent([
+							"type" => \Cherrycake\REQUEST_PATH_COMPONENT_TYPE_FIXED,
+							"string" => "keyboard-gamepad"
+                        ])
+                    ]
+				])
+			])
+		);
 	}
 
 	/**
-	 * Outputs the home page
+	 * Outputs the howToContribute
 	 * @return boolean True if the request could be attended, false otherwise.
 	 */
-	function home() {
+	function howToContribute() {
 		global $e;
 		$e->Ui->uiComponents["UiComponentPanel"]->setOutputResponse([
-			"content" => $e->Patterns->parse("Contribute/Home.html"),
+			"content" => $e->Patterns->parse("Contribute/HowToContribute.html"),
 			"mainOptionSelected" => "contribute"
+		]);
+		return true;
+	}
+
+	/**
+	 * Outputs the contributionKeycaps
+	 * @return boolean True if the request could be attended, false otherwise.
+	 */
+	function contributionKeycaps() {
+		global $e;
+		$e->Ui->uiComponents["UiComponentPanel"]->setOutputResponse([
+			"content" => $e->Patterns->parse("Contribute/Keycaps.html"),
+			"mainOptionSelected" => "contribute",
+			"mainSubOptionSelected" => "keycaps"
+		]);
+		return true;
+	}
+
+	/**
+	 * Outputs the contributionHDMIMod
+	 * @return boolean True if the request could be attended, false otherwise.
+	 */
+	function contributionHDMIMod() {
+		global $e;
+		$e->Ui->uiComponents["UiComponentPanel"]->setOutputResponse([
+			"content" => $e->Patterns->parse("Contribute/HDMIMod.html"),
+			"mainOptionSelected" => "contribute",
+			"mainSubOptionSelected" => "hdmiMod"
+		]);
+		return true;
+	}
+
+	/**
+	 * Outputs the keyboardGamePad
+	 * @return boolean True if the request could be attended, false otherwise.
+	 */
+	function keyboardGamePad() {
+		global $e;
+		$e->Ui->uiComponents["UiComponentPanel"]->setOutputResponse([
+			"content" => $e->Patterns->parse("Contribute/KeyboardGamePad.html"),
+			"mainOptionSelected" => "contribute",
+			"mainSubOptionSelected" => "keyboardGamePad"
 		]);
 		return true;
 	}

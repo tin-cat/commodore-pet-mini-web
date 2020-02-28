@@ -1,0 +1,19 @@
+<article class="UiComponentArticle isolated">
+
+	<h1>HDMI Mod</h1>
+	<h2>Contributed by <a href="/user-builds#0009" class="contributor">Matthias Prögel</a> (Bavaria)</h2>
+
+    <p>
+        Matthias took the SPI display refresh rate issue seriously and decided to use an HDMI screen instead, which completely solves <a href="<?= $e->Actions->getAction("documentationSubPage")->request->buildUrl(["parameterValues" => ["sectionName" => "building", "pageName" => "install-screen-drivers"]]) ?>">the framerate issue</a> and even spares you the hassle of creating <a href="<?= $e->Actions->getAction("documentationSubPage")->request->buildUrl(["parameterValues" => ["sectionName" => "building", "pageName" => "wiring-screen"]]) ?>">the messy display cable</a>.
+	</p>
+
+	<p>
+		The display he used is the <?=$e->AffiliateLinks->getLink("HdmiDisplay")?>, and here's a perfect <?=$e->AffiliateLinks->getLink("HdmiCable")?> for the job.
+	</p>
+
+	<div class="image isolated">
+        <img src="/res/img/hdmimod.jpg" />
+        <div class="title">You can see here how Matthias got the HDMI working: He's taking power from the Raspberry pins with some cables, and a short and flexible HDMI replaces the messy SPI cable.</div>
+    </div>
+
+</article>

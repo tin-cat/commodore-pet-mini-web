@@ -130,18 +130,6 @@ class PrepareBasic extends \Cherrycake\Module {
 			}
 		}
 
-		$e->Ui->uiComponents["UiComponentPanel"]->addBlocks(
-			"main",
-			[
-				"userBuilds" => \Cherrycake\UiComponentMenuOption::build([
-					"title" => "Builds",
-					"iconName" => "builds",
-					"iconVariant" => "white",
-					"href" => $e->Actions->getAction("userBuilds")->request->buildUrl()
-				])
-			]
-		);
-
 		/*
 		$e->Ui->uiComponents["UiComponentPanel"]->addBlocks(
 			"main",
@@ -159,11 +147,40 @@ class PrepareBasic extends \Cherrycake\Module {
 		$e->Ui->uiComponents["UiComponentPanel"]->addBlocks(
 			"main",
 			[
-				"contribute" => \Cherrycake\UiComponentMenuOption::build([
-					"title" => "Contribute",
+				"contribute" => \Cherrycake\UiComponentMenuOptionWithSuboptions::build([
+					"title" => "Contributions",
 					"iconName" => "contribute",
 					"iconVariant" => "white",
-					"href" => $e->Actions->getAction("contribute")->request->buildUrl()
+					"subOptions" => [
+						"keycaps" => \Cherrycake\UiComponentMenuOption::build([
+							"title" => "Keycap labels",
+							"href" => $e->Actions->getAction("contributionKeycaps")->request->buildUrl()
+						]),
+						"hdmiMod" => \Cherrycake\UiComponentMenuOption::build([
+							"title" => "HDMI mod",
+							"href" => $e->Actions->getAction("contributionHDMIMod")->request->buildUrl()
+						]),
+						"keyboardGamePad" => \Cherrycake\UiComponentMenuOption::build([
+							"title" => "Keyboard game pad",
+							"href" => $e->Actions->getAction("contributionKeyboardGamePad")->request->buildUrl()
+						]),
+						"howToContribute" => \Cherrycake\UiComponentMenuOption::build([
+							"title" => "How to contribute",
+							"href" => $e->Actions->getAction("howToContribute")->request->buildUrl()
+						])
+					]
+				])
+			]
+		);
+
+		$e->Ui->uiComponents["UiComponentPanel"]->addBlocks(
+			"main",
+			[
+				"userBuilds" => \Cherrycake\UiComponentMenuOption::build([
+					"title" => "Builds",
+					"iconName" => "builds",
+					"iconVariant" => "white",
+					"href" => $e->Actions->getAction("userBuilds")->request->buildUrl()
 				])
 			]
 		);

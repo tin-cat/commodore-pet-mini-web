@@ -736,6 +736,72 @@ $AffiliateLinksConfig = [
 					"link" => "https://amzn.to/2DmdwJb"
 				]
         	]
+		],
+		"HdmiDisplay" => [
+			"title" => "Waveshare 3,5 inch Raspberry Pi Resistive Touchscreen HDMI LCD Display 480x320 IPS",
+			"linkData" => [
+				[
+					"countryCodes" => ["ES", "AD", "PT"],
+					"link" => "https://amzn.to/2I2tgT9"
+				],
+				[
+					"countryCodes" => ["US"],
+					"link" => "https://amzn.to/32zKZL4"
+				],
+				[
+					"countryCodes" => ["FR", "LU", "BE", "CH"],
+					"link" => "https://amzn.to/2uCeLlY"
+				],
+				[
+					"countryCodes" => ["UK", "IE"],
+					"link" => "https://amzn.to/32zKZL4"
+				],
+				[
+					"countryCodes" => ["DE", "PL", "CZ", "AT"],
+					"link" => "https://amzn.to/32zKZL4"
+				],
+				[
+					"countryCodes" => ["IT"],
+					"link" => "https://amzn.to/2I2tgT9"
+				],
+				[
+					"countryCodes" => ["CA"],
+					"link" => "https://amzn.to/32zKZL4"
+				]
+        	]
+		],
+		"HdmiCable" => [
+			"title" => "Flat, short and flexible HDMI cable",
+			"linkData" => [
+				[
+					"countryCodes" => ["ES", "AD", "PT"],
+					"link" => "https://amzn.to/3872AeH"
+				],
+				[
+					"countryCodes" => ["US"],
+					"link" => "https://amzn.to/2TjejRY"
+				],
+				[
+					"countryCodes" => ["FR", "LU", "BE", "CH"],
+					"link" => "https://amzn.to/2PxG9sw"
+				],
+				[
+					"countryCodes" => ["UK", "IE"],
+					"link" => "https://amzn.to/3872AeH"
+				],
+				[
+					"countryCodes" => ["DE", "PL", "CZ", "AT"],
+					"link" => "https://amzn.to/3872AeH"
+				],
+				[
+					"countryCodes" => ["IT"],
+					"link" => "https://amzn.to/3872AeH"
+				],
+				[
+					"countryCodes" => ["CA"],
+					"link" => "https://amzn.to/2TjejRY"
+				]
+        	]
 		]
     ]
 ];
