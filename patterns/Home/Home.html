@@ -17,7 +17,7 @@
         This project is based on the <a href="https://en.wikipedia.org/wiki/Commodore_PET" target="wikipedia">Commodore PET model 8032</a>. You'll 3D print a case that contains a Raspberry Pi computer and a tiny screen to emulate the almighty PET (and many other computers and game consoles). It has been carefully designed to be as accurate as possible to the original design, all the connections are made on the back panel and it even hinges upwards to reveal its guts, just like the original!
     </p>
 
-    <?=\Cherrycake\UiComponentButton::build([
+    <?= \Cherrycake\UiComponentButton::build([
         "title" => "Build your own!",
         "additionalCssClasses" => "big isolated accent",
         "isCentered" => true,
@@ -27,7 +27,7 @@
                 "pageName" => "what-you-need"
             ]
         ])
-    ])?>
+    ]) ?>
 
 	<p>
 		<a href="https://www.commodore.ca/commodore-history/the-legendary-chuck-peddle-inventor-of-the-personal-computer/" target="external">Chuck Peddle</a>, the designer of the authentic Commodore PET and the 6502 microprocessor, sadly passed away on december 2019. The genius in his designs will remain as a cornerstone of the personal computer revolution.
@@ -35,11 +35,17 @@
 
 	<div class="image isolated">
         <img src="http://commodorepetmini.com.buzz/res/builds/1/0_IMG_4093.JPG" title="Chuck Peddle holding the Commodoer PET Mini serial number 0001" />
-		<div class="title">Chuck Peddle himself took a photo with the Commodore PET Mini <a href="<?=$e->Actions->getAction("userBuilds")->request->buildUrl(["anchor" => "0001"])?>">serial number 0001</a>, while at an exhibition at the University of Maine.</div>
+		<div class="title">Chuck Peddle himself took a photo with the Commodore PET Mini <a href="<?= $e->Actions->getAction("userBuilds")->request->buildUrl(["anchor" => "0001"]) ?>">serial number 0001</a>, while at an exhibition at the University of Maine.</div>
     </div>
 
+	<!--
+    <p>
+        Check out the Commodore PET Mini <a href="<?= $e->Actions->getAction("userBuilds")->request->buildUrl(["anchor" => "0001"]) ?>">serial number 0001</a>, which has been showcased in an exhibition at the University of Maine where <a href="https://www.commodore.ca/commodore-history/the-legendary-chuck-peddle-inventor-of-the-personal-computer/" target="external">Chuck Peddle</a> himself, the designer of the authentic Commodore PET and the 6502 microprocessor, attended and took a photo holding with it!
+    </p>
+	-->
+
     <div class="video isolated">
-        <iframe src="https://www.youtube.com/embed/<?=YOUTUBE_INTRO_CODE?>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/<?= YOUTUBE_INTRO_CODE ?>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     </div>
 
     <div class="image isolated">
@@ -47,7 +53,7 @@
     </div>
 
     <div class="video isolated">
-        <iframe src="https://www.youtube.com/embed/<?=YOUTUBE_INTRO_2_CODE?>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/<?= YOUTUBE_INTRO_2_CODE ?>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     </div>
 
     <div class="image isolated">
