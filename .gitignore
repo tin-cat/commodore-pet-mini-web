@@ -10,7 +10,7 @@ config/Cache.config.php
 config/Janitor.config.php
 
 # Vendor directory is ignored since it's managed by composer
-/vendor
+vendor
 
 # Do not track load.php, since it has to be manually created from load.php.example
 load.php
