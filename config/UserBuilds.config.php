@@ -13,6 +13,12 @@ namespace Cherrycake;
 $UserBuildsConfig = [
 	"builds" => [
 		[
+            "serialNumber" => 10,
+            "name" => "Matthias Prögel (Bavaria)",
+            "date" => mktime(0, 0, 0, 2, 28, 2020),
+            "text" => "Matthias has built a second Commodore PET Mini and contributed an HDMI mod and this gorgeous keyboard-based gamepad."
+        ],
+		[
             "serialNumber" => 9,
             "name" => "Matthias Prögel (Bavaria)",
             "date" => mktime(0, 0, 0, 1, 17, 2020),

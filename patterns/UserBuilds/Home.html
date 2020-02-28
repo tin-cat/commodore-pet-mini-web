@@ -1,8 +1,8 @@
 <article class="UiComponentArticle isolated">
 
-    <h2>Builds</h2>
+    <h1>Builds</h1>
     <p>
-        <a href="mailto:<?=EMAIL?>">Send me a photo</a> of your PET and I will feature it here! Include your name, a link and some message for PET fans and I will publish it here along with your photo.
+        <a href="mailto:<?=EMAIL?>">Send me some photos</a> of your PET along with your name, a link and a message for PET fans and it will be assigned an official serial number and published here.
     </p>
 	<p>
         Check out the <a href="#0001">Commodore PET Mini Serial No.0001 by Vince Weaver</a>, Chuck Peddle itself got it on his hands and there's a photo proving it!
@@ -12,8 +12,9 @@
         $userBuilds = $e->UserBuilds->getUserBuilds();
         foreach ($userBuilds as $userBuild) {
             ?>
+				<hr>
 				<a name="<?=$userBuild->getSerialNumber()?>"></a>
-                <h3>Serial No.<?=$userBuild->getSerialNumber()?></h3>
+                <h2>Serial No.<?=$userBuild->getSerialNumber()?></h2>
                 <p>
                     <b>Build by <?php
 						if ($userBuild->getUrl()){
