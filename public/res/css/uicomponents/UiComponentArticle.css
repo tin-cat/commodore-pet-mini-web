@@ -105,3 +105,40 @@
 .UiComponentArticle > hr {
     border-bottom: dotted rgba(0, 0, 0, 0.2) 5px;
 }
+
+.UiComponentArticle > .image > .overlay {
+	position: absolute;
+	background: rgba(0, 0, 0, 0.5);
+	border-radius: 10px;
+	padding: 15px 20px;
+}
+
+.UiComponentArticle > .image > a.overlay:hover {
+	background: rgba(0, 0, 0, 1);
+	border-bottom-color: transparent;
+}
+
+.UiComponentArticle > .image > .overlay.center {
+	left: 50%;
+	top: 50%;
+	<?= $e->Css->buildUnsupportedProperty("transform", "translate(-50%, -50%)"); ?>
+}
+
+.UiComponentArticle > .image > .overlay.iconTitle {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.UiComponentArticle > .image > .overlay.iconTitle > .UiComponentIcon {
+	width: 60px;
+	height: 60px;
+	background-size: 60px;
+	<?= $e->Css->buildUnsupportedProperty("mask-size", "60px"); ?>
+}
+
+.UiComponentArticle > .image > .overlay.iconTitle > .title {
+	text-align: center;
+	color: #fff;
+}
