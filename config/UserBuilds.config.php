@@ -20,13 +20,13 @@ $UserBuildsConfig = [
         ],
 		[
             "serialNumber" => 10,
-            "name" => "Matthias Prögel (Bavaria)",
+            "name" => "Matthias \"Ba\" Prögel 🇩🇪",
             "date" => mktime(0, 0, 0, 2, 28, 2020),
             "text" => "Matthias has built a second Commodore PET Mini and contributed an HDMI mod and this gorgeous keyboard-based gamepad."
         ],
 		[
             "serialNumber" => 9,
-            "name" => "Matthias Prögel (Bavaria)",
+            "name" => "Matthias \"Ba\" Prögel 🇩🇪",
             "date" => mktime(0, 0, 0, 1, 17, 2020),
             "text" => "My PET mini has got a 3,5\" IPS HDMI display (it is way faster than LCD-screens with GPIO-connection) and built-in stereo speakers. You can change the volume from outside, I made different changes to the 3D-models for that (bigger cut out and different hooks for the screen and changes for speakers, amplifier, on/off-switch and power-connector). It was so much fun building this tiny little PET, and it looks like my Original CBM 4032 from 1980 (which is still working, but missing it's front sticker). Another one is in the making to improve more of the 3D-printed parts (cutouts for the HDMI-connector in the housing). I painted it in RAL9001, which is a creme-white color (as you mentioned to do). Next thing is constructing and printing a \"CBM-styled\"-controller for the games with cherry MX switches. I'm hoping that somebody can create a good model of the floppy-drive! That would be awesome!"
         ],
