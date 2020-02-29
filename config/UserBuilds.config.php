@@ -13,6 +13,12 @@ namespace Cherrycake;
 $UserBuildsConfig = [
 	"builds" => [
 		[
+            "serialNumber" => 11,
+            "name" => "Dr. Slump 🇮🇹",
+            "date" => mktime(0, 0, 0, 2, 29, 2020),
+            "text" => "I have a CBM PET 4032 currently under repair but I think when it is ready I will put it next to its brother to make it look beautiful."
+        ],
+		[
             "serialNumber" => 10,
             "name" => "Matthias Prögel (Bavaria)",
             "date" => mktime(0, 0, 0, 2, 28, 2020),
