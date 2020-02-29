@@ -41,14 +41,13 @@ h3 {
 	"maxWidthBreakpoint" => "tiny",
 	"css" => "
 		body {
-			font-size: 15pt;
+			
 		}
 		h1 {
-			font-size: 25pt;
-			letter-spacing: -1px;
+			font-size: 22pt;
 		}
 		h2 {
-			font-size: 18pt;
+			font-size: 16pt;
 		}
 		h3 {
 			font-size: 15pt;

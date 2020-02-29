@@ -23,7 +23,7 @@ $HtmlDocumentConfig = [
 	"mobileViewport" => [ // Configuration for the site when viewed in a mobile device, via the viewport meta
 		"width" => "device-width", // The width of the viewport: A number of pixels, or "device-width"
 		"userScalable" => true, // Optional, whether or not to let the user pinch to zoom in/out
-		"initialScale" => 0.75, // Optional, the initial scale
+		"initialScale" => 1, // Optional, the initial scale
 		"maximumScale" => 2 // Optional, the maximum scale
 	],
 	"microsoftApplicationInfo" => [ // Application info for Microsoft standards (i.e: When adding the web as a shortcut in Windows 8)
