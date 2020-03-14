@@ -14,7 +14,8 @@ $UserBuildsConfig = [
 	"builds" => [
 		[
             "serialNumber" => 11,
-            "name" => "Dr. Slump 🇮🇹",
+            "name" => "Cristiano - Dr. Slump - Rosadini 🇮🇹",
+			"url" => "https://www.classicdevicesclub.it",
             "date" => mktime(0, 0, 0, 2, 29, 2020),
             "text" => "I have a CBM PET 4032 currently under repair but I think when it is ready I will put it next to its brother to make it look beautiful."
         ],
