@@ -37,7 +37,7 @@ class AffiliateLinks extends \Cherrycake\Module {
             return $this->getHtmlLink($link, $this->getTitle($key));
 
         // If no link for the detected country has been found, return the default country one
-        return $this->getHtmlLink($this->getLinkForCountryCode($key, $this->getConfig("defaultCountryCode")), $title);
+        return $this->getHtmlLink($this->getLinkForCountryCode($key, $this->getConfig("defaultCountryCode")), $this->getTitle($key));
     }
 
     function getLinkForCountryCode($key, $countryCode) {
