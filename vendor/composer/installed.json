@@ -110,21 +110,7 @@
                 "name": "Brent R. Matzelle"
             }
         ],
-        "description": "PHPMailer is a full-featured email creation and transfer class for PHP",
-        "funding": [
-            {
-                "url": "https://marcus.bointon.com/donations/",
-                "type": "custom"
-            },
-            {
-                "url": "https://github.com/Synchro",
-                "type": "github"
-            },
-            {
-                "url": "https://www.patreon.com/marcusbointon",
-                "type": "patreon"
-            }
-        ]
+        "description": "PHPMailer is a full-featured email creation and transfer class for PHP"
     },
     {
         "name": "predis/predis",
@@ -185,12 +171,12 @@
         "source": {
             "type": "git",
             "url": "https://github.com/tin-cat/cherrycake-engine.git",
-            "reference": "219aeef94c20731338a944b406b75e24edf361c9"
+            "reference": "846bb9990b2d919ea1a044212a9c3e2a2a0b4472"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/tin-cat/cherrycake-engine/zipball/219aeef94c20731338a944b406b75e24edf361c9",
-            "reference": "219aeef94c20731338a944b406b75e24edf361c9",
+            "url": "https://api.github.com/repos/tin-cat/cherrycake-engine/zipball/846bb9990b2d919ea1a044212a9c3e2a2a0b4472",
+            "reference": "846bb9990b2d919ea1a044212a9c3e2a2a0b4472",
             "shasum": ""
         },
         "require": {
@@ -202,9 +188,9 @@
         "suggest": {
             "mpdf/mpdf": "Provides server-side PDF creation capabilities"
         },
-        "time": "2020-02-29T11:29:45+00:00",
+        "time": "2020-04-15T16:19:15+00:00",
         "type": "library",
-        "installation-source": "dist",
+        "installation-source": "source",
         "notification-url": "https://packagist.org/downloads/",
         "license": [
             "MIT"

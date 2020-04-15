@@ -113,20 +113,6 @@
                 }
             ],
             "description": "PHPMailer is a full-featured email creation and transfer class for PHP",
-            "funding": [
-                {
-                    "url": "https://marcus.bointon.com/donations/",
-                    "type": "custom"
-                },
-                {
-                    "url": "https://github.com/Synchro",
-                    "type": "github"
-                },
-                {
-                    "url": "https://www.patreon.com/marcusbointon",
-                    "type": "patreon"
-                }
-            ],
             "time": "2020-03-14T14:23:48+00:00"
         },
         {
@@ -185,12 +171,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/tin-cat/cherrycake-engine.git",
-                "reference": "219aeef94c20731338a944b406b75e24edf361c9"
+                "reference": "846bb9990b2d919ea1a044212a9c3e2a2a0b4472"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tin-cat/cherrycake-engine/zipball/219aeef94c20731338a944b406b75e24edf361c9",
-                "reference": "219aeef94c20731338a944b406b75e24edf361c9",
+                "url": "https://api.github.com/repos/tin-cat/cherrycake-engine/zipball/846bb9990b2d919ea1a044212a9c3e2a2a0b4472",
+                "reference": "846bb9990b2d919ea1a044212a9c3e2a2a0b4472",
                 "shasum": ""
             },
             "require": {
@@ -221,7 +207,7 @@
                 "engine",
                 "framework"
             ],
-            "time": "2020-02-29T11:29:45+00:00"
+            "time": "2020-04-15T16:19:15+00:00"
         }
     ],
     "packages-dev": [],
@@ -233,6 +219,5 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],
-    "platform-dev": [],
-    "plugin-api-version": "1.1.0"
+    "platform-dev": []
 }

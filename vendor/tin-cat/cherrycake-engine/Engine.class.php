@@ -74,8 +74,6 @@ class Engine {
 
 		$this->appNamespace = $setup["namespace"];
 
-		$this->cache = new \Cherrycake\Cache;
-
 		if ($setup["additionalAppConfigFiles"])
 			foreach ($setup["additionalAppConfigFiles"] as $additionalAppConfigFile)
 				require APP_DIR."/config/".$additionalAppConfigFile;
@@ -86,6 +84,68 @@ class Engine {
 					return false;
 
 		return true;
+	}
+
+	/**
+	 * Builds a cache key based on the passed string or array of strings
+	 * 
+	 * @param mixed $key A string or an array of strings
+	 * @return string The string cache key
+	 */
+	private function buildCacheKey($key) {
+		return "CherrycakeEngine_".APP_NAME."_".is_array($key) ? implode("_", $key) : $key;
+	}
+
+	/**
+	 * Sets a key into the engine cache.
+	 * 
+	 * @param mixed $key A string or an array of strings
+	 * @param mixed $value The value to store in cache
+	 * @param int $ttl The TTL of the item in cache
+	 * @return boolean True on success, false on failure
+	 */
+	private function cacheStore($key, $value, $ttl = 0) {
+		if (!apcu_store($this->buildCacheKey($key), serialize($value), $ttl))
+			return false;
+		$keys = $this->cacheGetKeys();
+		if (!$keys || !in_array($key, $keys)) {
+			$keys[] = $key;
+			return apcu_store("CherrycakeEngine_".APP_NAME."_CachedKeys", serialize($keys), 0);
+		}
+		return true;
+	}
+
+	/**
+	 * Retrieves a value from the engine cache
+	 * 
+	 * @param mixed $key A string or an array of strings
+	 * @return mixed The value, null if it didn't exist or false in case of failure
+	 */
+	private function cacheFetch($key) {
+		$value = apcu_fetch($this->buildCacheKey($key));
+		if ($value === false)
+			return false;
+		return $value ? unserialize($value) : null;
+	}
+
+	/**
+	 * @return mixed An array of all the key names that have been stored in cache for this App, or false on failure.
+	 */
+	private function cacheGetKeys() {
+		$value = apcu_fetch("CherrycakeEngine_".APP_NAME."_CachedKeys");
+		if ($value === false)
+			return false;
+		return $value === false ? false : unserialize($value);
+	}
+
+	/**
+	 * Clears the entire engine cache
+	 */
+	function clearCache() {
+		$keys = $this->cacheGetKeys();
+		if (is_array($keys))
+			foreach ($keys as $key)
+				apcu_delete($this->buildCacheKey($key));
 	}
 
 	/**
@@ -139,22 +199,18 @@ class Engine {
 	 * @param string $nameSpace The namespace to use
 	 * @param string $modulesDirectory The directory where the specified module is stored
 	 * @param string $methodName the name of the method to check
-	 * @return array The module names that implement the specified method
+	 * @return array The module names that implement the specified method, o,r false if no modules found
 	 */
 	function getAvailableModuleNamesWithMethod($nameSpace, $modulesDirectory, $methodName) {
-		$cacheBucket = "AvailableModuleNamesWithMethod";
-		$cacheKey = [
-			$nameSpace,
-			$modulesDirectory,
-			$methodName
-		];
+		$cacheKey = ["AvailableModuleNamesWithMethod", $nameSpace, $modulesDirectory, $methodName];
+		$cacheTtl = IS_DEVEL_ENVIRONMENT ? 3 : 600;
 
-		$modulesWithMethod = $this->cache->getFromBucket($cacheBucket, $cacheKey);
+		$modulesWithMethod = $this->cacheFetch($cacheKey);
 		if (is_array($modulesWithMethod))
 			return $modulesWithMethod;
 	
 		if (!$moduleNames = $this->getAvailableModuleNamesOnDirectory($modulesDirectory)) {
-			$this->cache->setInBucket($cacheBucket, $cacheKey, []);
+			$this->cacheStore($cacheKey, [], $cacheTtl);
 			return false;
 		}
 
@@ -167,9 +223,9 @@ class Engine {
 			}
 		}
 
-		$this->cache->setInBucket($cacheBucket, $cacheKey, $modulesWithMethod ? $modulesWithMethod : []);
+		$this->cacheStore($cacheKey, $modulesWithMethod, $cacheTtl);
 
-		return $modulesWithMethod;
+		return $modulesWithMethod ?? false;
 	}
 
 	/**
@@ -240,7 +296,7 @@ class Engine {
 
 		$this->loadedModules[] = $moduleName;
 
-		$this->includeModuleClass($modulesDirectory, $moduleName);		
+		$this->includeModuleClass($modulesDirectory, $moduleName);
 
 		eval("\$this->".$moduleName." = new \\".$namespace."\\Modules\\".$moduleName."();");
 
@@ -322,7 +378,7 @@ class Engine {
 	 * Calls the specified static method on all the available Cherrycake and App modules where it's implemented, and then loads those modules
 	 * @param string $methodName The method name to call
 	 */
-	function callImplementedStaticMethodOnAllAvailableModulesAndLoad($methodName) {
+	function callMethodOnAllModules($methodName) {
 		// Call the static method
 		$cherrycakeModuleNames = $this->getAvailableCherrycakeModuleNamesWithMethod($methodName);
 		if (is_array($cherrycakeModuleNames)) {
@@ -441,11 +497,10 @@ class Engine {
 	 * Ends the application
 	 */
 	function end() {
-		$this->Output->sendResponse();
 		if (is_array($this->loadedModules))
 			foreach ($this->loadedModules as $moduleName)
 				$this->$moduleName->end();
-		
+		$this->clearCache();
 		die;
 	}
 }
