@@ -4,7 +4,7 @@
 	<h2><?= ($errorType == \Cherrycake\Modules\ERROR_SYSTEM ? "System error" : ($errorType == \Cherrycake\Modules\ERROR_APP ? "App error" : null)) ?></h2>
 	<?= ($errorDescription ? "<h3>".$errorDescription."</h3>" : null) ?>
 	<?php
-	if (\Cherrycake\IS_DEVEL_ENVIRONMENT) {
+	if ($e->isDevel()) {
 		echo "<hr><b>Backtrace:</b><ul>\n";
 		for ($i=0; $i<sizeof($backtrace)-1; $i++)
 		echo
@@ -17,7 +17,7 @@
 		echo "</ul>\n";
 	}
 
-	if (\Cherrycake\IS_DEVEL_ENVIRONMENT && is_array($errorVariables)) {
+	if ($e->isDevel() && is_array($errorVariables)) {
 		echo "<hr><b>Variables:</b><ul>";
 		while (list($key, $value) = each($errorVariables))
 		echo "<li><b>".$key."</b> ".$value."</li>";

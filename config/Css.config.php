@@ -10,14 +10,16 @@
 
 namespace Cherrycake;
 
+global $e;
+
 $CssConfig = [
 	"cacheTtl" => \Cherrycake\Modules\CACHE_TTL_LONGEST, // The TTL for CSS sets
 	"cacheProviderName" => "fast", // The cache provider for CSS sets
-	"isCache" => IS_CACHE, // The default value for isCache in each set
-	"isHttpCache" => IS_HTTP_CACHE, // Whether to send HTTP Cache headers or not
+	"isCache" => !$e->isDevel(), // The default value for isCache in each set
+	"isHttpCache" => false, // Whether to send HTTP Cache headers or not
 	"lastModifiedTimestamp" => mktime(4, 0, 0, 2, 29, 2020), // The global version
 	"httpCacheMaxAge" => \Cherrycake\Modules\CACHE_TTL_LONGEST,
-	"isMinify" => !IS_DEVEL_ENVIRONMENT,
+	"isMinify" => !$e->isDevel(),
 	"responsiveWidthBreakpoints" => [
 		"tiny" => 500,
 		"small" => 700,

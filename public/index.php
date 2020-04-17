@@ -17,12 +17,12 @@ $e = new \Cherrycake\Engine;
 
 // Inits the engine and runs the App if initting has gone ok.
 if ($e->init([
-	"namespace" => __NAMESPACE__,
+	"appNamespace" => __NAMESPACE__,
+	"appName" => "CommodorePetMini",
+	"isDevel" => in_array($_SERVER["HTTP_HOST"], ["commodorepetmini.com.buzz", "localhost"]),
+	"isUnderMaintenance" => false,
 	"baseCherrycakeModules" => [
-		"Output",
-		"Errors",
-		"Actions",
-		"Cache"
+		"Actions"
 	],
 	"additionalAppConfigFiles" => [
 		"App.config.php"
