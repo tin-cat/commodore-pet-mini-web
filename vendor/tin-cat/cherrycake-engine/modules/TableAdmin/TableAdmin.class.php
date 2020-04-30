@@ -18,9 +18,9 @@ namespace Cherrycake\Modules;
  */
 class TableAdmin extends \Cherrycake\Module {
 	/**
-	 * @var array $dependentCherrycakeModules Cherrycake module names that are required by this module
+	 * @var array $dependentCoreModules Core module names that are required by this module
 	 */
-	var $dependentCherrycakeModules = [
+	var $dependentCoreModules = [
 		"Login" // We make TableAdmin dependent of the Login module, because it loads the logged user, and the User object might very well set up some important things that will be most probably needed to format the data shown on the table via User::afterLoginInit, like setting the timezone of the user via Locale::setTimezone
 	];
 
@@ -44,11 +44,10 @@ class TableAdmin extends \Cherrycake\Module {
 		$e->Actions->mapAction(
 			"TableAdminGetRows",
 			new \Cherrycake\ActionAjax([
-				"moduleType" => \Cherrycake\ACTION_MODULE_TYPE_CHERRYCAKE,
+				"moduleType" => \Cherrycake\ACTION_MODULE_TYPE_CORE,
 				"moduleName" => "TableAdmin",
 				"methodName" => "getRows",
 				"request" => new \Cherrycake\Request([
-                    "isSecurityCsrf" => true,
 					"pathComponents" => [
 						new \Cherrycake\RequestPathComponent([
 							"type" => \Cherrycake\REQUEST_PATH_COMPONENT_TYPE_FIXED,
@@ -100,7 +99,7 @@ class TableAdmin extends \Cherrycake\Module {
      *  ],
      *  "preCheckCallback" => function() {
      *   global $e;
-     *   $e->loadCherrycakeModule("Login");
+     *   $e->loadCoreModule("Login");
      *   return $e->UserLogin->requireUserPermission("Master");
      *  },
      *  "additionalFillFromRequestParameters" => [

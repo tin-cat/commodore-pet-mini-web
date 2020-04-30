@@ -48,7 +48,8 @@ class DatabaseProvider {
 	 */
 	protected $config = [
 		"cacheKeyPrefix" => "Database",
-		"cacheDefaultTtl" => \Cherrycake\Modules\CACHE_TTL_NORMAL
+		"cacheDefaultTtl" => \Cherrycake\CACHE_TTL_NORMAL,
+		"cacheProviderName" => "engine"
 	];
 
 	/**
@@ -87,7 +88,7 @@ class DatabaseProvider {
 	 */
 	function init() {
 		global $e;
-		$e->loadCherrycakeModuleClass("Database", $this->resultClassName);
+		$e->loadCoreModuleClass("Database", $this->resultClassName);
 
 		return true;
 	}
@@ -100,6 +101,7 @@ class DatabaseProvider {
 	 * @param array $config The database provider parameters
 	 */
 	function config($config) {
+		echo "!"; die;
 		if (is_array($this->config))
 			$this->config = array_merge($this->config, $config);
 		else
@@ -171,11 +173,11 @@ class DatabaseProvider {
 	 * <code>
 	 * $result = $e->Database->main->QueryCache(
 	 * 	"select * from stuff order by rand() limit 3", // The query
-	 * 	\Cherrycake\Modules\CACHE_TTL_MINIMAL, // The TTL
+	 * 	\Cherrycake\CACHE_TTL_MINIMAL, // The TTL
 	 * 	[ // A key naming options array
 	 * 		"cacheSpecificPrefix" => "TestQuery"
 	 * 	],
-	 * 	"fast" // A name of a cache provider that overrides the one configured in database.config.php
+	 * 	"engine" // A name of a cache provider that overrides the one configured in database.config.php
 	 * );
 	 * </code>
 	 *
@@ -232,13 +234,13 @@ class DatabaseProvider {
 	/**
 	 * prepare
 	 *
-	 * Prepares a query to be done to the dabase using prepared queries methodology. Intended to be overloaded by a higher level implementation class
+	 * Prepares a query so it can be later executed as a prepared query with the DatabaseProvider::execute method. Intended to be overloaded by a higher level implementation class
 	 *
-	 * @param string $sql The SQL sentence to prepare to be queried to the database.
+	 * @param string $sql The SQL statement to prepare to be queried to the database, where all the variables are replaced by question marks.
 	 *
 	 * @return array A hash array with the following keys:
-	 *  - sql: The passed sql query
-	 *  - statement: A provider-specific statement object if the query has been executed correctly, false otherwise.
+	 *  - sql: The passed sql statement
+	 *  - statement: A provider-specific statement object if the query has been prepared correctly, false otherwise.
 	 */
 	function prepare($sql) {
 	}
@@ -249,7 +251,7 @@ class DatabaseProvider {
 	 * Executes a previously prepared query with the given parameters. Intended to be overloaded by a higher level implementation class
 	 *
 	 * @param array $prepareResult The prepared result as returned by the prepare method
-	 * @param array $parameters Hash array of the variables that must be applied to the prepared query in order to execute the final query, in the same order as are stated on the prepared sql. Each array element has the following keys:
+	 * @param array $parameters Hash array of the variables that must be applied to the prepared query in order to execute the final query, in the same order as they're stated on the prepared sql. Each array element has the following keys:
 	 *
 	 * * type: One of the prepared statement variable type consts, i.e.: DATABASE_FIELD_TYPE_*
 	 * * value: The value to be used for this variable on the prepared statement
@@ -266,8 +268,8 @@ class DatabaseProvider {
 	 *
 	 * Performs a full prepared query procedure in just one call. Does the same as if we're executing prepare and execute methods separaterly. Intended for performing prepared queries that won't be repeated in a loop (thus we don't need the benefits of separately preparing the query and then executing it multiple times with different values).
 	 *
-	 * @param string $sql The SQL sentence to prepare to be queried to the database.
-	 * @param array $parameters Hash array of the variables that must be applied to the prepared query in order to execute the final query, in the same order as are stated on the prepared sql. Same syntax as in the execute method.
+	 * @param string $sql The prepared SQL statement
+	 * @param array $parameters Hash array of the variables that must be applied to the prepared query in order to execute the final query, in the same order as they're stated on the prepared sql. Same syntax as in the execute method.
 	 * @param array $setup Optional array with additional options, See DatabaseResult::$setup for available options
 	 *
 	 * @return DatabaseResult A provider-specific DatabaseResult object if the query has been executed correctly, false otherwise.

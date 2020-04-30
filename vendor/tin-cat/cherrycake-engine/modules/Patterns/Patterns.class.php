@@ -25,10 +25,10 @@ namespace Cherrycake\Modules;
  * $patternsConfig = [
  * 	"directory" => "patterns", // The directory where patterns reside
  * 	"cache" => [
- * 		"cacheProviderName" => "fast", // The default cache provider to use for cached patterns when no specific per-pattern cache provider is specified
+ * 		"cacheProviderName" => "engine", // The default cache provider to use for cached patterns when no specific per-pattern cache provider is specified
  * 		"items" => [
  * 			"home/cacheddemo.html" => [  // A pattern to cache
- * 				"ttl" => \Cherrycake\Modules\CACHE_TTL_MINIMAL, // The TTL
+ * 				"ttl" => \Cherrycake\CACHE_TTL_MINIMAL, // The TTL
  *				"cacheProviderName" => "huge" // A cache provider to use for this pattern that overrides the default one specified above
  * 			]
  * 		]
@@ -41,6 +41,11 @@ namespace Cherrycake\Modules;
  */
 class Patterns extends \Cherrycake\Module {
 	/**
+	 * @var bool $isConfig Sets whether this module has its own configuration file. Defaults to false.
+	 */
+	protected $isConfigFile = true;
+	
+	/**
 	 * @var array $config Default configuration options
 	 */
 	var $config = [
@@ -48,9 +53,9 @@ class Patterns extends \Cherrycake\Module {
 	];
 
 	/**
-	 * @var array $dependentCherrycakeModules Cherrycake module names that are required by this module
+	 * @var array $dependentCoreModules Core module names that are required by this module
 	 */
-	var $dependentCherrycakeModules = [
+	var $dependentCoreModules = [
 		"Output",
 		"Errors",
 		"Cache"
@@ -65,21 +70,6 @@ class Patterns extends \Cherrycake\Module {
 	 * @var string $lastTreatedFile The name of the last treated file
 	 */
 	private $lastTreatedFile;
-
-	/**
-	 * init
-	 *
-	 * Initializes the module
-	 *
-	 * @return boolean Whether the module has been initted ok
-	 */
-	function init() {
-		$this->isConfigFile = true;
-		if (!parent::init())
-			return false;
-
-		return true;
-	}
 
 	/**
 	 * out
@@ -192,14 +182,14 @@ class Patterns extends \Cherrycake\Module {
 	}
 
 	/**
-	 * wipeCache
+	 * clearCache
 	 *
 	 * Deletes a cached pattern from the cache
 	 *
 	 * @param string $patternName The pattern name
 	 * @param string $directoryOverride When specified, the pattern is taken from this directory instead of the default configured directory.
 	 */
-	function wipeCache($patternName, $directoryOverride = false) {
+	function clearCache($patternName, $directoryOverride = false) {
 		if ($cache = $this->getConfig("cache"))
 			if ($cachePattern = $cache["items"][$patternName]) {
 				global $e;

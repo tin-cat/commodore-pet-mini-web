@@ -40,12 +40,21 @@ namespace Cherrycake\Modules;
  * @package Cherrycake
  * @category Modules
  */
-class Database extends \Cherrycake\Module
-{
+class Database extends \Cherrycake\Module {
 	/**
-	 * @var array $dependentCherrycakeModules Cherrycake module names that are required by this module
+	 * @var bool $isConfig Sets whether this module has its own configuration file. Defaults to false.
 	 */
-	var $dependentCherrycakeModules = [
+	protected $isConfigFile = true;
+
+	/**
+	 * @var bool $isConfigFileRequired Whether the config file for this module is required to run the app
+	 */
+	protected $isConfigFileRequired = true;
+
+	/**
+	 * @var array $dependentCoreModules Core module names that are required by this module
+	 */
+	var $dependentCoreModules = [
 		"Errors",
 		"Cache"
 	];
@@ -58,14 +67,13 @@ class Database extends \Cherrycake\Module
 	 * @return boolean Whether the module has been initted ok
 	 */
 	function init() {
-		$this->isConfigFile = true;
 		if (!parent::init())
 			return false;
 
 		global $e;
-		$e->loadCherrycakeModuleClass("Database", "DatabaseProvider");
-		$e->loadCherrycakeModuleClass("Database", "DatabaseResult");
-		$e->loadCherrycakeModuleClass("Database", "DatabaseRow");
+		$e->loadCoreModuleClass("Database", "DatabaseProvider");
+		$e->loadCoreModuleClass("Database", "DatabaseResult");
+		$e->loadCoreModuleClass("Database", "DatabaseRow");
 
 		// Sets up providers
 		if (is_array($providers = $this->getConfig("providers")))
@@ -86,7 +94,7 @@ class Database extends \Cherrycake\Module
 	 */
 	function addProvider($key, $providerClassName, $config) {
 		global $e;
-		$e->loadCherrycakeModuleClass("Database", $providerClassName);
+		$e->loadCoreModuleClass("Database", $providerClassName);
 
 		eval("\$this->".$key." = new \\Cherrycake\\Modules\\".$providerClassName."();");
 

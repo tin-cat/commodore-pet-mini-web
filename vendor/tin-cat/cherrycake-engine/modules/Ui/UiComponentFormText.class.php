@@ -34,9 +34,9 @@ class UiComponentFormText extends UiComponent {
 	protected $ajaxSaveUrl;
 
 	/**
-	 * @var array $dependentCherrycakeUiComponents Cherrycake UiComponent names that are required by this module
+	 * @var array $dependentCoreUiComponents Cherrycake UiComponent names that are required by this module
 	 */
-	protected $dependentCherrycakeUiComponents = [
+	protected $dependentCoreUiComponents = [
 		"UiComponentTooltip"
 	];
 
@@ -93,7 +93,7 @@ class UiComponentFormText extends UiComponent {
 		if ($this->error) {
 			global $e;
 
-			$e->loadCherrycakeModule("HtmlDocument");
+			$e->loadCoreModule("HtmlDocument");
 
 			$e->HtmlDocument->addInlineJavascript("
 				$('#".$this->domId."').UiComponentTooltip({

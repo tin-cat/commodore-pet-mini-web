@@ -21,7 +21,7 @@ namespace CherrycakeApp\Modules;
 class PrepareBasic extends \Cherrycake\Module {
 	protected $isConfigFile = true;
 
-	var $dependentCherrycakeModules = [
+	var $dependentCoreModules = [
 		"Ui"
 	];
 	

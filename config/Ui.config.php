@@ -11,7 +11,7 @@
 namespace Cherrycake;
 
 $UiConfig = [
-	"cherrycakeUiComponents" => [ // List of Cherrycake UiComponent classes (along with their configurations) that are used on this app
+	"coreUiComponents" => [ // List of Cherrycake UiComponent classes (along with their configurations) that are used on this app
 		"UiComponentFonts",
 		"UiComponentIcons",
 		"UiComponentButton",

@@ -55,6 +55,11 @@ class Engine {
 	private $isUnderMaintenance = false;
 
 	/**
+	 * @var bool $isCli Whether the engine is running as cli or not
+	 */
+	private $isCli = null;
+
+	/**
 	 * @var array $underMaintenanceExceptionIps An array of IPs that will be considered as exceptions to the "under maintenance" mode when connecting
 	 */
 	private $underMaintenanceExceptionIps = [];
@@ -95,32 +100,50 @@ class Engine {
 	private $loadedModules;
 
 	/**
+	 * @var array $moduleLoadingHistory Stores a history of the loaded modules.
+	 */
+	private $moduleLoadingHistory;
+
+	/**
+	 * @var int $executionStartHrTime The system's high resolution time where the execution started
+	 */
+	private $executionStartHrTime;
+
+	static function preInit() {
+
+	}
+
+	/**
 	 * Initializes the engine
 	 *
-	 * Setup keys:
+	 * @param string $appNamespace The namespace of the app.
+	 * @param array $setup The initial engine configuration information, with the following possible keys
 	 *
-	 * * appNamespace: The App namespace
 	 * * appName: The App name
 	 * * isDevel: Whether the App is in development mode or not
 	 * * isUnderMaintenance: Whether the App is under maintenance or not
+	 * * isCli: Whether the engine is running as cli or not. When not specified it will autodetect.
 	 * * configDir: The directory where configuration files are stored
 	 * * appModulesDir: The directory where app modules are stored
 	 * * appClassesDir: The directory where app classes are stored
 	 * * timezoneName: The system's timezone. All modules, including Database for date/time retrievals/saves will be made taking this timezone into account. The server is expected to run on this timezone. Standard "Etc/UTC" is recommended.
 	 * * timezoneId: The system's timezone. The same as timezoneName, but the matching id on the cherrycake timezones database table
-	 * * baseCherrycakeModules: An ordered array of the base Cherrycake module names that has to be always loaded on application start. These must include an "actions" modules that will later determine the action to take based on the received query, thus loading the additional required modules to do so.
+	 * * baseCoreModules: An ordered array of the base Core module names that has to be always loaded on application start. This list must include an "actions" modules that will later determine the action to take based on the received query, thus loading the additional required modules to do so.
 	 * * additionalAppConfigFiles: An ordered array of any additional App config files to load that are found under the App config directory
 	 *
-	 * @param array $setup The initial engine configuration information.
 	 * @return boolean Whether all the modules have been loaded ok
 	 */
-	function init($setup) {
-		$this->appNamespace = $setup["appNamespace"];
+	function init($appNamespace, $setup = false) {
+		$this->appNamespace = $appNamespace;
+
+		if (!isset($setup["isCli"]))
+			$setup["isCli"] = defined("STDIN");
 		
 		foreach ([
 			"appName",
 			"isDevel",
 			"isUnderMaintenance",
+			"isCli",
 			"configDir",
 			"appModulesDir",
 			"appClassesDir",
@@ -129,6 +152,11 @@ class Engine {
 		] as $key)
 			if (isset($setup[$key]))
 				$this->$key = $setup[$key];
+			
+		if ($this->isDevel())
+			$this->executionStartHrTime = hrtime(true);
+		
+		require ENGINE_DIR."/Constants.php";
 
 		if ($this->isUnderMaintenance()) {
 			header("HTTP/1.1 503 Service Temporarily Unavailable");
@@ -137,84 +165,26 @@ class Engine {
 		}
 		
 		date_default_timezone_set($this->getTimezoneName());
+		
+
+		$this->cache = new Cache;
 
 		require ENGINE_DIR."/Module.class.php";
 
-		if ($setup["additionalAppConfigFiles"])
+		if (isset($setup["additionalAppConfigFiles"]))
 			foreach ($setup["additionalAppConfigFiles"] as $additionalAppConfigFile)
 				require APP_DIR."/config/".$additionalAppConfigFile;
-
-		if ($setup["baseCherrycakeModules"])
-			foreach ($setup["baseCherrycakeModules"] as $module)
-				if (!$this->loadCherrycakeModule($module))
-					return false;
-
-		return true;
-	}
-
-	/**
-	 * Builds a cache key based on the passed string or array of strings
-	 * 
-	 * @param mixed $key A string or an array of strings
-	 * @return string The string cache key
-	 */
-	private function buildCacheKey($key) {
-		global $e;
-		return "CherrycakeEngine_".$e->getAppName()."_".is_array($key) ? implode("_", $key) : $key;
-	}
-
-	/**
-	 * Sets a key into the engine cache.
-	 * 
-	 * @param mixed $key A string or an array of strings
-	 * @param mixed $value The value to store in cache
-	 * @param int $ttl The TTL of the item in cache
-	 * @return boolean True on success, false on failure
-	 */
-	private function cacheStore($key, $value, $ttl = 0) {
-		if (!apcu_store($this->buildCacheKey($key), serialize($value), $ttl))
+		
+		if (isset($setup["baseCoreModules"]) && !in_array("Actions", $setup["baseCoreModules"])) {
+			trigger_error("At least the Actions module must be loaded in baseCoreModules");
 			return false;
-		$keys = $this->cacheGetKeys();
-		if (!$keys || !in_array($key, $keys)) {
-			global $e;
-			$keys[] = $key;
-			return apcu_store("CherrycakeEngine_".$e->getAppName()."_CachedKeys", serialize($keys), 0);
 		}
+
+		foreach ($setup["baseCoreModules"] ?? ["Actions"] as $module)
+			if (!$this->loadCoreModule($module, false))
+				return false;
+
 		return true;
-	}
-
-	/**
-	 * Retrieves a value from the engine cache
-	 * 
-	 * @param mixed $key A string or an array of strings
-	 * @return mixed The value, null if it didn't exist or false in case of failure
-	 */
-	private function cacheFetch($key) {
-		$value = apcu_fetch($this->buildCacheKey($key));
-		if ($value === false)
-			return false;
-		return $value ? unserialize($value) : null;
-	}
-
-	/**
-	 * @return mixed An array of all the key names that have been stored in cache for this App, or false on failure.
-	 */
-	private function cacheGetKeys() {
-		global $e;
-		$value = apcu_fetch("CherrycakeEngine_".$e->getAppName()."_CachedKeys");
-		if ($value === false)
-			return false;
-		return $value === false ? false : unserialize($value);
-	}
-
-	/**
-	 * Clears the entire engine cache
-	 */
-	function clearCache() {
-		$keys = $this->cacheGetKeys();
-		if (is_array($keys))
-			foreach ($keys as $key)
-				apcu_delete($this->buildCacheKey($key));
 	}
 
 	/**
@@ -222,6 +192,8 @@ class Engine {
 	 * @return mixed An array of the module names found on the specified directory, or false if none found or the directory couldn't be opened.
 	 */
 	function getAvailableModuleNamesOnDirectory($directory) {
+		if (!is_dir($directory))
+			return false;
 		$moduleNames = false;
 		if (!$handler = opendir($directory))
 			return false;
@@ -236,9 +208,9 @@ class Engine {
 	}
 
 	/**
-	 * @return array All the available Cherrycake module names
+	 * @return array All the available Core module names
 	 */
-	function getAvailableCherrycakeModuleNames() {
+	function getAvailableCoreModuleNames() {
 		return $this->getAvailableModuleNamesOnDirectory(ENGINE_DIR."/modules");
 	}
 
@@ -251,9 +223,9 @@ class Engine {
 
 	/**
 	 * @param string $methodName the name of the method
-	 * @return array The Cherrycake module names that implement the specified method
+	 * @return array The Core module names that implement the specified method
 	 */
-	function getAvailableCherrycakeModuleNamesWithMethod($methodName) {
+	function getAvailableCoreModuleNamesWithMethod($methodName) {
 		return $this->getAvailableModuleNamesWithMethod("Cherrycake\Modules", ENGINE_DIR."/modules", $methodName);
 	}
 
@@ -271,15 +243,16 @@ class Engine {
 	 * @return array The module names that implement the specified method, o,r false if no modules found
 	 */
 	function getAvailableModuleNamesWithMethod($nameSpace, $modulesDirectory, $methodName) {
-		$cacheKey = ["AvailableModuleNamesWithMethod", $nameSpace, $modulesDirectory, $methodName];
+		$cacheBucketName = "AvailableModuleNamesWithMethod";
+		$cacheKey = [$nameSpace, $modulesDirectory, $methodName];
 		$cacheTtl = $this->isDevel() ? 3 : 600;
 
-		$modulesWithMethod = $this->cacheFetch($cacheKey);
+		$modulesWithMethod = $this->cache->getFromBucket($cacheBucketName, $cacheKey);
 		if (is_array($modulesWithMethod))
 			return $modulesWithMethod;
 	
 		if (!$moduleNames = $this->getAvailableModuleNamesOnDirectory($modulesDirectory)) {
-			$this->cacheStore($cacheKey, [], $cacheTtl);
+			$this->cache->setInBucket($cacheBucketName, $cacheKey, [], $cacheTtl);
 			return false;
 		}
 
@@ -292,7 +265,7 @@ class Engine {
 			}
 		}
 
-		$this->cacheStore($cacheKey, $modulesWithMethod, $cacheTtl);
+		$this->cache->setInBucket($cacheBucketName, $cacheKey, $modulesWithMethod, $cacheTtl);
 
 		return $modulesWithMethod ?? false;
 	}
@@ -349,6 +322,13 @@ class Engine {
 	}
 
 	/**
+	 * @return bool Whether the app is running as cli or not
+	 */
+	function isCli() {
+		return $this->isCli;
+	}
+
+	/**
 	 * @return string The App directory where configuration files reside
 	 */
 	function getConfigDir() {
@@ -384,25 +364,27 @@ class Engine {
 	}
 
 	/**
-	 * Specific method to load a Cherrycake module. Cherrycake modules are classes extending the module class that provide engine-specific functionalities.
+	 * Specific method to load a Core module. Core modules are classes extending the module class that provide engine-specific functionalities.
 	 *
 	 * @param string $moduleName The name of the module to load
+	 * @param string $requiredByModuleName The name of the module that required this module, if any.
 	 *
 	 * @return boolean Whether the module has been loaded ok
 	 */
-	function loadCherrycakeModule($moduleName) {
-		return $this->loadModule(ENGINE_DIR."/modules", $this->getConfigDir(), $moduleName, __NAMESPACE__);
+	function loadCoreModule($moduleName, $requiredByNoduleName = null) {
+		return $this->loadModule(ENGINE_DIR."/modules", $this->getConfigDir(), $moduleName, __NAMESPACE__, $requiredByNoduleName);
 	}
 
 	/**
 	 * Specific method to load an application-specific module. App modules are classes extending the module class that provide app-specific functionalities.
 	 *
 	 * @param string $moduleName The name of the module to load
+	 * @param string $requiredByModuleName The name of the module that required this module, if any.
 	 *
 	 * @return boolean Whether the module has been loaded ok
 	 */
-	function loadAppModule($moduleName) {
-		return $this->loadModule($this->getAppModulesDir(), $this->getConfigDir(), $moduleName, $this->getAppNamespace());
+	function loadAppModule($moduleName, $requiredByNoduleName = false) {
+		return $this->loadModule($this->getAppModulesDir(), $this->getConfigDir(), $moduleName, $this->getAppNamespace(), $requiredByNoduleName);
 	}
 
 	/**
@@ -412,13 +394,27 @@ class Engine {
 	 * @param string $configDirectory Directory where module configuration files are stored with the syntax [module name].config.php
 	 * @param string $moduleName The name of the module to load
 	 * @param string $namespace The namespace of the module
+	 * @param string $requiredByModuleName The name of the module that required this module, if any.
 	 *
 	 * @return boolean Whether the module has been loaded and initted ok
 	 */
-	function loadModule($modulesDirectory, $configDirectory, $moduleName, $namespace) {
+	function loadModule($modulesDirectory, $configDirectory, $moduleName, $namespace, $requiredByModuleName = null) {
+		if ($this->isDevel()) {
+			$moduleLoadingHistoryId = uniqid();
+			$this->moduleLoadingHistory[$moduleLoadingHistoryId] = [
+				"loadingStartHrTime" => hrtime(true),
+				"loadedModule" => $moduleName,
+				"namespace" => $namespace,
+				"requiredBy" => $requiredByModuleName
+			];
+		}
+
 		// Avoids a module to be loaded more than once
-		if (is_array($this->loadedModules) && in_array($moduleName, $this->loadedModules))
+		if (is_array($this->loadedModules) && in_array($moduleName, $this->loadedModules)) {
+			if ($this->isDevel())
+				$this->moduleLoadingHistory[$moduleLoadingHistoryId]["isAlreadyLoaded"] = true;
 			return true;
+		}
 
 		$this->loadedModules[] = $moduleName;
 
@@ -426,12 +422,28 @@ class Engine {
 
 		eval("\$this->".$moduleName." = new \\".$namespace."\\Modules\\".$moduleName."();");
 
+		if ($this->isDevel())
+			$this->moduleLoadingHistory[$moduleLoadingHistoryId]["initStartHrTime"] = hrtime(true);
+
 		if(!$this->$moduleName->init()) {
+			if ($this->isDevel())
+				$this->moduleLoadingHistory[$moduleLoadingHistoryId]["isInitFailed"] = true;
 			$this->end();
 			die;
 		}
 
+		if ($this->isDevel())
+			$this->moduleLoadingHistory[$moduleLoadingHistoryId]["initEndHrTime"] = hrtime(true);
+
 		return true;
+	}
+
+	/**
+	 * @param string $moduleName The name of the module to check
+	 * @return bool Whether the specified module has been loaded
+	 */
+	function isModuleLoaded($moduleName) {
+		return $this->$moduleName ?? false;
 	}
 
 	/**
@@ -463,7 +475,7 @@ class Engine {
 	}
 
 	/**
-	 * Loads a Cherrycake-specific class. Cherrycake classes are any other classes that are not modules, nor related to any Cherrycake module.
+	 * Loads a Cherrycake-specific class. Cherrycake classes are any other classes that are not modules, nor related to any Core module.
 	 *
 	 * @param $className The name of the class to load, must be stored in ENGINE_DIR/[class name].class.php
 	 */
@@ -472,12 +484,12 @@ class Engine {
 	}
 
 	/**
-	 * Loads a cherrycake-specific class. Cherrycake module classes are any other classes that are not modules, but related to a Cherrycake module.
+	 * Loads a cherrycake-specific class. Core module classes are any other classes that are not modules, but related to a Core module.
 	 *
 	 * @param $moduleName The name of the module to which the class belongs
 	 * @param $className The name of the class
 	 */
-	function loadCherrycakeModuleClass($moduleName, $className) {
+	function loadCoreModuleClass($moduleName, $className) {
 		include_once(ENGINE_DIR."/modules/".$moduleName."/".$className.".class.php");
 	}
 
@@ -506,13 +518,13 @@ class Engine {
 	 */
 	function callMethodOnAllModules($methodName) {
 		// Call the static method
-		$cherrycakeModuleNames = $this->getAvailableCherrycakeModuleNamesWithMethod($methodName);
-		if (is_array($cherrycakeModuleNames)) {
-			foreach ($cherrycakeModuleNames as $cherrycakeModuleName) {
-				$this->includeModuleClass(ENGINE_DIR."/modules", $cherrycakeModuleName);
-				forward_static_call(["\\Cherrycake\\Modules\\".$cherrycakeModuleName, $methodName]);
+		$CoreModuleNames = $this->getAvailableCoreModuleNamesWithMethod($methodName);
+		if (is_array($CoreModuleNames)) {
+			foreach ($CoreModuleNames as $CoreModuleName) {
+				$this->includeModuleClass(ENGINE_DIR."/modules", $CoreModuleName);
+				forward_static_call(["\\Cherrycake\\Modules\\".$CoreModuleName, $methodName]);
 			}
-			reset($cherrycakeModuleNames);
+			reset($CoreModuleNames);
 		}
 
 		$appModuleNames = $this->getAvailableAppModuleNamesWithMethod($methodName);
@@ -525,17 +537,17 @@ class Engine {
 		}
 		
 		// Load the modules
-		if (is_array($cherrycakeModuleNames)) {
-			foreach ($cherrycakeModuleNames as $cherrycakeModuleName) {
-				$this->loadCherrycakeModule($cherrycakeModuleName);
-			}
-		}
+		// if (is_array($CoreModuleNames)) {
+		// 	foreach ($CoreModuleNames as $CoreModuleName) {
+		// 		$this->loadCoreModule($CoreModuleName);
+		// 	}
+		// }
 
-		if (is_array($appModuleNames)) {
-			foreach ($appModuleNames as $appModuleName) {
-				$this->loadAppModule($appModuleName);
-			}
-		}
+		// if (is_array($appModuleNames)) {
+		// 	foreach ($appModuleNames as $appModuleName) {
+		// 		$this->loadAppModule($appModuleName);
+		// 	}
+		// }
 
 	}
 
@@ -552,7 +564,7 @@ class Engine {
 	function attendCliRequest() {
 		global $argv, $argc;
 
-		if (!IS_CLI) {
+		if (!$this->isCli()) {
 			header("HTTP/1.1 404");
 			return false;
 		}
@@ -617,7 +629,97 @@ class Engine {
             }
         }
         return $result;
-    }
+	}
+	
+
+	function getStatus() {
+		$r = [
+			"appNamespace" => $this->getAppNamespace(),
+			"appName" => $this->getAppName(),
+			"isDevel" => $this->isDevel(),
+			"isUnderMaintenance" => $this->isUnderMaintenance(),
+			"documentRoot" => $_SERVER["DOCUMENT_ROOT"],
+			"appModulesDir" => $this->getAppModulesDir(),
+			"appClassesDir" => $this->getAppClassesDir(),
+			"timezoneName" => $this->getTimezonename(),
+			"timezoneId" => $this->getTimezoneId(),
+			"executionStartHrTime" => $this->executionStartHrTime,
+			"runningHrTime" =>
+				$this->isDevel() ?
+					hrtime(true) - $this->executionStartHrTime
+				:
+					null,
+			"memoryUse" => memory_get_usage(),
+			"memoryUsePeak" => memory_get_peak_usage(),
+			"memoryAllocated" => memory_get_usage(true),
+			"memoryAllocatedPeak" => memory_get_peak_usage(true),
+			"hostname" => $_SERVER["HOSTNAME"],
+			"host" => $_SERVER["HTTP_HOST"],
+			"ip" => $_SERVER["REMOTE_ADDR"],
+			"os" => PHP_OS,
+			"phpVersion" => phpversion(),			
+			"serverSoftware" => $_SERVER["SERVER_SOFTWARE"],
+			"serverGatewayInterface" => $_SERVER["GATEWAY_INTERFACE"],
+			"serverApi" => PHP_SAPI
+		];
+
+		if (is_array($this->loadedModules))
+			$r["loadedModules"] = $this->loadedModules;
+
+		if (is_array($this->moduleLoadingHistory)) {
+			$lastHrTime = null;
+			$r["moduleLoadingHistory"] = $this->moduleLoadingHistory;
+			reset($this->moduleLoadingHistory);
+		}
+
+		if ($this->isModuleLoaded("Actions")) {
+			$r["actions"] = $this->Actions->getStatus();
+		}
+
+		return $r;
+	}
+
+	function getStatusHumanReadable() {
+		$status = $this->getStatus();
+		foreach ($status as $key => $value) {
+			switch ($key) {
+				case "runningHrTime":
+					$r[$key] = number_format($value / 1000000, 4)."ms";
+					break;
+				case "moduleLoadingHistory":
+					foreach ($value as $historyItem) {
+						if ($historyItem["isAlreadyLoaded"] ?? false)
+							continue;
+						$r[$key][] =
+							$historyItem["namespace"]."/".$historyItem["loadedModule"].
+							" / ".
+							($historyItem["requiredBy"] === null ?
+								"Loaded programmatically"
+							:
+								($historyItem["requiredBy"] === false ?
+									"Base module"
+								:
+									"Required by ".$historyItem["requiredBy"]
+								)
+							).
+							" / loaded at ".number_format(($historyItem["loadingStartHrTime"] - $status["executionStartHrTime"]) / 1000000, 4)."ms".
+							" / init took ".number_format(($historyItem["initEndHrTime"] - $historyItem["initStartHrTime"]) / 1000000, 4)."ms";
+					}
+					break;
+				case "actions":
+					$r[$key] = $value["brief"];
+					break;
+				default:
+					$r[$key] = $value;
+					break;
+			}
+		}
+		return $r;
+	}
+
+	function getStatusHtml() {
+		return print_pretty($this->getStatusHumanReadable(), true);
+	}
 
 	/**
 	 * Ends the application by calling the end methods of all the loaded modules.
@@ -652,9 +754,17 @@ spl_autoload_register(function ($className) {
 });
 
 /**
- * A helper function that prints out a variable for debugging purposes
+ * A helper function that pretty prints out a variable for debugging purposes
  * @param $var The variable to debug
  */
-function debug(&$var) {
-	echo "<pre>".print_r($var, true)."</pre>";
+function print_pretty($var, $isReturn = false, $isHtml = true) {
+	$pretty =
+		($isHtml ? "<pre>" : null).
+		json_encode($var, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_LINE_TERMINATORS).
+		($isHtml ? "<pre>" : null);
+	
+	if ($isReturn)
+		return $pretty;
+	else
+		echo $pretty;
 }

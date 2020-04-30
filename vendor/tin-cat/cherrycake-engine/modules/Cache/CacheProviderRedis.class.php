@@ -230,11 +230,11 @@ class CacheProviderRedis extends CacheProvider implements CacheProviderInterface
 	}
 
 	/**
-	 * Stores a value in a cache pool
+	 * Adds a value to a pool
 	 *
 	 * @param string $poolName The name of the pool
 	 * @param string $value The value
-	 * @return bool Whether the value has been correctly stored. False otherwise
+	 * @return bool Whether the value has been correctly added, false otherwise
 	 */
 	function poolAdd($poolName, $value) {
 		$this->RequireConnection();
@@ -242,10 +242,10 @@ class CacheProviderRedis extends CacheProvider implements CacheProviderInterface
 	}
 
 	/**
-	 * Gets a random value from the pool and removes it
+	 * Retrieves a random value from a pool and removes it
 	 *
 	 * @param string $poolName The name of the pool
-	 * @return mixed The stored value or false if it doesn't exists.
+	 * @return mixed One of the values in the pool, or false if the pool was empty.
 	 */
 	function poolPop($poolName) {
 		$this->RequireConnection();
@@ -253,11 +253,11 @@ class CacheProviderRedis extends CacheProvider implements CacheProviderInterface
 	}
 
 	/**
-	 * Checks whether a value is stored or not in the pool.
+	 * Checks whether a value is in the pool.
 	 *
 	 * @param string $poolName The name of the pool
 	 * @param $value The value
-	 * @return bool True if the value exists in the pool, false otherwise
+	 * @return bool True if the value is in the pool, false otherwise
 	 */
 	function isInPool($poolName, $value) {
 		$this->RequireConnection();
@@ -265,8 +265,10 @@ class CacheProviderRedis extends CacheProvider implements CacheProviderInterface
 	}
 
 	/**
+	 * Counts the number of objects in the pool
+	 * 
 	 * @param string $poolName The name of the pool
-	 * @return integer The number of elements in the pool
+	 * @return integer The number of objects in the pool, or false if the pool doesn't exists.
 	 */
 	function poolCount($poolName) {
 		$this->RequireConnection();
@@ -336,9 +338,9 @@ class CacheProviderRedis extends CacheProvider implements CacheProviderInterface
 
 	/**
 	 * @param string $listName The name of the hashed list
-	 * @return array An array containing all the keys on the specified list. An empty array if the list was empty, or false if the list didn't exists.
+	 * @return array An array containing all the keys in the list, an empty array if the list was empty or false if the list didn't exist.
 	 */
-	function hgetKeys($listName) {
+	function hGetKeys($listName) {
 		$this->RequireConnection();
 		return $this->client->hgetkeys($listName);
 	}

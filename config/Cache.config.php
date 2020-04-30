@@ -12,9 +12,6 @@ namespace Cherrycake;
 
 $CacheConfig = [
 	"providers" => [
-		"fast" => [
-			"providerClassName" => "CacheProviderApcu"
-		],
 		"huge" => [
 			"providerClassName" => "CacheProviderRedis",
 			"config" => [

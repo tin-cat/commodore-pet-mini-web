@@ -24,8 +24,8 @@ namespace Cherrycake\Modules;
  * <code>
  * $javascriptConfig = [
  * 	"defaultDirectory" => "res/js", // The default directory where Javascript files in each Javascript set will be searched
- * 	"cacheTtl" => \Cherrycake\Modules\CACHE_TTL_LONGEST, // The cache TTL for JS sets
- * 	"cacheProviderName" => "fast", // The cache provider for JS sets
+ * 	"cacheTtl" => \Cherrycake\CACHE_TTL_LONGEST, // The cache TTL for JS sets
+ * 	"cacheProviderName" => "engine", // The cache provider for JS sets
  * 	"lastModifiedTimestamp" => 1, // The last modified timestamp of JS, to handle caches and http cache
  *  "isCache" => false, // Whether to use cache or not
  *  "isHttpCache" => false, // Whether to send HTTP Cache headers or not
@@ -52,22 +52,27 @@ namespace Cherrycake\Modules;
  */
 class Javascript extends \Cherrycake\Module {
 	/**
+	 * @var bool $isConfig Sets whether this module has its own configuration file. Defaults to false.
+	 */
+	protected $isConfigFile = true;
+
+	/**
 	 * @var array $config Default configuration options
 	 */
 	var $config = [
 		"cachePrefix" => "Javascript",
-		"cacheTtl" => \Cherrycake\Modules\CACHE_TTL_NORMAL,
+		"cacheTtl" => \Cherrycake\CACHE_TTL_NORMAL,
 		"lastModifiedTimestamp" => 1,
 		"isCache" => false,
 		"isHttpCache" => false,
-		"httpCacheMaxAge" => \Cherrycake\Modules\CACHE_TTL_LONGEST,
+		"httpCacheMaxAge" => \Cherrycake\CACHE_TTL_LONGEST,
 		"isMinify" => true
 	];
 
 	/**
-	 * @var array $dependentCherrycakeModules Cherrycake module names that are required by this module
+	 * @var array $dependentCoreModules Core module names that are required by this module
 	 */
-	var $dependentCherrycakeModules = [
+	var $dependentCoreModules = [
 		"Errors",
 		"Actions",
 		"Cache",
@@ -88,7 +93,6 @@ class Javascript extends \Cherrycake\Module {
 	 * @return boolean Whether the module has been initted ok
 	 */
 	function init() {
-		$this->isConfigFile = true;
 		if (!parent::init())
 			return false;
 
@@ -118,7 +122,7 @@ class Javascript extends \Cherrycake\Module {
 		$e->Actions->mapAction(
 			"javascript",
 			new \Cherrycake\ActionJavascript([
-				"moduleType" => \Cherrycake\ACTION_MODULE_TYPE_CHERRYCAKE,
+				"moduleType" => \Cherrycake\ACTION_MODULE_TYPE_CORE,
 				"moduleName" => "Javascript",
 				"methodName" => "dump",
 				"request" => new \Cherrycake\Request([

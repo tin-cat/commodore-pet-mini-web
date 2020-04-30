@@ -34,8 +34,8 @@ const CSS_MEDIAQUERY_PORTABLES = 6; // Matches all portable devices and any othe
  * $cssConfig = [
  * 	"defaultDirectory" => "res/css", // The default directory where CSS files in each CSS set will be searched
  *  "cachePrefix" => "Css", // The prefix to use for storing CSS on the cache
- * 	"cacheTtl" => \Cherrycake\Modules\CACHE_TTL_LONGEST, // The cache TTL for CSS sets
- * 	"cacheProviderName" => "fast", // The cache provider for CSS sets
+ * 	"cacheTtl" => \Cherrycake\CACHE_TTL_LONGEST, // The cache TTL for CSS sets
+ * 	"cacheProviderName" => "engine", // The cache provider for CSS sets
  * 	"lastModifiedTimestamp" => 1, // The last modified timestamp of CSS, to handle caches and http cache
  *  "isCache" => false, // Whether to use cache or not
  *  "isHttpCache" => false, // Whether to send HTTP Cache headers or not
@@ -73,22 +73,27 @@ const CSS_MEDIAQUERY_PORTABLES = 6; // Matches all portable devices and any othe
  */
 class Css extends \Cherrycake\Module {
 	/**
+	 * @var bool $isConfig Sets whether this module has its own configuration file. Defaults to false.
+	 */
+	protected $isConfigFile = true;
+
+	/**
 	 * @var array $config Default configuration options
 	 */
 	var $config = [
 		"cachePrefix" => "Css",
-		"cacheTtl" => \Cherrycake\Modules\CACHE_TTL_NORMAL,
+		"cacheTtl" => \Cherrycake\CACHE_TTL_NORMAL,
 		"lastModifiedTimestamp" => 1,
 		"isCache" => false,
 		"isHttpCache" => false,
-		"httpCacheMaxAge" => \Cherrycake\Modules\CACHE_TTL_LONGEST,
+		"httpCacheMaxAge" => \Cherrycake\CACHE_TTL_LONGEST,
 		"isMinify" => true
 	];
 
 	/**
-	 * @var array $dependentCherrycakeModules Cherrycake module names that are required by this module
+	 * @var array $dependentCoreModules Core module names that are required by this module
 	 */
-	var $dependentCherrycakeModules = [
+	var $dependentCoreModules = [
 		"Errors",
 		"Actions",
 		"Cache",
@@ -110,7 +115,6 @@ class Css extends \Cherrycake\Module {
 	 * @return boolean Whether the module has been initted ok
 	 */
 	function init() {
-		$this->isConfigFile = true;
 		if (!parent::init())
 			return false;
 
@@ -140,7 +144,7 @@ class Css extends \Cherrycake\Module {
 		$e->Actions->mapAction(
 			"css",
 			new \Cherrycake\ActionCss([
-				"moduleType" => \Cherrycake\ACTION_MODULE_TYPE_CHERRYCAKE,
+				"moduleType" => \Cherrycake\ACTION_MODULE_TYPE_CORE,
 				"moduleName" => "Css",
 				"methodName" => "dump",
 				"request" => new \Cherrycake\Request([

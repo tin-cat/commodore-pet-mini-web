@@ -40,7 +40,7 @@ class Request {
 	/**
 	 * @var array $additionalCacheKeys A two-dimensional array containing additional cache keys to make this request's cached contents different depending on the values of those keys
 	 */
-	private $cacheAdditionalCacheKeys;
+	private $additionalCacheKeys;
 
 	/**
 	 * Request
@@ -52,7 +52,7 @@ class Request {
 	function __construct($setup = false) {
 		$this->isSecurityCsrf = isset($setup["isSecurityCsrf"]) ? $setup["isSecurityCsrf"] : false;
 
-		if ($this->isSecurityCsrf()) {
+		if ($this->isSecurityCsrf()) {			
 			global $e;
 			$setup["parameters"][] = new \Cherrycake\RequestParameter([
 				"name" => "csrfToken",
@@ -63,7 +63,7 @@ class Request {
 
 		$this->pathComponents = isset($setup["pathComponents"]) ? $setup["pathComponents"] : false;
 		$this->parameters = isset($setup["parameters"]) ? $setup["parameters"] : false;
-		$this->cacheAdditionalCacheKeys = isset($setup["cacheAdditionalCacheKeys"]) ? $setup["cacheAdditionalCacheKeys"] : false;
+		$this->additionalCacheKeys = isset($setup["additionalCacheKeys"]) ? $setup["additionalCacheKeys"] : false;
 	}
 
 	/*
@@ -361,15 +361,15 @@ class Request {
 			reset($this->parameters);
 		}
 
-		if (is_array($this->cacheAdditionalCacheKeys)) {
-			while (list($additionalCacheKey, $value) = each($this->cacheAdditionalCacheKeys)) {
+		if (is_array($this->additionalCacheKeys)) {
+			while (list($additionalCacheKey, $value) = each($this->additionalCacheKeys)) {
 				if (isset($parameterValues))
 					$key .= "_".$additionalCacheKey."=".$parameterValues[$key];
 				else
 					$key .= "_".$additionalCacheKey."=".$value;
 
 			}
-			reset($this->cacheAdditionalCacheKeys);
+			reset($this->additionalCacheKeys);
 		}
 
 		$key = substr($key, 1);
@@ -390,42 +390,33 @@ class Request {
 	}
 
 	/**
-	 * debug
-	 *
-	 * @return string Debug info about this Request
+	 * @return array Status information
 	 */
-	function debug() {
-		$r = "<ul>";
-
+	function getStatus() {
+		$r["brief"] = "";
 		if (is_array($this->pathComponents)) {
-			$r .= "<li><b>Path components</b>:";
-			foreach ($this->pathComponents as $pathComponent)
-				$r .= $pathComponent->debug();
+			foreach ($this->pathComponents as $pathComponent) {
+				$pathComponentsStatus[] = $pathComponent->getStatus()["brief"];
+				$r["pathComponents"][] = $pathComponent->getStatus();
+			}
 			reset($this->pathComponents);
-			$r .= "</li>";
+			$r["brief"] .= implode("/", $pathComponentsStatus);
 		}
 		else
-			$r .= "<li>No path components</li>";
+			$r["brief"] .= "/";
 
-		if (is_array($this->parameters)) {
-			$r .= "<li><b>Parameters</b>:";
-			foreach ($this->parameters as $parameter)
-				$r .= $parameter->debug();
+		if ($this->parameters) {
+			$r["brief"] .= " ";
+			foreach ($this->parameters as $parameter) {
+				$parametersStatus[] = $parameter->getStatus()["brief"];
+				$r["parameters"][] = $parameter->getStatus();
+			}
+			$r["brief"] .= "(".implode(" ", $parametersStatus).")";
 			reset($this->parameters);
-			$r .= "</li>";
 		}
-		else
-			$r .= "<li>No parameters</li>";
-
-		if (is_array($this->cacheAdditionalCacheKeys)) {
-			$r .= "<li><b>cacheAdditionalCacheKeys:</b><ul>";
-			while (list($key, $value) = each($this->cacheAdditionalCacheKeys))
-				$r .= "<li><b>".$key.":</b> ".$value."</li>";
-			$r .= "</ul></li>";
-			reset($this->cacheAdditionalCacheKeys);
-		}
-
-		$r .= "</ul>";
+		
+		if (is_array($this->additionalCacheKeys))
+			$r["additionalCacheKeys"] = $this->additionalCacheKeys;
 
 		return $r;
 	}

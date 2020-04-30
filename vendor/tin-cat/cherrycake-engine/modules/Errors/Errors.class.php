@@ -47,6 +47,11 @@ const ERROR_NO_PERMISSION = 3; // Errors causes when the user didn't have permis
  */
 class Errors extends \Cherrycake\Module {
 	/**
+	 * @var bool $isConfig Sets whether this module has its own configuration file. Defaults to false.
+	 */
+	protected $isConfigFile = true;
+
+	/**
 	 * @var array $config Default configuration options
 	 */
 	var $config = [
@@ -69,13 +74,10 @@ class Errors extends \Cherrycake\Module {
 	];
 
 	/**
-	 * @var array $dependentCherrycakeModules Cherrycake module names that are required by this module
+	 * @var array $dependentCoreModules Core module names that are required by this module
 	 */
-	var $dependentCherrycakeModules = [
-		"Output",
-		"SystemLog",
-		"Locale",
-		"Email"
+	var $dependentCoreModules = [
+		"Output"
 	];
 
 	/**
@@ -86,7 +88,6 @@ class Errors extends \Cherrycake\Module {
 	 * @return boolean Whether the module has been initted ok
 	 */
 	function init() {
-		$this->isConfigFile = true;
 		if (!parent::init())
 			return false;
 
@@ -130,6 +131,8 @@ class Errors extends \Cherrycake\Module {
 					: null);
 
 		if (
+			$e->isModuleLoaded("SystemLog")
+			&&			
 			($errorType == ERROR_SYSTEM && $this->getConfig("isLogSystemErrors"))
 			||
 			($errorType == ERROR_APP && $this->getConfig("isLogAppErrors"))
@@ -168,7 +171,7 @@ class Errors extends \Cherrycake\Module {
 
 		$patternNames = $this->getConfig("patternNames");
 
-		if (IS_CLI) {
+		if ($e->isCli()) {
 			echo
 				\Cherrycake\ANSI_LIGHT_RED."🧁 Cherrycake ".\Cherrycake\ANSI_LIGHT_BLUE."cli\n".
 				\Cherrycake\ANSI_WHITE.$e->getAppName()." ".[
@@ -212,8 +215,8 @@ class Errors extends \Cherrycake\Module {
 
 			case "pattern":
 				if (isset($patternNames[$errorType])) {
-					$e->loadCherrycakeModule("Patterns");
-					$e->loadCherrycakeModule("HtmlDocument");
+					$e->loadCoreModule("Patterns");
+					$e->loadCoreModule("HtmlDocument");
 
 					$e->Patterns->out(
 						$patternNames[$errorType],
@@ -356,6 +359,7 @@ class Errors extends \Cherrycake\Module {
 		else
 			$message = $data;
 
+		$e->loadCoreModule("Email");
 		$e->Email->send(
 			[[$this->getConfig("notificationEmail")]],
 			"[".$e->getAppNamespace()."] Error",

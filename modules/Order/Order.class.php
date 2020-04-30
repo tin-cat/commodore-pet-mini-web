@@ -20,7 +20,7 @@ namespace CherrycakeApp\Modules;
 class Order extends \Cherrycake\Module {
 	protected $isConfigFile = true;
 	
-	var $dependentCherrycakeModules = [
+	var $dependentCoreModules = [
 		"Patterns",
 		"HtmlDocument"
 	];

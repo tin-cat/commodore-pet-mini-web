@@ -39,7 +39,7 @@ class UiComponentFormInputAjax extends UiComponent {
 	protected $saveAjaxUrl;
 	protected $saveAjaxKey = false;
 
-	protected $dependentCherrycakeUiComponents = [
+	protected $dependentCoreUiComponents = [
 		"UiComponentJquery",
 		"UiComponentJqueryEventUe",
 		"UiComponentTooltip",
@@ -48,7 +48,7 @@ class UiComponentFormInputAjax extends UiComponent {
 		"UiComponentAjax"
 	];
 
-	protected $dependentCherrycakeModules = [
+	protected $dependentCoreModules = [
 		"HtmlDocument",
 		"Security"
 	];

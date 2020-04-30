@@ -19,7 +19,7 @@ class AffiliateLinks extends \Cherrycake\Module {
 
     protected $isConfigFile = true;
 	
-	var $dependentCherrycakeModules = [
+	var $dependentCoreModules = [
 		"Locale"
     ];
     

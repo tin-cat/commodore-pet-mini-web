@@ -10,8 +10,8 @@ namespace Cherrycake;
 
 const SECURITY_RULE_NOT_NULL = 0; // The value must be not null (typically used to check whether a parameter has been passed or not. An empty field in a form will not trigger this rule)
 const SECURITY_RULE_NOT_EMPTY = 1; // The value must not be empty (typically used to check whether a parameter has been passed or not. An empty field in a form _will_ trigger this rule)
-const SECURITY_RULE_INTEGER = 2; // The value must be an integer (-infinite to +infinite without decimals)
-const SECURITY_RULE_POSITIVE = 3; // The value must be positive (0 to +infinite)
+const SECURITY_RULE_INTEGER = 2; // The value must be an integer (-n to +n without decimals)
+const SECURITY_RULE_POSITIVE = 3; // The value must be positive (0 to +n)
 const SECURITY_RULE_MAX_VALUE = 4; // The value must be a number less than or equal the specified value
 const SECURITY_RULE_MIN_VALUE = 5; // The value must be a number greater than or equal the specified value
 const SECURITY_RULE_MAX_CHARS = 6; // The value must be less than or equal the specified number of chars
@@ -28,7 +28,7 @@ const SECURITY_RULE_TYPICAL_ID = 1000; // Same as SECURITY_RULE_NOT_EMPTY + SECU
 
 const SECURITY_FILTER_XSS = 0; // The value is purified to try to remove XSS attacks
 const SECURITY_FILTER_STRIP_TAGS = 1; // HTML tags are removed from the value
-const SECURITY_FILTER_TRIM = 2; // Spaces at the beggining and at the end of the value are trimmed
+const SECURITY_FILTER_TRIM = 2; // Spaces at the begining and at the end of the value are trimmed
 const SECURITY_FILTER_JSON = 3; // Decodes json data
 
 namespace Cherrycake\Modules;
@@ -47,8 +47,8 @@ namespace Cherrycake\Modules;
  * 		"1.1.1.1"
  * 	],
  *	"isAutoBannedIps" => true, // Whether to automatically ban IPs when a hack is detected
- * 	"autoBannedIpsCacheProviderName" => "fast", // The name of the CacheProvider used to store banned Ips
- * 	"autoBannedIpsCacheTtl" => \Cherrycake\Modules\CACHE_TTL_12_HOURS, // The TTL of banned Ips. Auto banned IPs TTL expiration is resetted if more hack detections are detected for that Ip
+ * 	"autoBannedIpsCacheProviderName" => "engine", // The name of the CacheProvider used to store banned Ips
+ * 	"autoBannedIpsCacheTtl" => \Cherrycake\CACHE_TTL_12_HOURS, // The TTL of banned Ips. Auto banned IPs TTL expiration is resetted if more hack detections are detected for that Ip
  *	"autoBannedIpsThreshold" => 10 // The number hack intrusions detected from the same Ip to consider it banned
  * ];
  * </code>
@@ -58,19 +58,25 @@ namespace Cherrycake\Modules;
  */
 class Security extends \Cherrycake\Module {
 	/**
+	 * @var bool $isConfig Sets whether this module has its own configuration file. Defaults to false.
+	 */
+	protected $isConfigFile = true;
+	
+	/**
 	 * @var array $config Default configuration options
 	 */
 	var $config = [
 		"isCheckMaliciousBadBrowsers" => true,
 		"isAutoBannedIps" => true,
-		"autoBannedIpsCacheTtl" => \Cherrycake\Modules\CACHE_TTL_12_HOURS,
+		"autoBannedIpsCacheProviderName" => "engine",
+		"autoBannedIpsCacheTtl" => \Cherrycake\CACHE_TTL_12_HOURS,
 		"autoBannedIpsThreshold" => 10
 	];
 
 	/**
-	 * @var array $dependentCherrycakeModules Cherrycake module names that are required by this module
+	 * @var array $dependentCoreModules Core module names that are required by this module
 	 */
-	var $dependentCherrycakeModules = [
+	var $dependentCoreModules = [
 		"Output",
 		"Errors",
 		"Cache"
@@ -103,7 +109,6 @@ class Security extends \Cherrycake\Module {
 	 * @return boolean Whether the module has been initted ok
 	 */
 	function init() {
-		$this->isConfigFile = true;
 		if (!parent::init())
 			return false;
 
@@ -495,7 +500,7 @@ class Security extends \Cherrycake\Module {
 	 */
 	function isCsrfTokenInSession() {
 		global $e;
-		$e->loadCherrycakeModule("Session");
+		$e->loadCoreModule("Session");
 		return isset($e->Session->csrfToken);
 	}
 
@@ -504,7 +509,7 @@ class Security extends \Cherrycake\Module {
 	 */
 	function getCsrfTokenInSession() {
 		global $e;
-		$e->loadCherrycakeModule("Session");
+		$e->loadCoreModule("Session");
 		return $e->Session->csrfToken;
 	}
 
@@ -514,7 +519,7 @@ class Security extends \Cherrycake\Module {
 	 */
 	function setCsrfTokenInSession($token) {
 		global $e;
-		$e->loadCherrycakeModule("Session");
+		$e->loadCoreModule("Session");
 		$e->Session->csrfToken = $token;
 		return true;
 	}
@@ -662,7 +667,8 @@ class Security extends \Cherrycake\Module {
 	 * @return mixed The client's IP, or false if it was not available
 	 */
 	function getClientIp() {
-		if (IS_CLI)
+		global $e;
+		if ($e->isCli())
 			return false;
 		if(isset($_SERVER["HTTP_X_FORWARDED_FOR"]))
 			return $_SERVER["HTTP_X_FORWARDED_FOR"];
@@ -676,7 +682,8 @@ class Security extends \Cherrycake\Module {
 	 * @return mixed The client's browserstring, or false if it was not available
 	 */
 	function getClientBrowserString() {
-		if (IS_CLI)
+		global $e;
+		if ($e->isCli())
 			return false;
 		return $_SERVER["HTTP_USER_AGENT"];
 	}

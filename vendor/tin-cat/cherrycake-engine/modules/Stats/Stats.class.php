@@ -45,9 +45,9 @@ class Stats extends \Cherrycake\Module {
 	];
 
 	/**
-	 * @var array $dependentCherrycakeModules Cherrycake module names that are required by this module
+	 * @var array $dependentCoreModules Core module names that are required by this module
 	 */
-	var $dependentCherrycakeModules = [
+	var $dependentCoreModules = [
 		"Errors",
 		"Database",
 		"Cache"
@@ -59,12 +59,11 @@ class Stats extends \Cherrycake\Module {
 	 * @return boolean Whether the module has been initted ok
 	 */
 	function init() {
-		$this->isConfigFile = true;
 		if (!parent::init())
 			return false;
 
 		global $e;
-		$e->loadCherrycakeModuleClass("Stats", "StatsEvent");
+		$e->loadCoreModuleClass("Stats", "StatsEvent");
 
 		return true;
 	}

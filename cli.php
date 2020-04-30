@@ -18,15 +18,8 @@ require "load.php";
 $e = new \Cherrycake\Engine;
 
 // Inits the engine and runs the App if initting has gone ok.
-if ($e->init([
-	"namespace" => __NAMESPACE__,
-	"baseCherrycakeModules" => [
-		"Output",
-		"Errors",
-		"Actions",
-		"Cache"
-	],
-	"additionalAppConfigFiles" => [
+if ($e->init(__NAMESPACE__, [
+    "additionalAppConfigFiles" => [
 		"App.config.php"
 	]
 ]))

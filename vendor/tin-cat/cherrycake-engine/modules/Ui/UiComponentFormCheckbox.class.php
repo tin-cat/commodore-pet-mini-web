@@ -27,9 +27,9 @@ class UiComponentFormCheckbox extends UiComponent {
 	protected $title;
 
 	/**
-	 * @var array $dependentCherrycakeUiComponents Cherrycake UiComponent names that are required by this module
+	 * @var array $dependentCoreUiComponents Cherrycake UiComponent names that are required by this module
 	 */
-	protected $dependentCherrycakeUiComponents = [
+	protected $dependentCoreUiComponents = [
 		"UiComponentTooltip"
 	];
 
@@ -58,7 +58,7 @@ class UiComponentFormCheckbox extends UiComponent {
 			if (!$this->domId)
 				$this->domId = uniqid();
 
-			$e->loadCherrycakeModule("HtmlDocument");
+			$e->loadCoreModule("HtmlDocument");
 
 			$e->HtmlDocument->addInlineJavascript("
 				$('#".$this->domId."').UiComponentTooltip({

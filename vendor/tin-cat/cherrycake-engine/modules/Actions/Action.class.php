@@ -8,9 +8,9 @@
 
 namespace Cherrycake;
 
-const ACTION_MODULE_TYPE_CHERRYCAKE = 0;
+const ACTION_MODULE_TYPE_CORE = 0;
 const ACTION_MODULE_TYPE_APP = 1;
-const ACTION_MODULE_TYPE_CHERRYCAKE_UICOMPONENT = 2;
+const ACTION_MODULE_TYPE_CORE_UICOMPONENT = 2;
 const ACTION_MODULE_TYPE_APP_UICOMPONENT = 3;
 
 /**
@@ -135,14 +135,14 @@ class Action {
 		if ($this->timeout)
 			set_time_limit($this->timeout);
 
-		if ($this->moduleType == ACTION_MODULE_TYPE_CHERRYCAKE)
-			$e->loadCherrycakeModule($this->moduleName);
+		if ($this->moduleType == ACTION_MODULE_TYPE_CORE)
+			$e->loadCoreModule($this->moduleName);
 		else
 		if ($this->moduleType == ACTION_MODULE_TYPE_APP)
 			$e->loadAppModule($this->moduleName);
 		else
-		if ($this->moduleType == ACTION_MODULE_TYPE_CHERRYCAKE_UICOMPONENT && $e->Ui)
-			$e->Ui->addCherrycakeUiComponent($this->moduleName);
+		if ($this->moduleType == ACTION_MODULE_TYPE_CORE_UICOMPONENT && $e->Ui)
+			$e->Ui->addCoreUiComponent($this->moduleName);
 		else
 		if ($this->moduleType == ACTION_MODULE_TYPE_APP_UICOMPONENT && $e->Ui)
 			$e->Ui->addAppUiComponent($this->moduleName);
@@ -151,7 +151,7 @@ class Action {
 			return false;
 
 		switch ($this->moduleType) {
-			case ACTION_MODULE_TYPE_CHERRYCAKE:
+			case ACTION_MODULE_TYPE_CORE:
 			case ACTION_MODULE_TYPE_APP:
 				if (!method_exists($e->{$this->moduleName}, $this->methodName)) {
 					$e->Errors->trigger(\Cherrycake\Modules\ERROR_SYSTEM, ["errorDescription" => "Module method ".$this->moduleName."::".$this->methodName." not found when running Action"]);
@@ -159,7 +159,7 @@ class Action {
 				}
 				eval("\$return = \$e->".$this->moduleName."->".$this->methodName."(\$this->request);");
 				break;
-			case ACTION_MODULE_TYPE_CHERRYCAKE_UICOMPONENT:
+			case ACTION_MODULE_TYPE_CORE_UICOMPONENT:
 			case ACTION_MODULE_TYPE_APP_UICOMPONENT:
 				if (!method_exists($e->Ui->getUiComponent($this->moduleName), $this->methodName)) {
 					$e->Errors->trigger(\Cherrycake\Modules\ERROR_SYSTEM, ["errorDescription" => "UiComponentModule method ".$this->moduleName."::".$this->methodName." not found when running Action"]);
@@ -188,13 +188,13 @@ class Action {
 	}
 
 	/**
-	 * resetCache
+	 * clearCache
 	 *
 	 * If this action was meant to be cached, it removes it from the cache.
 	 *
 	 * @param array $parameterValues An optional two-dimensional array containing values for all the parameters related to the Request on this Action, including url path parameters, get/post parameters and additionalCacheKeys. If not specified, the current retrieved values will be used
 	 */
-	function resetCache($parameterValues = false) {
+	function clearCache($parameterValues = false) {
 		if (!$this->isCache)
 			return;
 
@@ -202,22 +202,21 @@ class Action {
 	}
 
 	/**
-	 * debug
-	 *
-	 * @return string Debug info about this Action
+	 * @return array Status information
 	 */
-	function debug() {
-		$r = "<ul>";
-		$r .= "<li><b>moduleName:</b> ".$this->moduleName."</li>";
-		$r .= "<li><b>methodName:</b> ".$this->methodName."</li>";
-		$r .= "<li><b>isCache:</b> ".($this->isCache ? "Yes" : "No")."</li>";
+	function getStatus() {
+		$r = [
+			"brief" => $this->moduleName."::".$this->methodName." ".$this->request->getStatus()["brief"],
+			"moduleName" => $this->moduleName,
+			"methodName" => $this->methodName,
+			"isCache" => $this->isCache
+		];
 		if ($this->isCache) {
-			$r .= "<li><b>cacheProviderName:</b> ".$this->cacheProviderName."</li>";
-			$r .= "<li><b>cacheTtl:</b> ".$this->cacheTtl."</li>";
-			$r .= "<li><b>cachePrefix:</b> ".$this->cachePrefix."</li>";
+			$r["cacheProviderName"] = $this->cacheProviderName;
+			$r["cacheTtl"] = $this->cacheTtl;
+			$r["cachePrefix"] = $this->cachePrefix;
 		}
-		$r .= "<li><b>Request:</b> ".$this->request->debug()."</li>";
-		$r .= "</ul>";
+		$r["request"] = $this->request->getStatus();
 		return $r;
 	}
 }

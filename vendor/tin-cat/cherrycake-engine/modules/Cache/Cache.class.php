@@ -8,30 +8,6 @@
 
 namespace Cherrycake\Modules;
 
-const CACHE_TTL_1_MINUTE = 60;
-const CACHE_TTL_5_MINUTES = 300;
-const CACHE_TTL_10_MINUTES = 600;
-const CACHE_TTL_30_MINUTES = 1800;
-const CACHE_TTL_1_HOUR = 3600;
-const CACHE_TTL_2_HOURS = 7200;
-const CACHE_TTL_6_HOURS = 21600;
-const CACHE_TTL_12_HOURS = 43200;
-const CACHE_TTL_1_DAY = 86400;
-const CACHE_TTL_2_DAYS = 172800;
-const CACHE_TTL_3_DAYS = 259200;
-const CACHE_TTL_5_DAYS = 432000;
-const CACHE_TTL_1_WEEK = 604800;
-const CACHE_TTL_2_WEEKS = 1209600;
-const CACHE_TTL_1_MONTH = 2592000;
-
-const CACHE_TTL_MINIMAL = 10;
-const CACHE_TTL_CRITICAL = CACHE_TTL_1_MINUTE;
-const CACHE_TTL_SHORT = CACHE_TTL_5_MINUTES;
-const CACHE_TTL_NORMAL = CACHE_TTL_1_HOUR;
-const CACHE_TTL_UNCRITICAL = CACHE_TTL_1_DAY;
-const CACHE_TTL_LONG = CACHE_TTL_1_WEEK;
-const CACHE_TTL_LONGEST = CACHE_TTL_1_MONTH;
-
 /**
  * Cache
  *
@@ -43,11 +19,14 @@ const CACHE_TTL_LONGEST = CACHE_TTL_1_MONTH;
  */
 class Cache extends \Cherrycake\Module {
 	/**
-	 * @var array $dependentCherrycakeModules Cherrycake module names that are required by this module
+	 * @var bool $isConfig Sets whether this module has its own configuration file. Defaults to false.
 	 */
-	var $dependentCherrycakeModules = [
-		"Errors"
-	];
+	protected $isConfigFile = true;
+
+	/**
+	 * @var bool $isConfigFileRequired Whether the config file for this module is required to run the app
+	 */
+	protected $isConfigFileRequired = false;
 
 	/**
 	 * init
@@ -56,14 +35,27 @@ class Cache extends \Cherrycake\Module {
 	 *
 	 * @return boolean Whether the module has been initted ok
 	 */
-	function init()
-	{
-		$this->isConfigFile = true;
+	function init() {
 		if (!parent::init())
 			return false;
+		
+		global $e;
+		
+		// Check that the "engine" cache provider has not been defined previously
+		if ($e->isDevel() && isset($this->getConfig("providers")["engine"])) {
+			$e->loadCoreModule("Errors");
+			$e->Errors->trigger(\Cherrycake\Modules\ERROR_SYSTEM, [
+				"errorDescription" => "The \"engine\" cache provider name is reserved"
+			]);
+		}
+		
+		// Setup the engine cache
+		$this->config["providers"]["engine"] = [
+			"providerClassName" => "CacheProviderApcu"
+		];
 
 		global $e;
-		$e->loadCherrycakeModuleClass("Cache", "CacheProvider");
+		$e->loadCoreModuleClass("Cache", "CacheProvider");
 
 		// Sets up providers
 		if (is_array($providers = $this->getConfig("providers")))
@@ -82,10 +74,9 @@ class Cache extends \Cherrycake\Module {
 	 * @param string $providerClassName The cache provider class name
 	 * @param array $config The configuration for the cache provider
 	 */
-	function addProvider($key, $providerClassName, $config)
-	{
+	function addProvider($key, $providerClassName, $config) {
 		global $e;
-		$e->loadCherrycakeModuleClass("Cache", $providerClassName);
+		$e->loadCoreModuleClass("Cache", $providerClassName);
 		eval("\$this->".$key." = new \\Cherrycake\\Modules\\".$providerClassName."();");
 		$this->$key->config($config);
 	}
@@ -93,7 +84,7 @@ class Cache extends \Cherrycake\Module {
 	/**
 	 * buildCacheKey
 	 *
-	 * Returns a cache key to be used in caching operations, based on the provided $config.
+	 * Returns a cache key to identify a specific cached object, to be used in caching operations, based on the provided $config.
 	 * The keys built can have one of the following syntaxes:
 	 * <App namespace>_[<prefix>]_<uniqueId>
 	 * <App namespace>_[<prefix>]_[<specificPrefix>]_<key|encoded sql>

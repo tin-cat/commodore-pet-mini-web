@@ -19,7 +19,7 @@ namespace CherrycakeApp\Modules;
 
 class Contribute extends \Cherrycake\Module {
 	
-	var $dependentCherrycakeModules = [
+	var $dependentCoreModules = [
 		"Patterns",
 		"HtmlDocument"
 	];

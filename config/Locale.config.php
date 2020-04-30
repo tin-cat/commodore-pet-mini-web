@@ -27,11 +27,5 @@ $LocaleConfig = [
 	"canonicalLocale" => "main", // The locale to consider canonical, used i.e. in the HtmlDocument module to set the rel="canonical" meta tag, in order to let search engines understand that there are different pages in different languages that represent the same content.
 	"availableLanguages" => [\Cherrycake\Modules\LANGUAGE_ENGLISH], // An array of the languages that are available for the APP. The textsTableName should contain at least this languages.
 	"textsDatabaseProviderName" => "main", // The name of the database provider where the localized multilingual texts are found
-	"textCacheProviderName" => "fast", // The name of the cache provider that will be used to cache localized multilingual texts
-	"textCacheDefaultTtl" => \Cherrycake\Modules\CACHE_TTL_NORMAL, // The default TTL for texts stored into cache
 	"timeZonesDatabaseProviderName" => "main", // The name of the database provider where the timezones are found
-	"timeZonesTableName" => "cherrycake_location_timezones", // The name of the table where the timezones are stored
-	"timeZonesCacheProviderName" => "fast", // The name of the cache provider that will be user to cache timezones
-	"timeZonesCacheKeyPrefix" => "LocaleTimeZone", // The prefix of the keys when storing timezones into cache
-	"timeZonesCacheDefaultTtl" => \Cherrycake\Modules\CACHE_TTL_NORMAL // The default TTL for timezones stored into cache
 ];

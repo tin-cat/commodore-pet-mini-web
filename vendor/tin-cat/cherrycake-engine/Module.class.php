@@ -23,19 +23,31 @@ class Module {
 	protected $isConfigFile = false;
 
 	/**
+	 * @var bool $isConfigFileRequired Whether the config file for this module is required to run the app
+	 */
+	protected $isConfigFileRequired = false;
+
+	/**
 	 * @var array $config Holds the default configuration for this module
 	 */
 	protected $config;
 
 	/**
-	 * @var array $dependentCherrycakeModules Cherrycake module names that are required by this module
+	 * @var array $dependentCoreModules Core module names that are required by this module
 	 */
-	protected $dependentCherrycakeModules;
+	protected $dependentCoreModules;
 
 	/**
 	 * @var array $dependentAppModules App module names that are required by this module
 	 */
 	protected $dependentAppModules;
+
+	/**
+	 * @return string This module's name
+	 */
+	function getName() {
+		return substr(get_class($this), strrpos(get_class($this), "\\")+1);
+	}
 
 	/**
 	 * loadConfigFile
@@ -45,10 +57,13 @@ class Module {
 	function loadConfigFile() {
 		if ($this->isConfigFile) {
 			global $e;
-			$className = substr(get_class($this), strrpos(get_class($this), "\\")+1);
+			$className = $this->getName();
 			$fileName = $e->getConfigDir()."/".$className.".config.php";
-			if (!file_exists($fileName))
+			if (!file_exists($fileName)) {
+				if ($this->isConfigFileRequired)
+					trigger_error("Configuration file $fileName required");
 				return;
+			}
 			include $fileName;
 			$this->config(${$className."Config"});
 		}
@@ -69,6 +84,14 @@ class Module {
 			$this->config = $this->arrayMergeRecursiveDistinct($this->config, $config);
 		else
 			$this->config = $config;
+	}
+
+	/**
+	 * @param string $key The configuration key
+	 * @return bool Whether the configuration specified the given configuration key has been set or not
+	 */
+	function isConfig($key) {
+		return isset($this->config[$key]);
 	}
 
 	/**
@@ -113,14 +136,14 @@ class Module {
 	function loadDependencies() {
 		global $e;
 
-		if (is_array($this->dependentCherrycakeModules))
-			foreach ($this->dependentCherrycakeModules as $moduleName)
-				if (!$e->loadCherrycakeModule($moduleName))
+		if (is_array($this->dependentCoreModules))
+			foreach ($this->dependentCoreModules as $moduleName)
+				if (!$e->loadCoreModule($moduleName, $this->getName()))
 					return false;
 
 		if (is_array($this->dependentAppModules))
 			foreach ($this->dependentAppModules as $moduleName)
-				if (!$e->loadAppModule($moduleName))
+				if (!$e->loadAppModule($moduleName, $this->getName()))
 					return false;
 
 		return true;

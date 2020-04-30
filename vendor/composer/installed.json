@@ -171,12 +171,12 @@
         "source": {
             "type": "git",
             "url": "https://github.com/tin-cat/cherrycake-engine.git",
-            "reference": "64323bf39787b5d7324081a8c0c52bdea8d041a2"
+            "reference": "05ccd731ac240e0d9179a4eecc559d3480fc8755"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/tin-cat/cherrycake-engine/zipball/64323bf39787b5d7324081a8c0c52bdea8d041a2",
-            "reference": "64323bf39787b5d7324081a8c0c52bdea8d041a2",
+            "url": "https://api.github.com/repos/tin-cat/cherrycake-engine/zipball/05ccd731ac240e0d9179a4eecc559d3480fc8755",
+            "reference": "05ccd731ac240e0d9179a4eecc559d3480fc8755",
             "shasum": ""
         },
         "require": {
@@ -188,7 +188,7 @@
         "suggest": {
             "mpdf/mpdf": "Provides server-side PDF creation capabilities"
         },
-        "time": "2020-04-17T17:30:45+00:00",
+        "time": "2020-04-19T09:37:19+00:00",
         "type": "library",
         "installation-source": "source",
         "notification-url": "https://packagist.org/downloads/",

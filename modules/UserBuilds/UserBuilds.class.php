@@ -20,7 +20,7 @@ namespace CherrycakeApp\Modules;
 class UserBuilds extends \Cherrycake\Module {
 	protected $isConfigFile = true;
 	
-	var $dependentCherrycakeModules = [
+	var $dependentCoreModules = [
 		"Patterns",
 		"HtmlDocument"
 	];

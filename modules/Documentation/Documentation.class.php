@@ -15,7 +15,7 @@ namespace CherrycakeApp\Modules;
 
 class Documentation extends \Cherrycake\Module {
 	
-	var $dependentCherrycakeModules = [
+	var $dependentCoreModules = [
 		"Errors",
 		"Patterns",
 		"Locale",
