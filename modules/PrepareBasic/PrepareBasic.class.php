@@ -18,11 +18,12 @@ namespace CherrycakeApp\Modules;
  * @category AppModules
  */
 
-class PrepareBasic extends \Cherrycake\Module {
+class PrepareBasic  extends \Cherrycake\Module {
 	protected $isConfigFile = true;
 
 	var $dependentCoreModules = [
-		"Ui"
+		"UiComponentPanel",
+		"UiComponentButton"
 	];
 	
 	var $dependentAppModules = [
@@ -37,10 +38,10 @@ class PrepareBasic extends \Cherrycake\Module {
 			return false;
 
 		// Add options to the UiComponentMenuBar
-		$e->Ui->uiComponents["UiComponentPanel"]->addBlocks(
+		$e->UiComponentPanel->addBlocks(
 			"topRight",
 			[
-				"github" => \Cherrycake\UiComponentMenuOption::build([
+				"github" => new \Cherrycake\Modules\UiComponentMenuOption([
 					"title" => "GitHub",
 					"iconName" => "github",
 					"iconVariant" => "white",
@@ -50,10 +51,10 @@ class PrepareBasic extends \Cherrycake\Module {
 			]
 		);
 
-		$e->Ui->uiComponents["UiComponentPanel"]->addBlocks(
+		$e->UiComponentPanel->addBlocks(
 			"topRight",
 			[
-				"twitter" => \Cherrycake\UiComponentMenuOption::build([
+				"twitter" => new \Cherrycake\Modules\UiComponentMenuOption([
 					"title" => "Twitter",
 					"iconName" => "twitter",
 					"iconVariant" => "white",
@@ -63,10 +64,10 @@ class PrepareBasic extends \Cherrycake\Module {
 			]
 		);
 
-		$e->Ui->uiComponents["UiComponentPanel"]->addBlocks(
+		$e->UiComponentPanel->addBlocks(
 			"main",
 			[
-				"home" => \Cherrycake\UiComponentMenuOption::build([
+				"home" => new \Cherrycake\Modules\UiComponentMenuOption([
 					"title" => "Home",
 					"href" => $e->Actions->getAction("homePage")->request->buildUrl(),
 					"iconName" => "home",
@@ -80,10 +81,10 @@ class PrepareBasic extends \Cherrycake\Module {
 		foreach ($documentationPages as $pageName => $pageSetup) {
 			if (!is_array($pageSetup["subPages"])) {
 
-				$e->Ui->uiComponents["UiComponentPanel"]->addBlock(
+				$e->UiComponentPanel->addBlock(
 					"main",
 					$pageName,
-					\Cherrycake\UiComponentMenuOption::build([
+					new \Cherrycake\Modules\UiComponentMenuOption([
 						"title" => $pageSetup["title"],
 						"iconName" => $pageSetup["iconName"],
 						"iconVariant" => "white",
@@ -103,7 +104,7 @@ class PrepareBasic extends \Cherrycake\Module {
 					if (is_null($subPageSetup))
 						continue;
 					$subOptions[$subPageName] =
-						\Cherrycake\UiComponentMenuOption::build([
+						new \Cherrycake\Modules\UiComponentMenuOption([
 							"title" => isset($subPageSetup["title"]) ? $subPageSetup["title"] : false,
 							"iconName" => isset($subPageSetup["iconName"]) ? $subPageSetup["iconName"] : false,
 							"iconVariant" => "white",
@@ -116,10 +117,10 @@ class PrepareBasic extends \Cherrycake\Module {
 						]);
 				}
 
-				$e->Ui->uiComponents["UiComponentPanel"]->addBlock(
+				$e->UiComponentPanel->addBlock(
 					"main",
 					$pageName,
-					\Cherrycake\UiComponentMenuOptionWithSuboptions::build([
+					new \Cherrycake\Modules\UiComponentMenuOptionWithSuboptions([
 						"title" => $pageSetup["title"],
 						"iconName" => $pageSetup["iconName"],
 						"iconVariant" => "white",
@@ -131,10 +132,10 @@ class PrepareBasic extends \Cherrycake\Module {
 		}
 
 		/*
-		$e->Ui->uiComponents["UiComponentPanel"]->addBlocks(
+		$e->UiComponentPanel->addBlocks(
 			"main",
 			[
-				"order" => \Cherrycake\UiComponentMenuOption::build([
+				"order" => new \Cherrycake\Modules\UiComponentMenuOption([
 					"title" => "Order part kits",
 					"iconName" => "order",
 					"iconVariant" => "white",
@@ -144,27 +145,27 @@ class PrepareBasic extends \Cherrycake\Module {
 		);
 		*/
 
-		$e->Ui->uiComponents["UiComponentPanel"]->addBlocks(
+		$e->UiComponentPanel->addBlocks(
 			"main",
 			[
-				"contribute" => \Cherrycake\UiComponentMenuOptionWithSuboptions::build([
+				"contribute" => new \Cherrycake\Modules\UiComponentMenuOptionWithSuboptions([
 					"title" => "Contributions",
 					"iconName" => "contribute",
 					"iconVariant" => "white",
 					"subOptions" => [
-						"keycaps" => \Cherrycake\UiComponentMenuOption::build([
+						"keycaps" => new \Cherrycake\Modules\UiComponentMenuOption([
 							"title" => "Keycap labels",
 							"href" => $e->Actions->getAction("contributionKeycaps")->request->buildUrl()
 						]),
-						"hdmiMod" => \Cherrycake\UiComponentMenuOption::build([
+						"hdmiMod" => new \Cherrycake\Modules\UiComponentMenuOption([
 							"title" => "HDMI mod",
 							"href" => $e->Actions->getAction("contributionHDMIMod")->request->buildUrl()
 						]),
-						"keyboardGamePad" => \Cherrycake\UiComponentMenuOption::build([
+						"keyboardGamePad" => new \Cherrycake\Modules\UiComponentMenuOption([
 							"title" => "Keyboard game pad",
 							"href" => $e->Actions->getAction("contributionKeyboardGamePad")->request->buildUrl()
 						]),
-						"howToContribute" => \Cherrycake\UiComponentMenuOption::build([
+						"howToContribute" => new \Cherrycake\Modules\UiComponentMenuOption([
 							"title" => "How to contribute",
 							"href" => $e->Actions->getAction("howToContribute")->request->buildUrl()
 						])
@@ -173,10 +174,10 @@ class PrepareBasic extends \Cherrycake\Module {
 			]
 		);
 
-		$e->Ui->uiComponents["UiComponentPanel"]->addBlocks(
+		$e->UiComponentPanel->addBlocks(
 			"main",
 			[
-				"userBuilds" => \Cherrycake\UiComponentMenuOption::build([
+				"userBuilds" => new \Cherrycake\Modules\UiComponentMenuOption([
 					"title" => "Builds",
 					"iconName" => "builds",
 					"iconVariant" => "white",
@@ -185,10 +186,10 @@ class PrepareBasic extends \Cherrycake\Module {
 			]
 		);
 
-		$e->Ui->uiComponents["UiComponentPanel"]->addBlocks(
+		$e->UiComponentPanel->addBlocks(
 			"main",
 			[
-				"todo" => \Cherrycake\UiComponentMenuOption::build([
+				"todo" => new \Cherrycake\Modules\UiComponentMenuOption([
 					"title" => "To do",
 					"iconName" => "todo",
 					"iconVariant" => "white",
@@ -197,10 +198,10 @@ class PrepareBasic extends \Cherrycake\Module {
 			]
 		);
 
-		$e->Ui->uiComponents["UiComponentPanel"]->addBlocks(
+		$e->UiComponentPanel->addBlocks(
 			"main",
 			[
-				"goodies" => \Cherrycake\UiComponentMenuOption::build([
+				"goodies" => new \Cherrycake\Modules\UiComponentMenuOption([
 					"title" => "Goodies",
 					"iconName" => "goodies",
 					"iconVariant" => "white",
@@ -209,10 +210,10 @@ class PrepareBasic extends \Cherrycake\Module {
 			]
 		);
 
-		$e->Ui->uiComponents["UiComponentPanel"]->addBlocks(
+		$e->UiComponentPanel->addBlocks(
 			"main",
 			[
-				"press" => \Cherrycake\UiComponentMenuOption::build([
+				"press" => new \Cherrycake\Modules\UiComponentMenuOption([
 					"title" => "Press",
 					"iconName" => "press",
 					"iconVariant" => "white",

@@ -17,7 +17,7 @@ namespace CherrycakeApp\Modules;
  * @category AppModules
  */
 
-class Contribute extends \Cherrycake\Module {
+class Contribute  extends \Cherrycake\Module {
 	
 	var $dependentCoreModules = [
 		"Patterns",
@@ -122,7 +122,7 @@ class Contribute extends \Cherrycake\Module {
 	 */
 	function howToContribute() {
 		global $e;
-		$e->Ui->uiComponents["UiComponentPanel"]->setOutputResponse([
+		$e->UiComponentPanel->setOutputResponse([
 			"content" => $e->Patterns->parse("Contribute/HowToContribute.html"),
 			"mainOptionSelected" => "contribute"
 		]);
@@ -135,7 +135,7 @@ class Contribute extends \Cherrycake\Module {
 	 */
 	function contributionKeycaps() {
 		global $e;
-		$e->Ui->uiComponents["UiComponentPanel"]->setOutputResponse([
+		$e->UiComponentPanel->setOutputResponse([
 			"content" => $e->Patterns->parse("Contribute/Keycaps.html"),
 			"mainOptionSelected" => "contribute",
 			"mainSubOptionSelected" => "keycaps"
@@ -149,7 +149,7 @@ class Contribute extends \Cherrycake\Module {
 	 */
 	function contributionHDMIMod() {
 		global $e;
-		$e->Ui->uiComponents["UiComponentPanel"]->setOutputResponse([
+		$e->UiComponentPanel->setOutputResponse([
 			"content" => $e->Patterns->parse("Contribute/HDMIMod.html"),
 			"mainOptionSelected" => "contribute",
 			"mainSubOptionSelected" => "hdmiMod"
@@ -163,7 +163,7 @@ class Contribute extends \Cherrycake\Module {
 	 */
 	function keyboardGamePad() {
 		global $e;
-		$e->Ui->uiComponents["UiComponentPanel"]->setOutputResponse([
+		$e->UiComponentPanel->setOutputResponse([
 			"content" => $e->Patterns->parse("Contribute/KeyboardGamePad.html"),
 			"mainOptionSelected" => "contribute",
 			"mainSubOptionSelected" => "keyboardGamePad"

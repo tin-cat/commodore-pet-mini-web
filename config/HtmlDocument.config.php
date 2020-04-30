@@ -12,13 +12,13 @@ namespace Cherrycake;
 
 $HtmlDocumentConfig = [
 	"title" => "Commodore PET Mini", // The default page title
-	"description" => "A Commodore PET 8032 replica DIY project", // The default page description
-	"copyright" => "Copyright Tin.cat ".date("Y"), // The default page copyright info
-	"keywords" => ["Commodore PET","Raspberry Pi","Retro computer"], // The default page keywords
+	"description" => "A working mini Commodore PET replica 3D-printing project", // The default page description
+	"copyright" => "Copyright 2019 Tin.cat", // The default page copyright info
+	"keywords" => ["Commodore PET", "retro computing", "retro computer", "Commodore", "Raspberry Pi", "3D Printing"], // The default page keywords
 	"isAllowRobotsIndex" => true, // Whether to allow robots to index the document
 	"isAllowRobotsFollow" => true, // Whether to allow robots to follow links on the document
-	"defaultCssSetsToInclude" => ["main", "uicomponents"], // An array of Css set names that will be always included
-	"defaultJavascriptSetsToInclude" => ["main"], // An array of Javascript set names that will be always included
+	"defaultCssSetsToInclude" => ["main", "uiComponents"], // An array of Css set names that will be always included
+	"defaultJavascriptSetsToInclude" => ["main", "uiComponents"], // An array of Javascript set names that will be always included
 	"isDeferJavascript" => false,
 	"mobileViewport" => [ // Configuration for the site when viewed in a mobile device, via the viewport meta
 		"width" => "device-width", // The width of the viewport: A number of pixels, or "device-width"

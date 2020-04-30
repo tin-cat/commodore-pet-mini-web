@@ -15,7 +15,7 @@ namespace CherrycakeApp\Modules;
  * @category AppModules
  */
 
-class AffiliateLinks extends \Cherrycake\Module {
+class AffiliateLinks  extends \Cherrycake\Module {
 
     protected $isConfigFile = true;
 	

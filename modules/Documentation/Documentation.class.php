@@ -13,14 +13,13 @@ namespace CherrycakeApp\Modules;
  * @category AppModules
  */
 
-class Documentation extends \Cherrycake\Module {
+class Documentation  extends \Cherrycake\Module {
 	
 	var $dependentCoreModules = [
 		"Errors",
 		"Patterns",
 		"Locale",
 		"HtmlDocument",
-		"Ui",
 		"Stats"
     ];
     
@@ -104,10 +103,10 @@ class Documentation extends \Cherrycake\Module {
             "pageName" => $request->pageName
         ]));
 
-        if ($uiComponent = $e->Ui->uiComponents["UiComponentPanel"]->getBlock("main", $request->pageName))
+        if ($uiComponent = $e->UiComponentPanel->getBlock("main", $request->pageName))
             $uiComponent->setSelected(true);
         
-		$e->Ui->uiComponents["UiComponentPanel"]->setOutputResponse([
+		$e->UiComponentPanel->setOutputResponse([
             "content" => $e->Patterns->parse($documentationPatternFileName),
 			"mainOptionSelected" => $request->pageName,
 			"isAllMainOptionsOpen" => true
@@ -128,7 +127,7 @@ class Documentation extends \Cherrycake\Module {
             "pageName" => $request->section."/".$request->pageName
         ]));
 
-		$e->Ui->uiComponents["UiComponentPanel"]->setOutputResponse([
+		$e->UiComponentPanel->setOutputResponse([
             "content" => $e->Patterns->parse($documentationPatternFileName),
             "mainOptionSelected" => $request->sectionName,
 			"mainSubOptionSelected" => $request->pageName

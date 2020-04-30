@@ -17,7 +17,7 @@ namespace CherrycakeApp\Modules;
  * @category AppModules
  */
 
-class UserBuilds extends \Cherrycake\Module {
+class UserBuilds  extends \Cherrycake\Module {
 	protected $isConfigFile = true;
 	
 	var $dependentCoreModules = [
@@ -60,7 +60,7 @@ class UserBuilds extends \Cherrycake\Module {
 	 */
 	function home() {
 		global $e;
-		$e->Ui->uiComponents["UiComponentPanel"]->setOutputResponse([
+		$e->UiComponentPanel->setOutputResponse([
 			"content" => $e->Patterns->parse("UserBuilds/Home.html"),
 			"mainOptionSelected" => "userBuilds"
 		]);

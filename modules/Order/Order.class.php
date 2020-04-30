@@ -17,7 +17,7 @@ namespace CherrycakeApp\Modules;
  * @category AppModules
  */
 
-class Order extends \Cherrycake\Module {
+class Order  extends \Cherrycake\Module {
 	protected $isConfigFile = true;
 	
 	var $dependentCoreModules = [
@@ -60,7 +60,7 @@ class Order extends \Cherrycake\Module {
 	 */
 	function home() {
 		global $e;
-		$e->Ui->uiComponents["UiComponentPanel"]->setOutputResponse([
+		$e->UiComponentPanel->setOutputResponse([
 			"content" => $e->Patterns->parse("Order/Home.html"),
 			"mainOptionSelected" => "order"
 		]);

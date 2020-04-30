@@ -17,7 +17,7 @@ namespace CherrycakeApp\Modules;
  * @category AppModules
  */
 
-class ToDo extends \Cherrycake\Module {
+class ToDo  extends \Cherrycake\Module {
 	
 	var $dependentCoreModules = [
 		"Patterns",
@@ -59,7 +59,7 @@ class ToDo extends \Cherrycake\Module {
 	 */
 	function home() {
 		global $e;
-		$e->Ui->uiComponents["UiComponentPanel"]->setOutputResponse([
+		$e->UiComponentPanel->setOutputResponse([
 			"content" => $e->Patterns->parse("ToDo/Home.html"),
 			"mainOptionSelected" => "todo"
 		]);

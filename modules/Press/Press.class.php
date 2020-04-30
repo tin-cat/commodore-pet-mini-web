@@ -17,7 +17,7 @@ namespace CherrycakeApp\Modules;
  * @category AppModules
  */
 
-class Press extends \Cherrycake\Module {
+class Press  extends \Cherrycake\Module {
 	
 	var $dependentCoreModules = [
 		"Patterns",
@@ -59,7 +59,7 @@ class Press extends \Cherrycake\Module {
 	 */
 	function home() {
 		global $e;
-		$e->Ui->uiComponents["UiComponentPanel"]->setOutputResponse([
+		$e->UiComponentPanel->setOutputResponse([
 			"content" => $e->Patterns->parse("Press/Home.html"),
 			"mainOptionSelected" => "press"
 		]);

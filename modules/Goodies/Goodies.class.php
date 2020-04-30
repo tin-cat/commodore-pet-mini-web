@@ -17,7 +17,7 @@ namespace CherrycakeApp\Modules;
  * @category AppModules
  */
 
-class Goodies extends \Cherrycake\Module {
+class Goodies  extends \Cherrycake\Module {
 	
 	var $dependentCoreModules = [
 		"Patterns",
@@ -59,7 +59,7 @@ class Goodies extends \Cherrycake\Module {
 	 */
 	function home() {
 		global $e;
-		$e->Ui->uiComponents["UiComponentPanel"]->setOutputResponse([
+		$e->UiComponentPanel->setOutputResponse([
 			"content" => $e->Patterns->parse("Goodies/Home.html"),
 			"mainOptionSelected" => "goodies"
 		]);

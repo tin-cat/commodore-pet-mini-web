@@ -17,7 +17,7 @@ namespace CherrycakeApp\Modules;
  * @category AppModules
  */
 
-class Home extends \Cherrycake\Module {
+class Home  extends \Cherrycake\Module {
 	
 	var $dependentCoreModules = [
 		"Patterns",
@@ -55,7 +55,8 @@ class Home extends \Cherrycake\Module {
 	 */
 	function homePage() {
 		global $e;
-		$e->Ui->uiComponents["UiComponentPanel"]->setOutputResponse([
+		// echo $e->getStatusHtml(); return true;
+		$e->UiComponentPanel->setOutputResponse([
 			"content" => $e->Patterns->parse("Home/Home.html"),
 			"mainOptionSelected" => "home",
 			"isAllMainOptionsOpen" => true
