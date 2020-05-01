@@ -95,7 +95,7 @@ class Documentation  extends \Cherrycake\Module {
 	 * Outputs a documentation root page
 	 */
 	function viewPage($request) {
-        global $e;
+		global $e;
         
         $documentationPatternFileName = "Documentation/".$request->pageName.".html";
 
@@ -104,7 +104,7 @@ class Documentation  extends \Cherrycake\Module {
         ]));
 
         if ($uiComponent = $e->UiComponentPanel->getBlock("main", $request->pageName))
-            $uiComponent->setSelected(true);
+			$uiComponent->setSelected(true);
         
 		$e->UiComponentPanel->setOutputResponse([
             "content" => $e->Patterns->parse($documentationPatternFileName),
@@ -125,7 +125,7 @@ class Documentation  extends \Cherrycake\Module {
         
         $e->Stats->trigger(new \CherrycakeApp\StatsEventDocumentationPageView([
             "pageName" => $request->section."/".$request->pageName
-        ]));
+		]));
 
 		$e->UiComponentPanel->setOutputResponse([
             "content" => $e->Patterns->parse($documentationPatternFileName),

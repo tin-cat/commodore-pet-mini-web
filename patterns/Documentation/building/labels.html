@@ -43,13 +43,13 @@
 
     <div class="UiComponentButtons centered">
 
-        <?=\Cherrycake\UiComponentButton::build([
+        <?=\Cherrycake\Modules\UiComponentButton::build([
             "title" => "See other people's PETs and add yours",
             "additionalCssClasses" => "accent",
             "href" => $e->Actions->getAction("userBuilds")->request->buildUrl()
         ])?>
 
-        <?=\Cherrycake\UiComponentButton::build([
+        <?=\Cherrycake\Modules\UiComponentButton::build([
             "title" => "Mod your Commodore PET Mini",
             "additionalCssClasses" => "accent",
             "href" => $e->Actions->getAction("documentationSubPage")->request->buildUrl([

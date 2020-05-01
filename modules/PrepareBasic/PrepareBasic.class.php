@@ -22,6 +22,7 @@ class PrepareBasic  extends \Cherrycake\Module {
 	protected $isConfigFile = true;
 
 	var $dependentCoreModules = [
+		"UiComponentFonts",
 		"UiComponentPanel",
 		"UiComponentButton",
 		"UiComponentArticle"
