@@ -13,7 +13,6 @@ namespace Cherrycake;
 global $e;
 
 $CssConfig = [
-	"isCache" => !$e->isDevel(), // The default value for isCache in each set
 	"lastModifiedTimestamp" => mktime(4, 0, 0, 2, 29, 2020), // The global version
 	"isMinify" => !$e->isDevel(),
 	"defaultSets" => [ // An array of Css sets configured.

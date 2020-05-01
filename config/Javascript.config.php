@@ -13,7 +13,6 @@ namespace Cherrycake;
 global $e;
 
 $JavascriptConfig = [
-	"isCache" => !$e->isDevel(), // The default value for isCache in each set
 	"lastModifiedTimestamp" => mktime(2, 0, 0, 22, 1, 2019), // The global version
 	"isMinify" => !$e->isDevel(),
 	"defaultSets" => [ // An array of Javascript sets with its files that should be always configured, will be added to the group "main"

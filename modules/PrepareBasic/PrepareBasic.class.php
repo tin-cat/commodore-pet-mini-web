@@ -23,7 +23,8 @@ class PrepareBasic  extends \Cherrycake\Module {
 
 	var $dependentCoreModules = [
 		"UiComponentPanel",
-		"UiComponentButton"
+		"UiComponentButton",
+		"UiComponentArticle"
 	];
 	
 	var $dependentAppModules = [
