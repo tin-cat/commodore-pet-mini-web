@@ -17,5 +17,6 @@ $UiComponentPanelConfig = [
         "smallImageUrl" => "/res/img/commodorePetMiniIconWhite.svg", // The image to show as logo when the panel is working in a small screen
         "linkRequest" => "homePage" // If set, the logo will link to this request
     ],
-    "iconHamburgerVariant" => "white"
+    "iconHamburgerVariant" => "white",
+    "isAllMainOptionsOpen" => true
 ];
