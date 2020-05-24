@@ -1,8 +1,6 @@
 <?php
 
 /**
- * Pbkdf2
- *
  * @package Cherrycake
  */
 
@@ -21,10 +19,9 @@ define("HASH_SALT_INDEX", 2);
 define("HASH_PBKDF2_INDEX", 3);
 
 /**
- * Pbkdf2
- *
  * Implements Password-Based Key Derivation Function 2 (PBFDK2: http://en.wikipedia.org/wiki/PBKDF2)
  * Based on "Password Hashing With PBKDF2" (http://crackstation.net/hashing-security.htm), implementation by Taylor Hornby (Copyright (c) 2013, All rights reserved), original: https://defuse.ca/php-pbkdf2.htm / https://github.com/defuse/password-hashing
+ * Modified formatting and changed to support PHP 7 without mcrypt dependency by https://tin.cat)
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -52,10 +49,14 @@ define("HASH_PBKDF2_INDEX", 3);
  * @category Classes
  */
 class Pbkdf2 {
-	function createHash($password)
-	{
+	function createHash($password) {
 		// format: algorithm:iterations:salt:hash
-		$salt = base64_encode(mcrypt_create_iv(PBKDF2_SALT_BYTE_SIZE, MCRYPT_DEV_URANDOM));
+		if (function_exists('random_bytes')) {
+            $salt_raw = random_bytes(PBKDF2_SALT_BYTE_SIZE);
+        } else {
+            $salt_raw = mcrypt_create_iv(PBKDF2_SALT_BYTE_SIZE, MCRYPT_DEV_URANDOM);
+        }
+		$salt = base64_encode($salt_raw);
 		return PBKDF2_HASH_ALGORITHM . ":" . PBKDF2_ITERATIONS . ":" .  $salt . ":" .
 			base64_encode($this->pbkdf2(
 				PBKDF2_HASH_ALGORITHM,
@@ -67,10 +68,9 @@ class Pbkdf2 {
 			));
 	}
 
-	function checkPassword($password, $correct_hash)
-	{
+	function checkPassword($password, $correct_hash) {
 		$params = explode(":", $correct_hash);
-		if(count($params) < HASH_SECTIONS)
+		if (count($params) < HASH_SECTIONS)
 			return false;
 		$pbkdf2 = base64_decode($params[HASH_PBKDF2_INDEX]);
 		return $this->slowEquals(
@@ -87,11 +87,9 @@ class Pbkdf2 {
 	}
 
 	// Compares two strings $a and $b in length-constant time.
-	function slowEquals($a, $b)
-	{
+	function slowEquals($a, $b) {
 		$diff = strlen($a) ^ strlen($b);
-		for($i = 0; $i < strlen($a) && $i < strlen($b); $i++)
-		{
+		for ($i = 0; $i < strlen($a) && $i < strlen($b); $i++) {
 			$diff |= ord($a[$i]) ^ ord($b[$i]);
 		}
 		return $diff === 0;
@@ -112,12 +110,11 @@ class Pbkdf2 {
 	 * This implementation of PBKDF2 was originally created by https://defuse.ca
 	 * With improvements by http://www.variations-of-shadow.com
 	 */
-	function pbkdf2($algorithm, $password, $salt, $count, $key_length, $raw_output = false)
-	{
+	function pbkdf2($algorithm, $password, $salt, $count, $key_length, $raw_output = false) {
 		$algorithm = strtolower($algorithm);
-		if(!in_array($algorithm, hash_algos(), true))
+		if (!in_array($algorithm, hash_algos(), true))
 			die('PBKDF2 ERROR: Invalid hash algorithm.');
-		if($count <= 0 || $key_length <= 0)
+		if ($count <= 0 || $key_length <= 0)
 			die('PBKDF2 ERROR: Invalid parameters.');
 
 		if (function_exists("hash_pbkdf2")) {
@@ -132,7 +129,7 @@ class Pbkdf2 {
 		$block_count = ceil($key_length / $hash_length);
 
 		$output = "";
-		for($i = 1; $i <= $block_count; $i++) {
+		for ($i = 1; $i <= $block_count; $i++) {
 			// $i encoded as 4 bytes, big endian.
 			$last = $salt . pack("N", $i);
 			// first iteration
@@ -144,7 +141,7 @@ class Pbkdf2 {
 			$output .= $xorsum;
 		}
 
-		if($raw_output)
+		if ($raw_output)
 			return substr($output, 0, $key_length);
 		else
 			return bin2hex(substr($output, 0, $key_length));

@@ -6,7 +6,7 @@
  * @package Cherrycake
  */
 
-namespace Cherrycake\Modules;
+namespace Cherrycake;
 
 /**
  * Cache
@@ -17,7 +17,7 @@ namespace Cherrycake\Modules;
  * @package Cherrycake
  * @category Modules
  */
-class Cache extends \Cherrycake\Module {
+class Cache  extends \Cherrycake\Module {
 	/**
 	 * @var bool $isConfig Sets whether this module has its own configuration file. Defaults to false.
 	 */
@@ -44,7 +44,7 @@ class Cache extends \Cherrycake\Module {
 		// Check that the "engine" cache provider has not been defined previously
 		if ($e->isDevel() && isset($this->getConfig("providers")["engine"])) {
 			$e->loadCoreModule("Errors");
-			$e->Errors->trigger(\Cherrycake\Modules\ERROR_SYSTEM, [
+			$e->Errors->trigger(\Cherrycake\ERROR_SYSTEM, [
 				"errorDescription" => "The \"engine\" cache provider name is reserved"
 			]);
 		}
@@ -77,14 +77,14 @@ class Cache extends \Cherrycake\Module {
 	function addProvider($key, $providerClassName, $config) {
 		global $e;
 		$e->loadCoreModuleClass("Cache", $providerClassName);
-		eval("\$this->".$key." = new \\Cherrycake\\Modules\\".$providerClassName."();");
+		eval("\$this->".$key." = new \\Cherrycake\\".$providerClassName."();");
 		$this->$key->config($config);
 	}
 
 	/**
 	 * buildCacheKey
 	 *
-	 * Returns a cache key to identify a specific cached object, to be used in caching operations, based on the provided $config.
+	 * Returns a cache key to be used in caching operations, based on the provided $config.
 	 * The keys built can have one of the following syntaxes:
 	 * <App namespace>_[<prefix>]_<uniqueId>
 	 * <App namespace>_[<prefix>]_[<specificPrefix>]_<key|encoded sql>

@@ -1,41 +1,29 @@
 <?php
 
 /**
- * Actions
- *
  * @package Cherrycake
  */
 
-namespace Cherrycake\Modules;
+namespace Cherrycake;
 
 /**
- * Actions
- *
  * Module to manage the queries to the engine. It answers to queries by evaluating the query path and finding a matching mapped Action. Methods running via mapped actions must return false if they don't accept the request in order to let other methods in other mapped actions have a chance of accepting it. They must return true or nothing if they accept the request.
  * It takes configuration from the App-layer configuration file.
- *
- * Configuration example for actions.config.php:
- * <code>
- * $actionsConfig = [
- * 	"cache" => [
- * 		"provider" => "huge" // The default cache provider to use
- * 	],
- *	"sleepSecondsWhenActionSensibleToBruteForceAttacksFails" => [0, 3] // An array containing two values: the minimum and maximum seconds to wait after an action that was marked as sensible to brute force attacks has been executed and returned false, to discourage crackers. A random number of seconds between the minimum and maximum specified will be used for added confusion.
- * ];
- * </code>
  *
  * @package Cherrycake
  * @category Modules
  */
-class Actions extends \Cherrycake\Module {
+class Actions  extends \Cherrycake\Module {
 	protected $isConfigFile = true;
 
 	/**
 	 * @var array $config Default configuration options
 	 */
 	var $config = [
-		"defaultActionCacheTtl" => 3600, // We manually specify a number of seconds here instead of a \Cherrycake\CACHE_TTL_* constant to avoid dependency with the Cache module
-		"sleepSecondsWhenActionSensibleToBruteForceAttacksFails" => [0, 3]
+		"defaultCacheProviderName" => "engine", // The default cache provider name to use.
+		"defaultCacheTtl" => \Cherrycake\CACHE_TTL_NORMAL, // De default TTL to use.
+		"defaultCachePrefix" => "Actions",
+		"sleepSecondsWhenActionSensibleToBruteForceAttacksFails" => [0, 3] // An array containing the minimum and maximum number of seconds to wait when an action marked as sensible to brute force attacks has been executed and failed.
 	];
 
 	/**
@@ -182,7 +170,7 @@ class Actions extends \Cherrycake\Module {
 		global $e;
 
 		if ($e->isDevel() && !is_array($this->actions)) {
-			$e->Errors->trigger(\Cherrycake\Modules\ERROR_NOT_FOUND, [
+			$e->Errors->trigger(\Cherrycake\ERROR_SYSTEM, [
 				"errorDescription" => "No mapped actions"
 			]);
 		}
@@ -193,14 +181,15 @@ class Actions extends \Cherrycake\Module {
 		if (is_array($this->actions)) {
 			$this->buildCurrentRequestPathComponentStringsFromRequestUri($requestUri);
 			// Loop through all mapped actions
-			foreach ($this->actions as $actionName => $action)
+			foreach ($this->actions as $actionName => $action) {
 				if ($action->request->isCurrentRequest())
 					$matchingActions[$actionName] = $action;
+			}
 			reset($this->actions);
 		}
 
 		if (!$matchingActions) {
-			$e->Errors->trigger(\Cherrycake\Modules\ERROR_NOT_FOUND, [
+			$e->Errors->trigger(\Cherrycake\ERROR_NOT_FOUND, [
 				"errorDescription" => "No mapped action found for this request"
 			]);
 			return false;
@@ -219,7 +208,7 @@ class Actions extends \Cherrycake\Module {
 				return;
 		}
 
-		$e->Errors->trigger(\Cherrycake\Modules\ERROR_NOT_FOUND, [
+		$e->Errors->trigger(\Cherrycake\ERROR_NOT_FOUND, [
 			"errorDescription" => "No matching actions were productive",
 			"errorVariables" => [
 				"nonproductiveMatchingActions" => $nonproductiveMatchingActions
@@ -260,7 +249,7 @@ class Actions extends \Cherrycake\Module {
 			reset($this->actions);
 		}
 
-		return $r;
+		return $r ?? null;
 	}
 
 }

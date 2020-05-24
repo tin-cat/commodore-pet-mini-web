@@ -34,7 +34,7 @@ class UserBuild extends \Cherrycake\BasicObject {
         return $e->Locale->formatDate(
             $this->date,
             [
-                "style" => \Cherrycake\Modules\TIMESTAMP_FORMAT_HUMAN
+                "style" => \Cherrycake\TIMESTAMP_FORMAT_HUMAN
             ]
         );
     }

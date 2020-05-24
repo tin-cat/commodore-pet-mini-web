@@ -6,7 +6,7 @@
  * @package Cherrycake
  */
 
-namespace Cherrycake\Modules;
+namespace Cherrycake;
 
 /**
  * TableAdmin
@@ -16,7 +16,7 @@ namespace Cherrycake\Modules;
  * @package Cherrycake
  * @category Modules
  */
-class TableAdmin extends \Cherrycake\Module {
+class TableAdmin  extends \Cherrycake\Module {
 	/**
 	 * @var array $dependentCoreModules Core module names that are required by this module
 	 */
@@ -153,7 +153,7 @@ class TableAdmin extends \Cherrycake\Module {
         if (!$map = $this->getMap($mapName))
             return false;
         global $e;
-        return $e->Ui->getUiComponent("UiComponentTableAdmin")->buildHtml($mapName, $setup);
+        return $e->UiComponentTableAdmin->buildHtml($mapName, $setup);
     }
 
     /**
@@ -189,7 +189,7 @@ class TableAdmin extends \Cherrycake\Module {
                             $result = $requestParameter->checkValueSecurity();
                             if (!$result->isOk) {
                                 global $e;
-                                $e->Errors->trigger(\Cherrycake\Modules\ERROR_SYSTEM, [
+                                $e->Errors->trigger(\Cherrycake\ERROR_SYSTEM, [
                                     "errorDescription" => "From TableAdmin: ".implode(" / ", $result->description),
                                     "errorVariables" => [
                                         "mapName" => $request->mapName,

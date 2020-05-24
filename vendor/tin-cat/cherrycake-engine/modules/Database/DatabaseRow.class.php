@@ -50,8 +50,8 @@ class DatabaseRow {
 		if (!$fields)
 			return $this->data;
 
-		while (list($key, $value) = each($this->data))
-			$data[$key] = $fields[$key]["type"] ? $this->treatFieldData($this->data[$key], $fields[$key]["type"]) : $value;
+		foreach ($this->data as $key => $value)
+			$data[$key] = $fields[$key]["type"] ?? false ? $this->treatFieldData($this->data[$key], $fields[$key]["type"]) : $value;
 		reset($this->data);
 		return $data;
 	}
@@ -80,7 +80,7 @@ class DatabaseRow {
 	 *
 	 * @param $key The key of the field
 	 * @param array $fields An optional array definition of fields and their types
-	 * @return mixed The value of the field
+	 * @return mixed The value of the field, or null if the field didn't exist
 	 */
 	function getField($key, $fields = false) {
 		if ($fields && $fields[$key]["type"]) {
@@ -92,13 +92,13 @@ class DatabaseRow {
 				return $this->treatFieldData($this->data["key"], $fields[$key]["type"]);
 		}
 		else
-			return $this->data[$key];
+			return $this->data[$key] ?? null;
 	}
 
 	/**
-	 * Returns a treated version of the given data according to the given \Cherrycake\Modules\DATABASE_FIELD_TYPE_* fieldType. $data contains data as is came out from the database.
+	 * Returns a treated version of the given data according to the given \Cherrycake\DATABASE_FIELD_TYPE_* fieldType. $data contains data as is came out from the database.
 	 * @param mixed $data The data to treat, as it came out of the database
-	 * @param integer $fieldType The field type, one of \Cherrycake\Modules\DATABASE_FIELD_TYPE_*
+	 * @param integer $fieldType The field type, one of \Cherrycake\DATABASE_FIELD_TYPE_*
 	 * @return mixed The treated data
 	 */
 	function treatFieldData($data, $fieldType) {

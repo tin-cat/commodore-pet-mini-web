@@ -1,7 +1,7 @@
 <?= $e->HtmlDocument->Header() ?>
 
 <div style="margin: 10px; padding: 10px; background-color: crimson; border-bottom: solid #720 1px; color: #fff; font-family: Calibri, Sans-serif; font-size: 11pt; -webkit-border-radius: 5px; -border-radius: 5px; -moz-border-radius: 5px;">
-	<h2><?= ($errorType == \Cherrycake\Modules\ERROR_SYSTEM ? "System error" : ($errorType == \Cherrycake\Modules\ERROR_APP ? "App error" : null)) ?></h2>
+	<h2><?= ($errorType == \Cherrycake\ERROR_SYSTEM ? "System error" : ($errorType == \Cherrycake\ERROR_APP ? "App error" : null)) ?></h2>
 	<?= ($errorDescription ? "<h3>".$errorDescription."</h3>" : null) ?>
 	<?php
 	if ($e->isDevel()) {

@@ -6,7 +6,7 @@
  * @package CherrycakeApp
  */
 
-namespace CherrycakeApp\Modules;
+namespace CherrycakeApp;
 
 /**
  * A module that manages affiliate links. Depending on the user's country, it returns the appropriate affiliate link.
@@ -15,7 +15,7 @@ namespace CherrycakeApp\Modules;
  * @category AppModules
  */
 
-class AffiliateLinks  extends \Cherrycake\Module {
+class AffiliateLinks extends \Cherrycake\Module {
 
     protected $isConfigFile = true;
 	

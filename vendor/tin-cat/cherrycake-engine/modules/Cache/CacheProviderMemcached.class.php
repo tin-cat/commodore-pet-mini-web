@@ -6,7 +6,7 @@
  * @package Cherrycake
  */
 
-namespace Cherrycake\Modules;
+namespace Cherrycake;
 
 /**
  * CacheProviderMemcached
@@ -46,7 +46,7 @@ class CacheProviderMemcached extends CacheProvider implements CacheProviderInter
 		if (!$this->memcached->addServers($this->GetConfig("servers")))
 		{
 			global $e;
-			$e->Errors->Trigger(\Cherrycake\Modules\ERROR_SYSTEM, ["errorDescription" => "Error connecting to Memcached"]);
+			$e->Errors->Trigger(\Cherrycake\ERROR_SYSTEM, ["errorDescription" => "Error connecting to Memcached"]);
 			return false;
 		}
 		$this->isConnected = true;
@@ -63,7 +63,7 @@ class CacheProviderMemcached extends CacheProvider implements CacheProviderInter
 			if (!$this->memcached->quit())
 			{
 				global $e;
-				$e->Errors->Trigger(\Cherrycake\Modules\ERROR_SYSTEM, ["errorDescription" => "Error disconnecting from Memcached"]);
+				$e->Errors->Trigger(\Cherrycake\ERROR_SYSTEM, ["errorDescription" => "Error disconnecting from Memcached"]);
 				return false;
 			}
 
@@ -104,7 +104,7 @@ class CacheProviderMemcached extends CacheProvider implements CacheProviderInter
 	 * Deletes a value from the Memcached cache.
 	 *
 	 * @param string $key The identifier key for the object to be deleted
-	 * @return bool True if the object could be deleted. False otherwise
+	 * @return bool True if the object existed and was deleted. False if id didn't exist, or couldn't be deleted.
 	 */
 	function delete($key) {
 		$this->RequireConnection();

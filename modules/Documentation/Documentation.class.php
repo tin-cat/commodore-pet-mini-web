@@ -4,7 +4,7 @@
  * @package CherrycakeApp
  */
 
-namespace CherrycakeApp\Modules;
+namespace CherrycakeApp;
 
 /**
  * A module that manages the documentation section

@@ -6,7 +6,7 @@
  * @package Cherrycake
  */
 
-namespace Cherrycake\Modules;
+namespace Cherrycake;
 
 const RESPONSE_OK = 200;
 const RESPONSE_NOT_FOUND = 404;
@@ -24,7 +24,7 @@ const RESPONSE_REDIRECT_FOUND = 302;
  * @package Cherrycake
  * @category Modules
  */
-class Output extends \Cherrycake\Module {
+class Output  extends \Cherrycake\Module {
 	/**
 	 * @var bool $isConfig Sets whether this module has its own configuration file. Defaults to false.
 	 */

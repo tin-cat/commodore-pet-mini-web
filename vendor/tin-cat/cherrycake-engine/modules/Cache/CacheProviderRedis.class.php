@@ -6,7 +6,7 @@
  * @package Cherrycake
  */
 
-namespace Cherrycake\Modules;
+namespace Cherrycake;
 
 /**
  * CacheProviderRedis
@@ -16,7 +16,7 @@ namespace Cherrycake\Modules;
  * @package Cherrycake
  * @category Classes
  */
-class CacheProviderRedis extends CacheProvider implements CacheProviderInterface, CacheProviderInterfacePool, CacheProviderInterfaceQueue, CacheProviderInterfaceHash {
+class CacheProviderRedis extends CacheProvider implements CacheProviderInterface, CacheProviderInterfacePool, CacheProviderInterfaceQueue, CacheProviderInterfaceList {
 	/**
 	 * @var array $config Holds the configuration of the cache provider when needed; things like host, port and password. This is set by the Cache object from the Cherrycake configuration files when this cache provider is setup.
 	 */
@@ -58,7 +58,7 @@ class CacheProviderRedis extends CacheProvider implements CacheProviderInterface
 		
 		if (!$this->client) {
 			global $e;
-			$e->Errors->Trigger(\Cherrycake\Modules\ERROR_SYSTEM, ["errorDescription" => "Error connecting to Redis"]);
+			$e->Errors->Trigger(\Cherrycake\ERROR_SYSTEM, ["errorDescription" => "Error connecting to Redis"]);
 			return false;
 		}
 
@@ -75,7 +75,7 @@ class CacheProviderRedis extends CacheProvider implements CacheProviderInterface
 		if (!$this->GetConfig("isPersistentConnection")) {
 			if (!$this->client->close()) {
 				global $e;
-				$e->Errors->Trigger(\Cherrycake\Modules\ERROR_SYSTEM, ["errorDescription" => "Error disconnecting from Redis"]);
+				$e->Errors->Trigger(\Cherrycake\ERROR_SYSTEM, ["errorDescription" => "Error disconnecting from Redis"]);
 				return false;
 			}
 		}
@@ -91,7 +91,7 @@ class CacheProviderRedis extends CacheProvider implements CacheProviderInterface
 	 * @param string $key The identifier key
 	 * @param mixed $value The value
 	 * @param integer $ttl The TTL (Time To Live) of the stored value in seconds since now
-	 * @return bool Wether the value has been correctly stored. False otherwise
+	 * @return bool Whether the value has been correctly stored. False otherwise
 	 */
 	function set($key, $value, $ttl = false) {
 		$this->RequireConnection();
@@ -123,11 +123,11 @@ class CacheProviderRedis extends CacheProvider implements CacheProviderInterface
 	 * Deletes a value from the cache.
 	 *
 	 * @param string $key The identifier key for the object to be deleted
-	 * @return bool True if the object could be deleted. False otherwise
+	 * @return bool True if the object existed and was deleted. False if id didn't exist, or couldn't be deleted.
 	 */
 	function delete($key) {
 		$this->RequireConnection();
-		return $this->client->del($key);
+		return $this->client->del($key) > 0;
 	}
 
 	/**
@@ -186,23 +186,23 @@ class CacheProviderRedis extends CacheProvider implements CacheProviderInterface
 	}
 
 	/**
-	 * Puts a value into the end of a queue
+	 * Appends a value to the end of a queue.
 	 * @param string $queueName The name of the queue
 	 * @param mixed $value The value to store
 	 * @return boolean True if everything went ok, false otherwise
 	 */
-	function rPush($queueName, $value) {
+	function queueRPush($queueName, $value) {
 		$this->RequireConnection();
 		return $this->client->rpush($queueName, !$value ? $value : $this->serialize($value));
 	}
 
 	/**
-	 * Puts a value into the beggining of a queue
+	 * Prepends a value to the beginning of a queue.
 	 * @param string $queueName The name of the queue
 	 * @param mixed $value The value to store
 	 * @return boolean True if everything went ok, false otherwise
 	 */
-	function lPush($queueName, $value) {
+	function queueLPush($queueName, $value) {
 		$this->RequireConnection();
 		return $this->client->lpush($queueName, !$value ? $value : $this->serialize($value));
 	}
@@ -210,9 +210,9 @@ class CacheProviderRedis extends CacheProvider implements CacheProviderInterface
 	/**
 	 * Returns the element at the end of a queue, and removes it
 	 * @param string $queueName The name of the queue
-	 * @return mixed The stored value
+	 * @return mixed The stored value, or null if the queue was empty
 	 */
-	function rPop($queueName) {
+	function queueRPop($queueName) {
 		$this->RequireConnection();
 		$r = $this->client->rpop($queueName);
 		return !$r ? $r : $this->unserialize($r, true);
@@ -221,20 +221,20 @@ class CacheProviderRedis extends CacheProvider implements CacheProviderInterface
 	/**
 	 * Returns the element at the beggining of a queue, and removes it
 	 * @param string $queueName The name of the queue
-	 * @return mixed The stored value
+	 * @return mixed The stored value, or null if the queue was empty
 	 */
-	function lPop($queueName) {
+	function queueLPop($queueName) {
 		$this->RequireConnection();
 		$r = $this->client->lpop($queueName);
 		return !$r ? $r : $this->unserialize($r, true);
 	}
 
 	/**
-	 * Adds a value to a pool
+	 * Stores a value in a cache pool
 	 *
 	 * @param string $poolName The name of the pool
 	 * @param string $value The value
-	 * @return bool Whether the value has been correctly added, false otherwise
+	 * @return bool Whether the value has been correctly stored. False otherwise
 	 */
 	function poolAdd($poolName, $value) {
 		$this->RequireConnection();
@@ -242,10 +242,10 @@ class CacheProviderRedis extends CacheProvider implements CacheProviderInterface
 	}
 
 	/**
-	 * Retrieves a random value from a pool and removes it
+	 * Gets a random value from the pool and removes it
 	 *
 	 * @param string $poolName The name of the pool
-	 * @return mixed One of the values in the pool, or false if the pool was empty.
+	 * @return mixed The stored value or false if it doesn't exists.
 	 */
 	function poolPop($poolName) {
 		$this->RequireConnection();
@@ -253,11 +253,11 @@ class CacheProviderRedis extends CacheProvider implements CacheProviderInterface
 	}
 
 	/**
-	 * Checks whether a value is in the pool.
+	 * Checks whether a value is stored or not in the pool.
 	 *
 	 * @param string $poolName The name of the pool
 	 * @param $value The value
-	 * @return bool True if the value is in the pool, false otherwise
+	 * @return bool True if the value exists in the pool, false otherwise
 	 */
 	function isInPool($poolName, $value) {
 		$this->RequireConnection();
@@ -265,10 +265,8 @@ class CacheProviderRedis extends CacheProvider implements CacheProviderInterface
 	}
 
 	/**
-	 * Counts the number of objects in the pool
-	 * 
 	 * @param string $poolName The name of the pool
-	 * @return integer The number of objects in the pool, or false if the pool doesn't exists.
+	 * @return integer The number of elements in the pool
 	 */
 	function poolCount($poolName) {
 		$this->RequireConnection();
@@ -276,24 +274,24 @@ class CacheProviderRedis extends CacheProvider implements CacheProviderInterface
 	}
 
 	/**
-	 * Adds an item with the given key with the given value to the given listName
+	 * Adds an object to a list
 	 * @param string $listName The name of the hashed list
 	 * @param string $key The key
 	 * @param mixed $value The value
-	 * @return integer 1 if the key wasn't on the hash list and it was added. 0 if the key already existed and it was updated.
+	 * @return integer True if the key wasn't on the hash list and it was added. False if the key already existed and it was updated.
 	 */
-	function hSet($listName, $key, $value) {
+	function listSet($listName, $key, $value) {
 		$this->RequireConnection();
 		return $this->client->hset($listName, $key, $value);
 	}
 
 	/**
-	 * Retrieves the stored value at the given key from the given listName
+	 * Retrieves an object from a list
 	 * @param string $listName The name of the hashed list
 	 * @param string $key The key
-	 * @return mixed The stored value
+	 * @return mixed The stored value, or null if it doesn't exists.
 	 */
-	function hGet($listName, $key) {
+	function listGet($listName, $key) {
 		$this->RequireConnection();
 		return $this->client->hget($listName, $key);
 	}
@@ -303,7 +301,7 @@ class CacheProviderRedis extends CacheProvider implements CacheProviderInterface
 	 * @param string $listName The name of the hashed list
 	 * @param string $key The key
 	 */
-	function hDel($listName, $key) {
+	function listDel($listName, $key) {
 		$this->RequireConnection();
 		return $this->client->hdel($listName, $key);
 	}
@@ -313,7 +311,7 @@ class CacheProviderRedis extends CacheProvider implements CacheProviderInterface
 	 * @param string $key The key
 	 * @return boolean Whether the item at the given key exists on the specified listName
 	 */
-	function hExists($listName, $key) {
+	function listExists($listName, $key) {
 		$this->RequireConnection();
 		return $this->client->hexists($listName, $key);
 	}
@@ -322,7 +320,7 @@ class CacheProviderRedis extends CacheProvider implements CacheProviderInterface
 	 * @param string $listName The name of the hashed list
 	 * @return integer The number of items stored at the given listName
 	 */
-	function hLen($listName) {
+	function listLen($listName) {
 		$this->RequireConnection();
 		return $this->client->hlen($listName);
 	}
@@ -331,16 +329,16 @@ class CacheProviderRedis extends CacheProvider implements CacheProviderInterface
 	 * @param string $listName The name of the hashed list
 	 * @return array An array of all the items on the specified list. An empty array if the list was empty, or false if the list didn't exists.
 	 */
-	function hGetAll($listName) {
+	function listGetAll($listName) {
 		$this->RequireConnection();
 		return $this->client->hgetall($listName);
 	}
 
 	/**
 	 * @param string $listName The name of the hashed list
-	 * @return array An array containing all the keys in the list, an empty array if the list was empty or false if the list didn't exist.
+	 * @return array An array containing all the keys on the specified list. An empty array if the list was empty, or false if the list didn't exists.
 	 */
-	function hGetKeys($listName) {
+	function listGetKeys($listName) {
 		$this->RequireConnection();
 		return $this->client->hgetkeys($listName);
 	}
@@ -352,7 +350,7 @@ class CacheProviderRedis extends CacheProvider implements CacheProviderInterface
 	 * @param integer $increment The amount to increment
 	 * @return integer The value after applying the increment
 	 */
-	function hIncrBy($listName, $key, $increment = 1) {
+	function listIncrBy($listName, $key, $increment = 1) {
 		$this->RequireConnection();
 		return $this->client->hincrby($listName, $key, $increment);
 	}

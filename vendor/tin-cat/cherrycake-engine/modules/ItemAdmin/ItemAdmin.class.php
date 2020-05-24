@@ -6,7 +6,7 @@
  * @package Cherrycake
  */
 
-namespace Cherrycake\Modules;
+namespace Cherrycake;
 
 const FORM_ITEM_TYPE_NUMERIC = 0;
 const FORM_ITEM_TYPE_STRING = 1;
@@ -29,7 +29,7 @@ const FORM_ITEM_META_TYPE_LOCATION = 1;
  * @package Cherrycake
  * @category Modules
  */
-class ItemAdmin extends \Cherrycake\Module {
+class ItemAdmin  extends \Cherrycake\Module {
 	/**
 	 * @var array $dependentCoreModules Core module names that are required by this module
 	 */
@@ -97,22 +97,22 @@ class ItemAdmin extends \Cherrycake\Module {
         $itemProbe = $setup["itemClassName"]::build();
 
         // Build the parameters array
-        if (is_array($setup["additionalRequestParameters"]))
+        if (isset($setup["additionalRequestParameters"]))
             $parameters = $setup["additionalRequestParameters"];
         
         $parameters[] = $setup["idRequestParameter"];
             
         // Prepare the array of parameters for the action to be able to receive data for all Item fields
 		$itemProbeFields = $itemProbe->getFields();
-		while (list($fieldName, $fieldData) = each($itemProbeFields)) {
-			if (is_array($setup["fields"][$fieldName]))
+        foreach ($itemProbeFields as $fieldName => $fieldData) {
+			if (isset($setup["fields"][$fieldName]))
 				$fieldData = array_merge($setup["fields"][$fieldName], is_array($fieldData) ? $fieldData : []);
             $parameters[] = 
                 new \Cherrycake\RequestParameter([
                     "name" => $fieldName,
                     "type" => \Cherrycake\REQUEST_PARAMETER_TYPE_POST,
-                    "securityRules" => $fieldData["requestSecurityRules"] ? $fieldData["requestSecurityRules"] : [\Cherrycake\SECURITY_RULE_SQL_INJECTION],
-                    "filters" => $fieldData["requestFilters"]
+                    "securityRules" => $fieldData["requestSecurityRules"] ?? false ?: [\Cherrycake\SECURITY_RULE_SQL_INJECTION],
+                    "filters" => $fieldData["requestFilters"] ?? false
                 ]);
         }
 
@@ -167,7 +167,7 @@ class ItemAdmin extends \Cherrycake\Module {
         if (!$map = $this->getMap($mapName))
             return false;
         global $e;
-        return $e->Ui->getUiComponent("UiComponentItemAdmin")->buildHtml($mapName, $id, $setup);
+        return $e->UiComponentItemAdmin->buildHtml($mapName, $id, $setup);
     }
 
     /**

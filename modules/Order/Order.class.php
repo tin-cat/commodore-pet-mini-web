@@ -6,7 +6,7 @@
  * @package CherrycakeApp
  */
 
-namespace CherrycakeApp\Modules;
+namespace CherrycakeApp;
 
 /**
  * Order
@@ -72,6 +72,6 @@ class Order  extends \Cherrycake\Module {
     }
 
     function getProductPrice($productCode) {
-        return $this->getProductConfig($productCode)["price"][\Cherrycake\Modules\CURRENCY_EURO];
+        return $this->getProductConfig($productCode)["price"][\Cherrycake\CURRENCY_EURO];
     }
 }

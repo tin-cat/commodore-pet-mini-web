@@ -1,16 +1,12 @@
 <?php
 
 /**
- * Patterns
- *
  * @package Cherrycake
  */
 
-namespace Cherrycake\Modules;
+namespace Cherrycake;
 
 /**
- * Patterns
- *
  * Module to manage patterns.
  *
  * * It reads and parses pattern files
@@ -18,28 +14,11 @@ namespace Cherrycake\Modules;
  * * Can work in conjunction with Cache module to provide a pattern-level cache
  *
  * Be very careful by not allowing user-entered data or data received via a request to be parsed. Never parse a user-entered information as a pattern.
- * It takes configuration from the App-layer configuration file.
- *
- * Configuration example for patterns.config.php:
- * <code>
- * $patternsConfig = [
- * 	"directory" => "patterns", // The directory where patterns reside
- * 	"cache" => [
- * 		"cacheProviderName" => "engine", // The default cache provider to use for cached patterns when no specific per-pattern cache provider is specified
- * 		"items" => [
- * 			"home/cacheddemo.html" => [  // A pattern to cache
- * 				"ttl" => \Cherrycake\CACHE_TTL_MINIMAL, // The TTL
- *				"cacheProviderName" => "huge" // A cache provider to use for this pattern that overrides the default one specified above
- * 			]
- * 		]
- * 	]
- * ];
- * </code>
- *
+
  * @package Cherrycake
  * @category Modules
  */
-class Patterns extends \Cherrycake\Module {
+class Patterns  extends \Cherrycake\Module {
 	/**
 	 * @var bool $isConfig Sets whether this module has its own configuration file. Defaults to false.
 	 */
@@ -49,7 +28,10 @@ class Patterns extends \Cherrycake\Module {
 	 * @var array $config Default configuration options
 	 */
 	var $config = [
-		"cachePrefix" => "Patterns"
+		"directory" => "patterns", // The directory where patterns are stored
+		"defaultCacheProviderName" => "engine", // The default cache provider name to use for cached patterns.
+		"defaultCacheTtl" => \Cherrycake\CACHE_TTL_NORMAL, // The default TTL to use for cached patterns.
+		"defaultCachePrefix" => "Patterns" // The default prefix to use for cached patterns.
 	];
 
 	/**
@@ -112,6 +94,10 @@ class Patterns extends \Cherrycake\Module {
 	 * * noParse: When set to true, the pattern is returned without any parsing
 	 * * fileToIncludeBeforeParsing: A file (or an array of files) to include whenever parsing this set files, usually for defining variables that can be later used inside the pattern
 	 * * variables: A hash array of variables passed to be available in-pattern, in the syntax: "variable name" => $variable
+	 * * isCache: Whether this pattern should be cached or not, independently of the cachedPatterns Cache config key.
+	 * * cacheProviderName: A cache provider name that will override the one set in the cachedPatterns or defaultCacheProviderName config key (if any)
+	 * * cacheTtl: A cache TTL that will override the one set in the cachedPatterns or defaultCacheTtl config key (if any)
+	 * * cachePrefix: A cache prefix that will override the one set in the cachedPatterns or defaultCachePrefix config key (if any)
 	 *
 	 * @return string The parsed pattern. Returns false if some error occurred
 	 */
@@ -122,14 +108,18 @@ class Patterns extends \Cherrycake\Module {
 
 		// Check cache
 		if (
-			$cache = $this->getConfig("cache")
-			&&
-			isset($cache["items"])
+			(isset($this->getConfig("cachedPatterns")[$patternName]) && !isset($setup["isCache"]))
+			||
+			($setup["isCache"] ?? false)
 		)
-			if ($cachePattern = $cache["items"][$patternName]) {
-				$cacheProviderName = ($cachePattern["cacheProviderName"] ? $cachePattern["cacheProviderName"] : $cache["defaultCacheProviderName"]);
-				$cacheKey = \Cherrycake\Modules\Cache::buildCacheKey([
-					"prefix" => $this->getConfig("cachePrefix"),
+			if (
+				isset($this->getConfig("cachedPatterns")[$patternName])
+				||
+				$setup["isCache"]
+			) {
+				$cacheProviderName = $setup["cacheProviderName"] ?? false ?: $this->getConfig("cachedPatterns")[$patternName]["cacheProviderName"] ?? false ?: $this->getConfig("defaultCacheProviderName");
+				$cacheKey = \Cherrycake\Cache::buildCacheKey([
+					"prefix" => $setup["cachePrefix"] ?? false ?: $this->getConfig("cachedPatterns")[$patternName]["cachePrefix"] ?? false ?: $this->getConfig("defaultCachePrefix"),
 					"uniqueId" => $patternFile
 				]);
 				if ($buffer = $e->Cache->$cacheProviderName->get($cacheKey))
@@ -153,7 +143,7 @@ class Patterns extends \Cherrycake\Module {
 			foreach ($setup["variables"] as $variableName => $variable)
 				eval("\$".$variableName." = \$variable;");
 		}
-
+		
 		$this->lastTreatedFile = $patternFile;
 		$this->lastEvaluatedCode = file_get_contents($patternFile);
 		ob_start();
@@ -162,9 +152,17 @@ class Patterns extends \Cherrycake\Module {
 		ob_end_clean();
 
 		// Cache store
-		if (isset($cachePattern))
-			$e->Cache->$cacheProviderName->set($cacheKey, $buffer, $cachePattern["ttl"]);
-
+		if (
+			(isset($this->getConfig("cachedPatterns")[$patternName]) && !isset($setup["isCache"]))
+			||
+			($setup["isCache"] ?? false)
+		)
+			$e->Cache->$cacheProviderName->set(
+				$cacheKey,
+				$buffer,
+				$setup["cacheTtl"] ?? false ?: $this->getConfig("cachedPatterns")[$patternName]["cacheTtl"] ?? false ?: $this->getConfig("defaultCacheTtl")
+			);
+		
 		return $buffer;
 	}
 
@@ -184,7 +182,7 @@ class Patterns extends \Cherrycake\Module {
 	/**
 	 * clearCache
 	 *
-	 * Deletes a cached pattern from the cache
+	 * Removes a pattern from cache
 	 *
 	 * @param string $patternName The pattern name
 	 * @param string $directoryOverride When specified, the pattern is taken from this directory instead of the default configured directory.

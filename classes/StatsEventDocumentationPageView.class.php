@@ -13,7 +13,7 @@ namespace CherrycakeApp;
  * @category AppClasses
  */
 class StatsEventDocumentationPageView extends \Cherrycake\StatsEvent {
-	protected $timeResolution = \Cherrycake\Modules\STATS_EVENT_TIME_RESOLUTION_DAY;
+	protected $timeResolution = \Cherrycake\STATS_EVENT_TIME_RESOLUTION_DAY;
 	protected $typeDescription = "Documentation page view";
 
 	function loadInline($data = false) {

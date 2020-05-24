@@ -21,15 +21,15 @@ class LogEvent extends Item {
 	protected $cacheSpecificPrefix = "Log";
 
 	protected $fields = [
-		"id" => ["type" => \Cherrycake\Modules\DATABASE_FIELD_TYPE_INTEGER],
-		"timestamp" => ["type" => \Cherrycake\Modules\DATABASE_FIELD_TYPE_DATETIME],
-		"type" => ["type" => \Cherrycake\Modules\DATABASE_FIELD_TYPE_STRING],
-		"subType" => ["type" => \Cherrycake\Modules\DATABASE_FIELD_TYPE_STRING],
-		"ip" => ["type" => \Cherrycake\Modules\DATABASE_FIELD_TYPE_IP],
-		"user_id" => ["type" => \Cherrycake\Modules\DATABASE_FIELD_TYPE_INTEGER],
-		"outher_id" => ["type" => \Cherrycake\Modules\DATABASE_FIELD_TYPE_INTEGER],
-		"secondaryOuther_id" => ["type" => \Cherrycake\Modules\DATABASE_FIELD_TYPE_INTEGER],
-		"additionalData" => ["type" => \Cherrycake\Modules\DATABASE_FIELD_TYPE_SERIALIZED]
+		"id" => ["type" => \Cherrycake\DATABASE_FIELD_TYPE_INTEGER],
+		"timestamp" => ["type" => \Cherrycake\DATABASE_FIELD_TYPE_DATETIME],
+		"type" => ["type" => \Cherrycake\DATABASE_FIELD_TYPE_STRING],
+		"subType" => ["type" => \Cherrycake\DATABASE_FIELD_TYPE_STRING],
+		"ip" => ["type" => \Cherrycake\DATABASE_FIELD_TYPE_IP],
+		"user_id" => ["type" => \Cherrycake\DATABASE_FIELD_TYPE_INTEGER],
+		"outher_id" => ["type" => \Cherrycake\DATABASE_FIELD_TYPE_INTEGER],
+		"secondaryOuther_id" => ["type" => \Cherrycake\DATABASE_FIELD_TYPE_INTEGER],
+		"additionalData" => ["type" => \Cherrycake\DATABASE_FIELD_TYPE_SERIALIZED]
 	];
 
 	/**
@@ -65,15 +65,15 @@ class LogEvent extends Item {
 	 */
 	function loadInline($data = false) {
 		$this->type = substr(get_called_class(), strpos(get_called_class(), "\\")+1);
-		$this->subType = $data["subType"];
+		$this->subType = $data["subType"] ?? false;
 
-		if ($data["ip"])
+		if ($data["ip"] ?? false)
 			$this->ip = $data["ip"];
 		else
 		if ($this->isUseCurrentClientIp)
 			$this->ip = $this->getClientIp();
 
-		if ($data["userId"])
+		if ($data["userId"] ?? false)
 			$this->user_id = $data["userId"];
 		else
 		if ($this->isUseCurrentLoggedUserId) {
@@ -84,12 +84,12 @@ class LogEvent extends Item {
 			}
 		}
 
-		if ($data["timestamp"])
+		if ($data["timestamp"] ?? false)
 			$this->timestamp = $data["timestamp"];
 		else
 			$this->timestamp = time();
 		
-		if ($data["additionalData"])
+		if ($data["additionalData"] ?? false)
 			$this->additionalData = $data["additionalData"];
 
 		return parent::loadInline($data);

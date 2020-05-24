@@ -1,22 +1,18 @@
 <?php
 
 /**
- * Module
- *
  * @package Cherrycake
  */
 
 namespace Cherrycake;
 
 /**
- * Module
- *
  * The base class for modules. Intented to be overloaded by specific functionality classes
  *
  * @package Cherrycake
  * @category Modules
  */
-class Module {
+class Module extends BasicObject {
 	/**
 	 * @var bool $isConfig Sets whether this module has its own configuration file. Defaults to false.
 	 */
@@ -41,6 +37,17 @@ class Module {
 	 * @var array $dependentAppModules App module names that are required by this module
 	 */
 	protected $dependentAppModules;
+
+	// /**
+	//  * Returns a new instance of this module with the given optional configuration values.
+	//  * @param array $properties Optional properties for the cloned object, just like in the config method
+	//  * @return Module The module
+	//  */
+	// function clone($properties = false) {
+	// 	$cloned = clone $this;
+	// 	$cloned->setProperties($properties);
+	// 	return $cloned;
+	// }
 
 	/**
 	 * @return string This module's name
@@ -136,15 +143,19 @@ class Module {
 	function loadDependencies() {
 		global $e;
 
-		if (is_array($this->dependentCoreModules))
-			foreach ($this->dependentCoreModules as $moduleName)
-				if (!$e->loadCoreModule($moduleName, $this->getName()))
+		if (is_array($this->dependentCoreModules)) {
+			foreach ($this->dependentCoreModules as $moduleName) {
+				if (!$e->loadCoreModule($moduleName, MODULE_LOADING_ORIGIN_DEPENDENCY, $this->getName()))
 					return false;
+			}
+		}
 
-		if (is_array($this->dependentAppModules))
-			foreach ($this->dependentAppModules as $moduleName)
-				if (!$e->loadAppModule($moduleName, $this->getName()))
+		if (is_array($this->dependentAppModules)) {
+			foreach ($this->dependentAppModules as $moduleName) {
+				if (!$e->loadAppModule($moduleName, MODULE_LOADING_ORIGIN_DEPENDENCY, $this->getName()))
 					return false;
+			}
+		}
 
 		return true;
 	}
@@ -193,9 +204,7 @@ class Module {
 	function init() {
 		if (!$this->loadDependencies())
 			return false;
-
 		$this->loadConfigFile();
-
 		return true;
 	}
 

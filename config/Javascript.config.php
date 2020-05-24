@@ -15,7 +15,7 @@ global $e;
 $JavascriptConfig = [
 	"lastModifiedTimestamp" => mktime(2, 0, 0, 22, 1, 2019), // The global version
 	"isMinify" => !$e->isDevel(),
-	"defaultSets" => [ // An array of Javascript sets with its files that should be always configured, will be added to the group "main"
+	"sets" => [ // An array of Javascript sets with its files that should be always configured, will be added to the group "main"
 		"main" => [
 			"directory" => \CherrycakeApp\DIR_RES."/javascript/main"
 		],

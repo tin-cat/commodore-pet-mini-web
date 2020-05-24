@@ -1,97 +1,18 @@
 <?php
 
 /**
- * Locale
- *
  * @package Cherrycake
  */
 
-namespace Cherrycake\Modules;
-
-const LANGUAGE_SPANISH = 1;
-const LANGUAGE_ENGLISH = 2;
-
-const DATE_FORMAT_LITTLE_ENDIAN = 1;  // Almost all the world, like "20/12/2010", "9 November 2003", "Sunday, 9 November 2003", "9 November 2003"
-const DATE_FORMAT_BIG_ENDIAN = 2; // Asian countries, Hungary and Sweden, like "2010/12/20", "2003 November 9", "2003-Nov-9, Sunday"
-const DATE_FORMAT_MIDDLE_ENDIAN = 3; // United states and Canada, like "12/20/2010", "Sunday, November 9, 2003", "November 9, 2003", "Nov. 9, 2003", "Nov/9/2003"
-
-const TEMPERATURE_UNITS_FAHRENHEIT = 1;
-const TEMPERATURE_UNITS_CELSIUS = 2;
-
-const CURRENCY_USD = 1;
-const CURRENCY_EURO = 2;
-
-const DECIMAL_MARK_POINT = 0;
-const DECIMAL_MARK_COMMA = 1;
-
-const MEASUREMENT_SYSTEM_IMPERIAL = 1;
-const MEASUREMENT_SYSTEM_METRIC = 2;
-
-const HOURS_FORMAT_12H = 1;
-const HOURS_FORMAT_24H = 2;
-
-const TIMESTAMP_FORMAT_BASIC = 0;
-const TIMESTAMP_FORMAT_HUMAN = 1;
-const TIMESTAMP_FORMAT_RELATIVE_HUMAN = 2;
-
-const ORDINAL_GENDER_MALE = 0;
-const ORDINAL_GENDER_FEMALE = 1;
-
-const LOCALE_GEOLOCATION_METHOD_CLOUDFLARE = 0;
+namespace Cherrycake;
 
 /**
- * Locale
- *
- * Module that provides localization functionalities for a multilingual site: Database-based multilingual texts, currency and dates formatting, timezones and other locale settings
- *
- * Configuration example for locale.config.php:
- * <code>
- * $localeConfig = [
- * 	"availableLocales" => [ // An array of possible different localizations based on the domain requested
- * 		"main" => [
- * 			"domains" => ["movefy.devel.zumodered.com", "www.movefy.devel.zumodered.com"], // An array of domains that will trigger this localization
- * 			"language" => LANGUAGE_ENGLISH, // The default language
- * 			"dateFormat" => DATE_FORMAT_LITTLE_ENDIAN, // The default date format
- * 			"temperatureUnits" => TEMPERATURE_UNITS_FAHRENHEIT, // The default temperature units
- * 			"currency" => CURRENCY_USD, // The default currency
- * 			"decimalMark" => DECIMAL_MARK_POINT,
- * 			"measurementSystem" => MEASUREMENT_SYSTEM_IMPERIAL,
- * 			"timeZone" => 216 // The default timezone id, from the cherrycake_location_timezones table (216 = "America/New_York")
- * 		),
- * 		"es" => [
- * 			"domains" => ["es.movefy.devel.zumodered.com"],
- * 			"language" => LANGUAGE_SPANISH,
- * 			"dateFormat" => DATE_FORMAT_LITTLE_ENDIAN,
- * 			"temperatureUnits" => TEMPERATURE_UNITS_CELSIUS,
- * 			"currency" => CURRENCY_EURO,
- * 			"decimalMark" => DECIMAL_MARK_POINT,
- * 			"measurementSystem" => MEASUREMENT_SYSTEM_IMPERIAL,
- * 			"timeZone" => 216 // The default timezone id, from the cherrycake_location_timezones table (216 = "America/New_York")
- * 		),
- *		"defaultLocale" => "main", // The locale to use if none could have been guessed
- * 		"canonicalLocale" => "main", // The locale to consider canonical, used i.e. in the HtmlDocument module to set the rel="canonical" meta tag, in order to let search engines understand that there are different pages in different languages that represent the same content.
- * 		"availableLanguages" => [LANGUAGE_ENGLISH, LANGUAGE_SPANISH], // An array of the languages that are available for the APP. The textsTableName should contain at least this languages.
- * 		"geolocationMethod" => LOCALE_GEOLOCATION_METHOD_CLOUDFLARE, // The method to use to determine the user's geographical location, one of the available LOCALE_GEOLOCATION_METHOD_*
- *		"textsDatabaseProviderName" => "main", // The name of the database provider where the localized multilingual texts are found
- *		"textsTableName" => "cherrycake_locale_texts", // The name of the table where multilingual localized texts are stored
- * 		"textCategoriesTableName" => "cherrycake_locale_textCategories", // The name of the table where text categories are stored
- *		"textCacheProviderName" => "engine", // The name of the cache provider that will be used to cache localized multilingual texts
- *		"textCacheKeyPrefix" => "LocaleText", // The prefix of the keys when storing texts into cache
- *		"textCacheDefaultTtl" => \Cherrycake\CACHE_TTL_NORMAL, // The default TTL for texts stored into cache
- *		"timeZonesDatabaseProviderName" => "main", // The name of the database provider where the timezones are found
- *		"timeZonesTableName" => "cherrycake_location_timezones", // The name of the table where the timezones are stored
- *		"timeZonesCacheProviderName" => "engine", // The name of the cache provider that will be user to cache timezones
- *		"timeZonesCacheKeyPrefix" => "LocaleTimeZone", // The prefix of the keys when storing timezones into cache
- *		"timeZonesCacheDefaultTtl" => \Cherrycake\CACHE_TTL_NORMAL // The default TTL for timezones stored into cache
- * 	]
- * ];
- * </code>
+ * The Locale module provides localization functionalities for multilingual web sites with automatic detection, plus the handling of currencies, dates, timezones and more.
  *
  * @package Cherrycake
  * @category Modules
  */
-class Locale extends \Cherrycake\Module
-{
+class Locale  extends \Cherrycake\Module {
 	/**
 	 * @var bool $isConfig Sets whether this module has its own configuration file. Defaults to false.
 	 */
@@ -101,14 +22,45 @@ class Locale extends \Cherrycake\Module
 	 * @var array $config Default configuration options
 	 */
 	var $config = [
-		"geolocationMethod" => \Cherrycake\Modules\LOCALE_GEOLOCATION_METHOD_CLOUDFLARE,
-		"textsTableName" => "cherrycake_locale_texts",
-		"textCategoriesTableName" => "cherrycake_locale_textCategories",
-		"textCacheKeyPrefix" => "LocaleText",
-		"textCacheDefaultTtl" => \Cherrycake\CACHE_TTL_NORMAL,
-		"timeZonesTableName" => "cherrycake_location_timezones",
-		"timeZonesCacheKeyPrefix" => "LocaleTimeZone",
-		"timeZonesCacheDefaultTtl" => \Cherrycake\CACHE_TTL_NORMAL
+		/*
+			A hash array of available localizations the app supports, where each key is the locale name, and each value a hash array with the following keys:
+				domains: An array of domains that will trigger this localization when the request to the app comes from one of them, or false if this is the only locale to be used always.
+				language: The language used in this localization, one of the available LANGUAGE_? constants.
+				dateFormat: The date format used in this localization, one of the available DATE_FORMAT_? constants.
+				temperatureUnits: The temperature units used in this localization, one of the available TEMPERATURE_UNITS_? constants.
+				currency: The currency used in this localization, one of the available CURRENCY_? constants.
+				decimalMark: The type character used when separating decimal digits in this localization, one of the available DECIMAL_MARK_? constants.
+				measurementSystem: The measurement system used in this localization, one of the available MEASUREMENT_SYSTEM_? constants.
+				timeZone: The timezone id used in this localization, from the cherrycake_location_timezones table of the Cherrycake skeleton database.
+		*/
+		"availableLocales" =>
+		[ 
+			"main" => [
+				"domains" => false,
+				"language" => LANGUAGE_ENGLISH,
+				"dateFormat" => DATE_FORMAT_MIDDLE_ENDIAN,
+				"temperatureUnits" => TEMPERATURE_UNITS_FAHRENHEIT,
+				"currency" => CURRENCY_USD,
+				"decimalMark" => DECIMAL_MARK_POINT,
+				"measurementSystem" => MEASUREMENT_SYSTEM_IMPERIAL,
+				"timeZone" => TIMEZONE_ID_ETC_UTC
+			]
+		],
+		"defaultLocale" => "main", // The locale name to use when it can not be autodetected.
+		"canonicalLocale" => false, // The locale to consider canonical, used i.e. in the HtmlDocument module to set the rel="canonical" meta tag, in order to let search engines understand that there are different pages in different languages that represent the same content.
+		"availableLanguages" => [LANGUAGE_ENGLISH], // An array of the languages that are available for the app. The textsTableName should contain at least this languages. From the available LANGUAGE_? constants.
+		"geolocationMethod" => \Cherrycake\GEOLOCATION_METHOD_CLOUDFLARE, // The method to use to determine the user's geographical location, one of the available LOCALE_GEOLOCATION_METHOD_? constants.
+		"textsTableName" => "cherrycake_locale_texts", // The name of the table where multilingual localized texts are stored. See the cherrycake_locale_texts table in the Cherrycake skeleton database.
+		"textsDatabaseProviderName" => "main", // The name of the database provider where the localized multilingual texts are found
+		"textCategoriesTableName" => "cherrycake_locale_textCategories", // The name of the table where text categories are stored. See the cherrycake_locale_textCategories table in the Cherrycake skeleton database.
+		"textCacheProviderName" => "engine", // The name of the cache provider that will be used to cache localized multilingual texts
+		"textCacheKeyPrefix" => "LocaleText", // The prefix of the keys when storing texts into cache
+		"textCacheDefaultTtl" => \Cherrycake\CACHE_TTL_NORMAL, // The default TTL for texts stored into cache
+		"timeZonesDatabaseProviderName" => "main", // The name of the database provider where the timezones are found
+		"timeZonesTableName" => "cherrycake_location_timezones", // The name of the table where the timezones are stored. See the cherrycake_location_timezones table in the Cherrycake skeleton database.
+		"timeZonesCacheProviderName" => "engine", // The name of the cache provider that will be user to cache timezones
+		"timeZonesCacheKeyPrefix" => "LocaleTimeZone", // The prefix of the keys when storing timezones into cache
+		"timeZonesCacheDefaultTtl" => \Cherrycake\CACHE_TTL_NORMAL // The default TTL for timezones stored into cache
 	];
 
 	/**
@@ -214,8 +166,6 @@ class Locale extends \Cherrycake\Module
 	];
 
 	/**
-	 * init
-	 *
 	 * Initializes the module. Detects and assigns the locale depending on the requested domain.
 	 *
 	 * @return boolean Whether the module has been initted ok
@@ -227,40 +177,50 @@ class Locale extends \Cherrycake\Module
 		if (!$this->isConfig("availableLocales"))
 			return true;
 
-		if (isset($_SERVER["SERVER_NAME"]))
-			$domain = $_SERVER["SERVER_NAME"];
-
-		foreach ($this->getConfig("availableLocales") as $locale) {
-			if ($locale["domains"] && in_array($domain, $locale["domains"])) {
-				$this->locale = $locale;
-				break;
+		if (isset($_SERVER["SERVER_NAME"])) {
+			foreach ($this->getConfig("availableLocales") as $localeName => $locale) {
+				if ($locale["domains"] ?? false && in_array($_SERVER["SERVER_NAME"], $locale["domains"])) {
+					$this->setLocale($localeName);
+					break;
+				}
 			}
 		}
-
-		if (!$this->locale) {
-			$availableLocales = $this->getConfig("availableLocales");
-			$this->locale = $availableLocales[$this->getConfig("defaultLocale")];
-		}
+		
+		if (!$this->locale)
+			$this->setLocale($this->getConfig("defaultLocale"));
 
 		return true;
 	}
 
 	/**
-	 * Gets a language's name
+	 * Sets the locale to use
+	 * @param string $localeName The name of the locale to use, as specified in the availableLocales config key.
+	 * @return boolean True if the locale could be set, false if the locale wasn't configured in the availableLocales config key.
+	 */
+	function setLocale($localeName) {
+		if (!isset($this->getConfig("availableLocales")[$localeName]))
+			return false;
+		$this->locale = $this->getConfig("availableLocales")[$localeName];
+		return true;
+	}
+
+	/**
+	 * Gets the name of a language.
 	 * @param integer $language The language
 	 * @param boolean $setup A hash array of setup options, from the following possible keys:
-	 *                       - forceLanguage: Use this specific language. Otherwise, the detected language is used.
+	 *                       - forceLanguage: Use this language instead of the passed in $language
 	 * @return mixed The language name, false if the specified language is not configured.
 	 */
 	function getLanguageName($language, $setup = false) {
 		if (!isset($this->languageNames[$language]))
 			return false;
-		return $this->languageNames[$language][$setup["forceLanguage"] ? $setup["forceLanguage"] : $this->getLanguage()];
+		return $this->languageNames[$language][$setup["forceLanguage"] ?? false ?: $this->getLanguage()];
 	}
 
 	/**
+	 * Gets the code of a language
 	 * @param integer $language The language
-	 * @return mixed The language code, or false if the specified language is not configured
+	 * @return mixed The language code, or false if the specified language is not configured.
 	 */
 	function getLanguageCode($language = false) {
 		if (!$language)
@@ -273,19 +233,14 @@ class Locale extends \Cherrycake\Module
 	/**
 	 * getText
 	 *
-	 * Returns a text from the multilingual texts database
+	 * Gets a text from the multilingual texts database
 	 *
 	 * @param string $code The code of the text. Can also be specified as <category code>/<text code> in order to discern texts that are stored with the same code in different categories.
 	 * @param array $setup Additional setup with the following possible keys:
-	 * * variables: A hash array of the variables that must be replaced taking the text as a pattern. Every occurrence of {<key>} will be replaced with its corresponding value on this array, in the syntax:
-	 * 	[
-	 * 		"key" => "value",
-	 * 		"key" => [LANGUAGE_SPANISH => "spanish value", LANGUAGE_ENGLISH => "english value"],
-	 * 		...
-	 * 	]
-	 * * forceLanguage: Force the retrieval of the text on this language. Otherwise, the detected language is used.
-	 * * forceTextCacheTtl: Use this Ttl for the text cache instead of the module configuration variable textCacheDefaultTtl
-	 * * isPurifyVariables: True. Whether to purify values from specified variables for security purposes or not.
+	 * * variables: A hash array of the variables that must be replaced taking the text as a pattern. Every occurrence of {<key>} will be replaced with the matching value, where the value can be a string, or a hash array of values for different languages, where each key is one of the available LANGUAGE_? constants.
+	 * * forceLanguage: Force the retrieval of the text on this language. If not specified, the detected language is used.
+	 * * forceTextCacheTtl: Use this TTL for the text cache instead of the module configuration variable textCacheDefaultTtl
+	 * * isPurifyVariables: Whether to purify values from specified variables for security purposes or not. Defaults to true.
 	 * @return string The text
 	 */
 	function getText($code, $setup = false) {
@@ -333,7 +288,7 @@ class Locale extends \Cherrycake\Module
 
 			$result = $e->Database->$databaseProviderName->query($sql);
 			if (!$result->isAny()) {
-				$e->Errors->trigger(\Cherrycake\Modules\ERROR_SYSTEM, [
+				$e->Errors->trigger(\Cherrycake\ERROR_SYSTEM, [
 					"errorDescription" => "Requested text code not found",
 					"errorVariables" => ["code" => $code],
 					"isSilent" => true
@@ -345,13 +300,13 @@ class Locale extends \Cherrycake\Module
 			$data = $row->getData();
 
 			// Store in cache
-			$e->Cache->$cacheProviderName->set($cacheKey, $data, ($setup["forceTextCacheTtl"] ? $setup["forceTextCacheTtl"] : $this->getConfig("textCacheDefaultTtl")));
+			$e->Cache->$cacheProviderName->set($cacheKey, $data, ($setup["forceTextCacheTtl"] ?? false ? $setup["forceTextCacheTtl"] : $this->getConfig("textCacheDefaultTtl")));
 		}
 
-		$text = $data["text_".$this->getLanguageCode($setup["forceLanguage"] ? $setup["forceLanguage"] : $this->getLanguage())];
+		$text = $data["text_".$this->getLanguageCode($setup["forceLanguage"] ?? false ? $setup["forceLanguage"] : $this->getLanguage())];
 
-		if ($setup["variables"])
-			while (list($key, $value) = each($setup["variables"])) {
+		if ($setup["variables"] ?? false)
+			foreach ($setup["variables"] as $key => $value) {
 				$valueReplacement =
 					is_array($value)
 					?
@@ -373,10 +328,10 @@ class Locale extends \Cherrycake\Module
 	 *
 	 * @param array $data The data hash-array to get the field from
 	 * @param int $forceLanguage If specified, forces the retrieval of the specified language instead of the Locale language
-	 * @return mixed The contents of the localized data
+	 * @return mixed The contents of the localized data, or false if no contents for the specified language.
 	 */
 	function getFromArray($data, $forceLanguage = false) {
-		return $data[($forceLanguage ? $forceLanguage : $this->getLanguage())];
+		return $data[($forceLanguage ? $forceLanguage : $this->getLanguage())] ?? false;
 	}
 
 	/**
@@ -478,7 +433,7 @@ class Locale extends \Cherrycake\Module
 		global $e;
 
 		if (!$timezone)
-			$timezone = $e->getTimezoneId();
+			$timezone = $this->getTimeZone();
 
 		$cacheKey = $e->Cache->buildCacheKey([
 			"prefix" => $this->getConfig("timeZonesCacheKeyPrefix"),
@@ -492,7 +447,7 @@ class Locale extends \Cherrycake\Module
 
 			$result = $e->Database->$databaseProviderName->query("select timezone as timeZoneName from ".$this->getConfig("timeZonesTableName")." where id = ".$e->Database->$databaseProviderName->safeString($timezone));
 			if (!$result->isAny()) {
-				$e->Errors->trigger(\Cherrycake\Modules\ERROR_SYSTEM, [
+				$e->Errors->trigger(\Cherrycake\ERROR_SYSTEM, [
 					"errorDescription" => "Requested timezone not found",
 					"errorVariables" => ["timezone" => $timezone],
 					"isSilent" => true
@@ -511,14 +466,11 @@ class Locale extends \Cherrycake\Module
 	}
 
 	/**
-	 * convertTimestamp
-	 *
 	 * Converts a given timestamp from one timezone to another.
-	 * The passed $timestamp is considered to be in $toTimezone, the equivalent timestamp for the given $toTimezone is returned
 	 *
-	 * @param integer $timestamp The timestamp to convert. Expected to be in the given $fromTimezone. The default cherrycake TIMEZONE configuration is considered as $fromTimezone if not specified (Usually Etc/UTC)
+	 * @param integer $timestamp The timestamp to convert. Expected to be in the given $fromTimezone.
 	 * @param integer $toTimeZone The desired timezone, one of the PHP constants as specified in http://php.net/manual/en/timezones.php. If none specified, the current Locale timezone is used.
-	 * @param bool $fromTimeZone The timezone on which the given $timestamp is considered to be in. If not specified the default cherrycake TIMEZONE configuration is used. (Usually Etc/UTC)
+	 * @param bool $fromTimeZone The timezone on which the given $timestamp is considered to be in. If not specified the default cherrycake timezone is used, as set in Engine::init
 	 * @return mixed The converted timestamp, or false if it couldn't be converted.
 	 */
 	function convertTimestamp($timestamp, $toTimeZone = false, $fromTimeZone = false) {
@@ -547,11 +499,10 @@ class Locale extends \Cherrycake\Module
 	}
 
 	/**
-	 * Given a timestamp that represents a date, meaning the hour information should not be taken into account, and thus there won't be any timezone conversion. It formats it with the formatTimestamp method.
-	 * Intended to format timestamps where the hour information is not to be taken into account, like timestamps coming from a DATABASE_FIELD_TYPE_DATE type field on the database.
+	 * Formats the given date.
 	 * 
-	 * @param int $timestamp The timestamp to use, in UNIX timestamp format. The hours, minutes and seconds are considered irrelevant.
-	 * @param array $setup A hash array with setup options, just like the formatTimestamp method
+	 * @param int $dateTimestamp The timestamp to use, in UNIX timestamp format. The hours, minutes and seconds are considered irrelevant.
+	 * @param array $setup A hash array with setup options, just like the Locale::formatTimestamp method
 	 * @return string The formatted date
 	 */
 	function formatDate($dateTimestamp, $setup = false) {
@@ -563,14 +514,23 @@ class Locale extends \Cherrycake\Module
 	}
 
 	/**
-	 * Given a timestamp, returns a formatted date/time according to current locale settings.
-	 * The given timestamp will be converted to the configured "toTimeZone" config key, or to the current locale timestamp if not given, except if fromTimeZone setup key is set to false.
-	 * The given timestamp is considered to be in the engine's default timezone configured in cherrycake config as TIMEZONE const, except if the "fromTimeZone" is given via $setup.
-	 * To format date fields (without hour information), use the formatDate method.
+	 * Formats the given date/time according to current locale settings.
+	 * The given timestamp is considered to be in the engine's default timezone configured in Engine::init, except if the "fromTimeZone" is given via setup.
 	 *
-	 * @param int $timestamp The timestamp to use, in UNIX timestamp format
+	 * @param int $timestamp The timestamp to use, in UNIX timestamp format. Considered to be in the engine's default timezone configured in Engine::init, except if the "fromTimeZone" is given via setup.
 	 * @param array $setup A hash array of setup options with the following possible keys
-	 * * language: If specified, this language will be used instead of the detected one.
+	 * * fromTimezone: Considers the given timestamp to be in this timezone. If not specified, the timestamp is considered to be in the current Locale timestamp.
+	 * * toTimezone: Converts the given timestamp to this timezone. If not specified, the given timestamp is converted to the current Locale timestamp except if the fromTimeZone setup key has been set to false.
+	 * * language: If specified, this language will be used instead of the detected one. One of the available LANGUAGE_?
+	 * * style: The formatting style, one of the available TIMESTAMP_FORMAT_? constants.
+	 * * isShortYear: Whether to abbreviate the year whenever possible. For example: 17 instead of 2017. Default: true
+	 * * isDay: Whether to include the day. Default: true
+	 * * isHours: Whether to include hours and minutes. Default: false
+	 * * hoursFormat: The format of the hours. One of the available HOURS_FORMAT_?. Default: HOURS_FORMAT_24
+	 * * isSeconds: Whether to include seconds. Default: false
+	 * * isAvoidYearIfCurrent: Whether to avoid the year if it's the current one. Default: false.
+	 * * isBrief: Whether to use a brief formatting whenever possible. Default: false.
+	 * * format: If specified this format as used in the date PHP function is used instead of internal formatting. Default: false.
 	 * @return string The formatted timestamp
 	 */
 	function formatTimestamp($timestamp, $setup = false) {
@@ -581,7 +541,7 @@ class Locale extends \Cherrycake\Module
 		}
 
 		if (!isset($setup["style"]))
-			$setup["style"] = \Cherrycake\Modules\TIMESTAMP_FORMAT_BASIC;
+			$setup["style"] = \Cherrycake\TIMESTAMP_FORMAT_BASIC;
 
 		if (!isset($setup["isShortYear"]))
 			$setup["isShortYear"] = true;
@@ -593,7 +553,7 @@ class Locale extends \Cherrycake\Module
 			$setup["isHours"] = false;
 
 		if (!isset($setup["hoursFormat"]))
-			$setup["hoursFormat"] = \Cherrycake\Modules\HOURS_FORMAT_24H;
+			$setup["hoursFormat"] = \Cherrycake\HOURS_FORMAT_24H;
 
 		if (!isset($setup["isSeconds"]))
 			$setup["isSeconds"] = false;
@@ -612,29 +572,29 @@ class Locale extends \Cherrycake\Module
 			return date($setup["format"], $timestamp);
 
 		switch ($setup["style"]) {
-			case \Cherrycake\Modules\TIMESTAMP_FORMAT_BASIC:
+			case \Cherrycake\TIMESTAMP_FORMAT_BASIC:
 
 				if ($setup["isDay"]) {
 					$isCurrentYear = (date("Y", $timestamp) == date("Y"));
 
 					switch ($this->locale["dateFormat"]) {
-						case \Cherrycake\Modules\DATE_FORMAT_LITTLE_ENDIAN:
+						case \Cherrycake\DATE_FORMAT_LITTLE_ENDIAN:
 							$dateFormat = "j/n".((!$setup["isAvoidYearIfCurrent"] && $isCurrentYear) || !$isCurrentYear ? "/".($setup["isShortYear"] ? "y" : "Y") : "");
 							break;
-						case \Cherrycake\Modules\DATE_FORMAT_BIG_ENDIAN:
+						case \Cherrycake\DATE_FORMAT_BIG_ENDIAN:
 							$dateFormat = ((!$setup["isAvoidYearIfCurrent"] && $isCurrentYear) || !$isCurrentYear ? ($setup["isShortYear"] ? "y" : "Y")."/" : "")."n/j";
 							break;
-						case \Cherrycake\Modules\DATE_FORMAT_MIDDLE_ENDIAN:
+						case \Cherrycake\DATE_FORMAT_MIDDLE_ENDIAN:
 							$dateFormat = "n/j".((!$setup["isAvoidYearIfCurrent"] && $isCurrentYear) || !$isCurrentYear ? "/".($setup["isShortYear"] ? "y" : "Y") : "");
 							break;
 					}
 				}
 
 				if ($setup["isHours"]) {
-					if ($setup["hoursFormat"] == \Cherrycake\Modules\HOURS_FORMAT_12H)
+					if ($setup["hoursFormat"] == \Cherrycake\HOURS_FORMAT_12H)
 						$dateFormat .= " h:i".($setup["isSeconds"] ? ".s" : "")." a";
 					else
-					if ($setup["hoursFormat"] == \Cherrycake\Modules\HOURS_FORMAT_24H)
+					if ($setup["hoursFormat"] == \Cherrycake\HOURS_FORMAT_24H)
 						$dateFormat .= " H:i".($setup["isSeconds"] ? ".s" : "");
 				}
 
@@ -642,13 +602,13 @@ class Locale extends \Cherrycake\Module
 
 				break;
 			
-			case \Cherrycake\Modules\TIMESTAMP_FORMAT_HUMAN:
+			case \Cherrycake\TIMESTAMP_FORMAT_HUMAN:
 
 				if ($setup["isDay"]) {
 					$isCurrentYear = (date("Y", $timestamp) == date("Y"));
 
 					switch ($this->locale["dateFormat"]) {
-						case \Cherrycake\Modules\DATE_FORMAT_LITTLE_ENDIAN:
+						case \Cherrycake\DATE_FORMAT_LITTLE_ENDIAN:
 							$r =
 								date("j", $timestamp).
 								($setup["isBrief"] ? " " : " ".$this->getFromArray($this->texts["prepositionOf"], $setup["language"])." ").
@@ -658,7 +618,7 @@ class Locale extends \Cherrycake\Module
 									date(($setup["isBrief"] && $setup["isShortYear"] ? "y" : "Y"), $timestamp)
 								: null);
 							break;
-						case \Cherrycake\Modules\DATE_FORMAT_BIG_ENDIAN:
+						case \Cherrycake\DATE_FORMAT_BIG_ENDIAN:
 							$r =
 								((!$setup["isAvoidYearIfCurrent"] && $isCurrentYear) || !$isCurrentYear ?
 									date(($setup["isBrief"] && $setup["isShortYear"] ? "y" : "Y"), $timestamp).
@@ -669,7 +629,7 @@ class Locale extends \Cherrycake\Module
 								date("j", $timestamp);
 								
 							break;
-						case \Cherrycake\Modules\DATE_FORMAT_MIDDLE_ENDIAN:
+						case \Cherrycake\DATE_FORMAT_MIDDLE_ENDIAN:
 							$r =
 								$this->getFromArray($this->texts[($setup["isBrief"] ?? false ? "monthsShort" : "monthsLong")], $setup["language"] ?? false)[date("n", $timestamp) - 1].
 								" ".
@@ -686,16 +646,16 @@ class Locale extends \Cherrycake\Module
 					$r .=
 						($setup["isBrief"] ? " " : " ".$this->getFromArray($this->texts["prepositionAt"], $setup["language"])." ");
 
-					if ($setup["hoursFormat"] == \Cherrycake\Modules\HOURS_FORMAT_12H)
+					if ($setup["hoursFormat"] == \Cherrycake\HOURS_FORMAT_12H)
 						$r .= date(" h:i".($setup["isSeconds"] ? ".s" : "")." a", $timestamp);
 					else
-					if ($setup["hoursFormat"] == \Cherrycake\Modules\HOURS_FORMAT_24H)
+					if ($setup["hoursFormat"] == \Cherrycake\HOURS_FORMAT_24H)
 						$r .= date(" H:i".($setup["isSeconds"] ? ".s" : ""), $timestamp);
 				}
 
 				break;
 
-			case \Cherrycake\Modules\TIMESTAMP_FORMAT_RELATIVE_HUMAN:
+			case \Cherrycake\TIMESTAMP_FORMAT_RELATIVE_HUMAN:
 				// If in the past
 				if ($timestamp < time()) {
 
@@ -727,12 +687,12 @@ class Locale extends \Cherrycake\Module
 
 					if ($hoursAgo < 24) {
 						$r =
-							$this->getFromArray($this->texts["agoPrefix"], $setup["language"]).
+							$this->getFromArray($this->texts["agoPrefix"], $setup["language"] ?? false).
 							$hoursAgo.
 							" ".
-							($hoursAgo == 1 ? $this->getFromArray($this->texts["hour"], $setup["language"]) : $this->getFromArray($this->texts["hours"], $setup["language"])).
+							($hoursAgo == 1 ? $this->getFromArray($this->texts["hour"], $setup["language"] ?? false) : $this->getFromArray($this->texts["hours"], $setup["language"] ?? false)).
 							" ".
-							$this->getFromArray($this->texts["agoSuffix"], $setup["language"]);
+							$this->getFromArray($this->texts["agoSuffix"], $setup["language"] ?? false);
 						break;
 					}
 
@@ -765,7 +725,7 @@ class Locale extends \Cherrycake\Module
 				}
 
 				// Other cases: Future timestamps, and timestamps not handled by the humanizer above
-				$monthNames = $this->getFromArray($this->texts["monthsLong"], $setup["language"]);
+				$monthNames = $this->getFromArray($this->texts["monthsLong"], $setup["language"] ?? false);
 				$r =
 					$monthNames[date("n", $timestamp)-1].
 					" ".
@@ -778,42 +738,56 @@ class Locale extends \Cherrycake\Module
 	}
 
 	/**
-	 * Formats the given number according to the current locale settings, and the given setup
+	 * Formats the given number
 	 *
-	 * @param int $timestamp The number
-	 * @param array $setup A hash array with setup options, from the following:
-	 *                     - decimals: The number of decimals to show. Defaults to zero.
-	 *                     - decimalMark: The decimal mark to use, DECIMAL_MARK_POINT or DECIMAL_MARK_COMMA. Defaults to the current locale setting.
-	 *                     - isSeparateThousands: Whether to separate thousands or not. Defaults to false.
-	 *                     - multiplier: A multiplier, or false if no multiplier should be applied. Defaults to false.
-	 * @return string The formatted number
+	 * @param float $timestamp The number
+	 * @param array $setup An optional hash array with setup options, with the following possible keys:
+	 * * decimals: The number of decimals to show. Default: 0
+	 * * showDecimalsForWholeNumbers: Whether to show the decimal part when the number is whole. Default: false
+	 * * decimalMark: The decimal mark to use, DECIMAL_MARK_POINT or DECIMAL_MARK_COMMA. Defaults to the current Locale setting.
+	 * * isSeparateThousands: Whether to separate thousands or not. Default: false
+	 * * multiplier: A multiplier, or false if no multiplier should be applied. Default: false
+	 * @return string The formatted number.
 	 */
 	function formatNumber($number, $setup = false) {
-		if (!isset($setup["decimals"]))
-			$setup["decimals"] = 0;
-		if (!isset($setup["decimalMark"]))
-			$setup["decimalMark"] = $this->locale["decimalMark"];
-		if (!isset($setup["isSeparateThousands"]))
-			$setup["isSeparateThousands"] = false;
+		self::treatParameters($setup, [
+            "decimals" => ["default" => 0],
+			"showDecimalsForWholeNumbers" => ["default" => false],
+			"decimalMark" => ["default" => $this->locale["decimalMark"]],
+			"isSeparateThousands" => ["default" => false]
+        ]);
 
-		if ($setup["multiplier"])
+		if ($setup["multiplier"] ?? false)
 			$number *= $setup["multiplier"];
 
 		return number_format(
 			$number,
-			$setup["decimals"],
+			(round($number) == $number && $setup["showDecimalsForWholeNumbers"]) || round($number) != $number ? $setup["decimals"] : 0,
 			[DECIMAL_MARK_POINT => ".", DECIMAL_MARK_COMMA => ","][$setup["decimalMark"]],
 			$setup["isSeparateThousands"] ? [DECIMAL_MARK_POINT => ",", DECIMAL_MARK_COMMA => "."][$setup["decimalMark"]] : false
 		);
 	}
 
-	function formatCurrency($amount) {
+	/**
+	 * Formats the given amount as a currency
+	 * 
+	 * @param float $amount
+	 * @param array $setup An optional hash array with setup options, with the following possible keys:
+	 * * currency: The currency to format the given amount to. One of the available CURRENCY_?. If not specified, the current Locale setting is used.
+	 */
+	function formatCurrency($amount, $setup = false) {
 		switch ($this->getCurrency()) {
 			case CURRENCY_USD:
-				return "USD".$this->formatNumber($amount);
+				return "USD".$this->formatNumber($amount, [
+					"isSeparateThousands" => true,
+					"decimals" => 2
+				]);
 				break;
 			case CURRENCY_EURO:
-				return $this->formatNumber($amount)."€";
+				return $this->formatNumber($amount, [
+					"isSeparateThousands" => true,
+					"decimals" => 2
+				])."€";
 				break;
 		}
 	}
@@ -849,6 +823,7 @@ class Locale extends \Cherrycake\Module
 				break;
 
 			case LANGUAGE_SPANISH:
+				$r = $number."º";
 				break;
 		}
 
@@ -856,12 +831,12 @@ class Locale extends \Cherrycake\Module
 	}
 
 	/**
-	 * This method tries to detect the user's location using the configured geolocationMethod. If contry-only methods like LOCALE_GEOLOCATION_METHOD_CLOUDFLARE are configured, only the country will be set in the returned Location object.
+	 * This method tries to detect the user's location using the configured geolocationMethod. If contry-only methods like GEOLOCATION_METHOD_CLOUDFLARE are configured, only the country will be set in the returned Location object.
 	 * @return mixed A Location object specifying the user's location, or false if it could not be determined.
 	 */
 	function guessLocation() {
 		switch ($this->getConfig("geolocationMethod")) {
-			case LOCALE_GEOLOCATION_METHOD_CLOUDFLARE:
+			case GEOLOCATION_METHOD_CLOUDFLARE:
 				if (!isset($_SERVER["HTTP_CF_IPCOUNTRY"]))
 					return false;
 				$location = new \Cherrycake\Location;

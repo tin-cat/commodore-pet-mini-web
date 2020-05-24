@@ -6,7 +6,7 @@
  * @package Cherrycake
  */
 
-namespace Cherrycake\Modules;
+namespace Cherrycake;
 
 /**
  * Database
@@ -40,7 +40,7 @@ namespace Cherrycake\Modules;
  * @package Cherrycake
  * @category Modules
  */
-class Database extends \Cherrycake\Module {
+class Database  extends \Cherrycake\Module {
 	/**
 	 * @var bool $isConfig Sets whether this module has its own configuration file. Defaults to false.
 	 */
@@ -96,12 +96,12 @@ class Database extends \Cherrycake\Module {
 		global $e;
 		$e->loadCoreModuleClass("Database", $providerClassName);
 
-		eval("\$this->".$key." = new \\Cherrycake\\Modules\\".$providerClassName."();");
+		eval("\$this->".$key." = new \\Cherrycake\\".$providerClassName."();");
 
 		$this->$key->config($config);
 
 		if (!$this->$key->init()) {
-			$e->Errors->trigger(\Cherrycake\Modules\ERROR_SYSTEM, ["errorDescription" => "Error while Initting database provider"]);
+			$e->Errors->trigger(\Cherrycake\ERROR_SYSTEM, ["errorDescription" => "Error while Initting database provider"]);
 			return;
 		}
 	}

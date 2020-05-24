@@ -6,7 +6,7 @@
  * @package Cherrycake
  */
 
-namespace Cherrycake\Modules;
+namespace Cherrycake;
 
 const ERROR_SYSTEM = 0; // Errors caused by bad programming
 const ERROR_APP = 1; // Errors caused by bad usering
@@ -25,10 +25,10 @@ const ERROR_NO_PERMISSION = 3; // Errors causes when the user didn't have permis
  * $errorsConfig = [
  *  "isHtmlOutput" => true, // Whether to dump HTML formatted errors or not when not using a pattern to show errors. Defaults to true
  * 	"patternNames" => [
- *		\Cherrycake\Modules\ERROR_SYSTEM => "errors/error.html",
- *		\Cherrycake\Modules\ERROR_APP => "errors/error.html",
- *		\Cherrycake\Modules\ERROR_NOT_FOUND => "errors/error.html"
- *		\Cherrycake\Modules\ERROR_NO_PERMISSION => "errors/error.html"
+ *		\Cherrycake\ERROR_SYSTEM => "errors/error.html",
+ *		\Cherrycake\ERROR_APP => "errors/error.html",
+ *		\Cherrycake\ERROR_NOT_FOUND => "errors/error.html"
+ *		\Cherrycake\ERROR_NO_PERMISSION => "errors/error.html"
  *	], // An array of pattern names to user when an error occurs. If a patterns is not specified, a generic error is triggered.
  * 	"isLogSystemErrors" => true, // Whether or not to log system errors. Defaults to true
  * 	"isLogAppErrors" => true // Whether or not to log app errors.  Defaults to true
@@ -45,7 +45,7 @@ const ERROR_NO_PERMISSION = 3; // Errors causes when the user didn't have permis
  * @package Cherrycake
  * @category Modules
  */
-class Errors extends \Cherrycake\Module {
+class Errors  extends \Cherrycake\Module {
 	/**
 	 * @var bool $isConfig Sets whether this module has its own configuration file. Defaults to false.
 	 */
@@ -133,15 +133,17 @@ class Errors extends \Cherrycake\Module {
 		if (
 			$e->isModuleLoaded("SystemLog")
 			&&			
-			($errorType == ERROR_SYSTEM && $this->getConfig("isLogSystemErrors"))
-			||
-			($errorType == ERROR_APP && $this->getConfig("isLogAppErrors"))
-			||
-			($errorType == ERROR_NOT_FOUND && $this->getConfig("isLogNotFoundErrors"))
-			||
-			($errorType == ERROR_NO_PERMISSION && $this->getConfig("isLogNoPermissionErrors"))
-			||
-			isset($setup["isForceLog"]) && $setup["isForceLog"] == true
+			(
+				($errorType == ERROR_SYSTEM && $this->getConfig("isLogSystemErrors"))
+				||
+				($errorType == ERROR_APP && $this->getConfig("isLogAppErrors"))
+				||
+				($errorType == ERROR_NOT_FOUND && $this->getConfig("isLogNotFoundErrors"))
+				||
+				($errorType == ERROR_NO_PERMISSION && $this->getConfig("isLogNoPermissionErrors"))
+				||
+				isset($setup["isForceLog"]) && $setup["isForceLog"] == true
+			)
 		)
 			$e->SystemLog->event(new \Cherrycake\SystemLogEventError([
 				"subType" => isset($setup["errorSubType"]) ? $setup["errorSubType"] : false,
@@ -229,9 +231,10 @@ class Errors extends \Cherrycake\Module {
 							]
 						],
 						[
-							ERROR_SYSTEM => \Cherrycake\Modules\RESPONSE_INTERNAL_SERVER_ERROR,
-							ERROR_NOT_FOUND => \Cherrycake\Modules\RESPONSE_NOT_FOUND,
-							ERROR_NO_PERMISSION => \Cherrycake\Modules\RESPONSE_NO_PERMISSION
+							ERROR_SYSTEM => \Cherrycake\RESPONSE_INTERNAL_SERVER_ERROR,
+							ERROR_APP => \Cherrycake\RESPONSE_INTERNAL_SERVER_ERROR,
+							ERROR_NOT_FOUND => \Cherrycake\RESPONSE_NOT_FOUND,
+							ERROR_NO_PERMISSION => \Cherrycake\RESPONSE_NO_PERMISSION
 						][$errorType]
 					);
 				}
@@ -241,11 +244,21 @@ class Errors extends \Cherrycake\Module {
 
 							$errorVariables = "";
 
-							if (isset($setup["errorVariables"]))
-								foreach ($setup["errorVariables"] as $key => $value)
-									$errorVariables .= "<br><b>".$key."</b>: ".$value;
+							if (isset($setup["errorVariables"])) {
+								foreach ($setup["errorVariables"] as $key => $value) {
+									$errorVariables .= "<br><b>".$key."</b>: ".(is_array($value) ? json_encode($value) : $value);
+								}
+							}
 
-							trigger_error($setup["errorDescription"].$errorVariables);
+							trigger_error(
+								$setup["errorDescription"].$errorVariables,
+								[
+									ERROR_SYSTEM => E_USER_ERROR,
+									ERROR_APP => E_USER_ERROR,
+									ERROR_NOT_FOUND => E_USER_ERROR,
+									ERROR_NO_PERMISSION => E_USER_ERROR
+								][$errorType]
+							);
 						}
 						else {
 
@@ -300,7 +313,7 @@ class Errors extends \Cherrycake\Module {
 			case "plain":
 				if ($e->isDevel()) {
 					$e->Output->setResponse(new \Cherrycake\ResponseTextHtml([
-						"code" => \Cherrycake\Modules\RESPONSE_INTERNAL_SERVER_ERROR,
+						"code" => \Cherrycake\RESPONSE_INTERNAL_SERVER_ERROR,
 						"payload" =>
 							"Cherrycake Error / ".$e->getAppName()." / ".[
 								ERROR_SYSTEM => "System error",
@@ -316,12 +329,13 @@ class Errors extends \Cherrycake\Module {
 				}
 				else {
 					$e->Output->setResponse(new \Cherrycake\ResponseTextHtml([
-						"code" => \Cherrycake\Modules\RESPONSE_INTERNAL_SERVER_ERROR,
+						"code" => \Cherrycake\RESPONSE_INTERNAL_SERVER_ERROR,
 						"payload" => "Error"
 					]));
 				}
 				break;
 		}
+
 
 		$e->end();
 		die;

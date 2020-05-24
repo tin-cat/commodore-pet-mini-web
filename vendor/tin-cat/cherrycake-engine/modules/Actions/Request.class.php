@@ -18,12 +18,12 @@ namespace Cherrycake;
  */
 class Request {
 	/**
-	 * @var array $pathComponents An Array of RequestPathComponent objects defining the components of this request, in the same order on which they're expected
+	 * @var array $pathComponents An array of RequestPathComponent objects defining the components of this request, in the same order on which they're expected
 	 */
 	public $pathComponents;
 
 	/**
-	 * @var array $parameters An Array of RequestParameter objects of parameters that might be received by this request
+	 * @var array $parameters An array of RequestParameter objects of parameters that might be received by this request
 	 */
 	public $parameters;
 
@@ -38,7 +38,7 @@ class Request {
 	public $isSecurityCsrf;
 
 	/**
-	 * @var array $additionalCacheKeys A two-dimensional array containing additional cache keys to make this request's cached contents different depending on the values of those keys
+	 * @var array $additionalCacheKeys A hash array containing additional cache keys to make this request's cached contents different depending on the values of those keys
 	 */
 	private $additionalCacheKeys;
 
@@ -50,7 +50,7 @@ class Request {
 	 * @param string $with How to populate the created Request object. Leave to false for unpopulated request.
 	 */
 	function __construct($setup = false) {
-		$this->isSecurityCsrf = isset($setup["isSecurityCsrf"]) ? $setup["isSecurityCsrf"] : false;
+		$this->isSecurityCsrf = $setup["isSecurityCsrf"] ?? false;
 
 		if ($this->isSecurityCsrf()) {			
 			global $e;
@@ -85,10 +85,9 @@ class Request {
 
 		}
 		else { // Else the current request has pathComponents
-
-			if (!is_array($this->pathComponents)) // If this request doesn't have pathComponents, this is not the current Request
+			if (!is_array($this->pathComponents)) { // If this request doesn't have pathComponents, this is not the current Request
 				return false;
-			else { // Else this request has pathComponents, further analysis must be done
+			} else { // Else this request has pathComponents, further analysis must be done
 
 				if (sizeof($this->pathComponents) != sizeof($e->Actions->currentRequestPathComponentStrings)) // If the number of this Request's pathComponents is different than the number of the current request's pathComponents, this is not the current Request
 					return false;
@@ -137,7 +136,7 @@ class Request {
 					$result = $pathComponent->checkValueSecurity();
 					if (!$result->isOk) {
 						$isErrors = true;
-						$e->Errors->trigger(\Cherrycake\Modules\ERROR_SYSTEM, [
+						$e->Errors->trigger(\Cherrycake\ERROR_SYSTEM, [
 							"errorDescription" => implode(" / ", $result->description),
 							"errorVariables" => [
 								"pathComponent name" => $pathComponent->name,
@@ -159,7 +158,7 @@ class Request {
 				$result = $parameter->checkValueSecurity();
 				if (!$result->isOk) {
 					$isErrors = true;
-					$e->Errors->trigger(\Cherrycake\Modules\ERROR_SYSTEM, [
+					$e->Errors->trigger(\Cherrycake\ERROR_SYSTEM, [
 						"errorDescription" => implode(" / ", $result->description),
 						"errorVariables" => [
 							"parameter name" => $parameter->name,
@@ -227,8 +226,8 @@ class Request {
 	 * Returns a URL that represents a call to this request, including the given path components and parameter values
 	 *
 	 * @param array $setup An option setup two-dimensional array containing:
-	 * * parameterValues: An optional two-dimensional array containing values for the parameters related to this request, including url path parameters and get/post parameters (not additionalCacheKeys, since they're not represented on the Url itself).
-	 * * isIncludeUrlParameters: Set to true to also include the URL parameters (doesn't refers to pathComponents, which are always included when needed). The passed parameterValues will be used, or the current request's parameters if no parameterValues are specified. Defaults to true.
+	 * * parameterValues: An optional hash array containing the values for the variable path components and for the GET parameters, if any. (not additionalCacheKeys, since they're not represented on the Url itself).
+	 * * isIncludeUrlParameters: Includes the GET parameters in the URL. The passed parameterValues will be used, or the current request's parameters if no parameterValues are specified. Defaults to true.
 	 * * isAbsolute: Whether to generate an absolute url containing additionally http(s):// and the domain of the App. Defaults to false
 	 * * isHttps: Whether to generate an https url or not, with the following possible values:
 	 *  - true: Use https://
@@ -287,11 +286,11 @@ class Request {
 		else
 			$url .= "/";
 
-		if (is_array($this->parameters) && $setup["isIncludeUrlParameters"]) {
-			$count = 0;
+		$count = 0;
+		if (is_array($this->parameters) && $setup["isIncludeUrlParameters"]) {			
 			foreach ($this->parameters as $parameter) {
-				if ($setup["parameterValues"]) {
-					if ($setup["parameterValues"][$parameter->name])
+				if ($setup["parameterValues"] ?? false) {
+					if ($setup["parameterValues"][$parameter->name] ?? false)
 						$url .= (!$count++ ? "?" : "&").$parameter->name."=".$setup["parameterValues"][$parameter->name];
 				}
 				else
@@ -300,10 +299,10 @@ class Request {
 			}
 		}
 
-		if ($this->isSecurityCsrf()) {
-			global $e;
-			$url .= (!$count++ ? "?" : "&")."csrfToken=".$e->Security->getCsrfToken();
-		}
+		// if ($this->isSecurityCsrf()) {
+		// 	global $e;
+		// 	$url .= ($count > 0 ? "&" : "?")."csrfToken=".$e->Security->getCsrfToken();
+		// }
 
 		if (isset($setup["anchor"]))
 			$url .= "#".$setup["anchor"];
@@ -319,7 +318,7 @@ class Request {
 	function buildFormHtml($setup = false) {
 		global $e;
 		$setup["request"] = $this;
-		return $e->Ui->uiComponents["UiComponentForm"]->build($setup);
+		return $e->UiComponentForm->build($setup);
 	}
 
 	/**
@@ -330,8 +329,9 @@ class Request {
 	 * @return string A string that represents uniquely this request, to be used as a cache key
 	 */
 	function getCacheKey($prefix, $parameterValues = null) {
+		$key = "";
 		if (is_array($this->pathComponents)) {
-			while (list($index, $pathComponent) = each($this->pathComponents)) {
+			foreach ($this->pathComponents as $index => $pathComponent) {
 				switch ($pathComponent->type) {
 					case REQUEST_PATH_COMPONENT_TYPE_FIXED:
 						$key .= "_".$pathComponent->string;
@@ -348,7 +348,7 @@ class Request {
 			reset($this->pathComponents);
 		}
 		else
-			$key .= "_";
+			$key = "_";
 
 		if (is_array($this->parameters)) {
 			foreach ($this->parameters as $parameter) {
@@ -377,7 +377,7 @@ class Request {
 		global $e;
 		$cacheKeyNamingOptions["prefix"] = $prefix;
 		$cacheKeyNamingOptions["key"] = $key;
-		return \Cherrycake\Modules\Cache::buildCacheKey($cacheKeyNamingOptions);
+		return \Cherrycake\Cache::buildCacheKey($cacheKeyNamingOptions);
 	}
 
 	/**

@@ -4,7 +4,7 @@
  * @package Cherrycake
  */
 
-namespace Cherrycake\Modules;
+namespace Cherrycake;
 
 /**
  * Module that validates many kinds of data
@@ -32,7 +32,7 @@ namespace Cherrycake\Modules;
  * @package Cherrycake
  * @category Modules
  */
-class Validate extends \Cherrycake\Module {
+class Validate  extends \Cherrycake\Module {
 	/**
 	 * @var bool $isConfig Sets whether this module has its own configuration file. Defaults to false.
 	 */
