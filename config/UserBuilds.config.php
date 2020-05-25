@@ -13,6 +13,13 @@ namespace Cherrycake;
 $UserBuildsConfig = [
 	"builds" => [
 		[
+            "serialNumber" => 12,
+            "name" => "Jonathan Dean 🇬🇧",
+			"url" => "https://twitter.com/JonathanPGDean",
+            "date" => mktime(0, 0, 0, 5, 24, 2020),
+            "text" => "The PET was the first microcomputer I ever used (back at school in the early 80’s) and it was responsible for hooking me into the subject and industry. I always thought the distinctive shape of the PET looked really cool (especially the older ones) and I always wanted to own one. I looked into buying a second hand one, but the time was never right and so I never did (at least not so far). So I was overjoyed to find your mini PET page and especially since it had coincided with me getting myself a 3d printer."
+        ],
+		[
             "serialNumber" => 11,
             "name" => "Cristiano - Dr. Slump - Rosadini 🇮🇹",
 			"url" => "https://www.classicdevicesclub.it",
