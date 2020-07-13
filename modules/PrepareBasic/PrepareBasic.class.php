@@ -224,6 +224,18 @@ class PrepareBasic  extends \Cherrycake\Module {
 			]
 		);
 
+		$e->UiComponentPanel->addBlocks(
+			"main",
+			[
+				"about" => new \Cherrycake\UiComponentMenuOption([
+					"title" => "About",
+					"iconName" => "about",
+					"iconVariant" => "white",
+					"href" => $e->Actions->getAction("about")->request->buildUrl()
+				])
+			]
+		);
+
 		return true;
 	}
 }
