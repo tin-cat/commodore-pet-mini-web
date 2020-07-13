@@ -1,52 +1,33 @@
 <?php
 
 /**
- * Janitor
- *
  * @package Cherrycake
  */
 
 namespace Cherrycake;
 
-const JANITORTASK_EXECUTION_RETURN_WARNING = 0; // Return code for JanitorTask run when task returned an error
-const JANITORTASK_EXECUTION_RETURN_ERROR = 1; // Return code for JanitorTask run when task returned an error
-const JANITORTASK_EXECUTION_RETURN_CRITICAL = 2; // Return code for JanitorTask run when task returned an error
-const JANITORTASK_EXECUTION_RETURN_OK = 3; // Return code for JanitorTask run when task was executed without errors
+const JANITORTASK_EXECUTION_RETURN_WARNING = 0; // Return code for JanitorTask run when task returned a warning.
+const JANITORTASK_EXECUTION_RETURN_ERROR = 1; // Return code for JanitorTask run when task returned an error.
+const JANITORTASK_EXECUTION_RETURN_CRITICAL = 2; // Return code for JanitorTask run when task returned a critical error.
+const JANITORTASK_EXECUTION_RETURN_OK = 3; // Return code for JanitorTask run when task was executed without errors.
 
-const JANITORTASK_EXECUTION_PERIODICITY_ONLY_MANUAL = 0; // Task can only be executed when calling the Janitor run process with an specific task parameter. It won't be executed on regular "all-tasks" calls to Janitor
-const JANITORTASK_EXECUTION_PERIODICITY_ALWAYS = 1; // Task must be executed everytime Janitor run is called
-const JANITORTASK_EXECUTION_PERIODICITY_EACH_SECONDS = 2; // Task must be executed every specified seconds. Seconds specified in "periodicityEachSeconds" config key
-const JANITORTASK_EXECUTION_PERIODICITY_MINUTES = 3; // Task must be executed on the given minutes of each hour. Desired minutes are specified as an array in the "periodicityMinutes" config key with the syntax: [0, 15, 30, 45]
-const JANITORTASK_EXECUTION_PERIODICITY_HOURS = 4; // The task must be executed on the given hours of each day. Desired hours/minute are specified as an array in the "periodicityHours" config key with the syntax: ["hour:minute", "hour:minute", "hour:minute"]
-const JANITORTASK_EXECUTION_PERIODICITY_DAYSOFMONTH = 5; // The task must be executed on the given days of each month. Desired days/hour/minute are specified as an array in the "periodicityDaysOfMonth" config key with the syntax: ["day@hour:minute", "day@hour:minute", "day@hour:minute"] (Take into account days of month that do not exist)
+const JANITORTASK_EXECUTION_PERIODICITY_ONLY_MANUAL = 0; // The task can only be executed when calling the Janitor run process with an specific task parameter.
+const JANITORTASK_EXECUTION_PERIODICITY_ALWAYS = 1; // The task will be executed every time Janitor run is called.
+const JANITORTASK_EXECUTION_PERIODICITY_EACH_SECONDS = 2; // The task will be executed every specified seconds. Seconds are specified in "periodicityEachSeconds" config key.
+const JANITORTASK_EXECUTION_PERIODICITY_MINUTES = 3; // The task will be executed on the given minutes of each hour. Desired minutes are specified as an array in the "periodicityMinutes" config key. For example: [0, 15, 30, 45]
+const JANITORTASK_EXECUTION_PERIODICITY_HOURS = 4; // The task will be executed on the given hours of each day. Desired hours/minute are specified as an array in the "periodicityHours" config key in the syntax ["hour:minute", ...] For example: ["00:00", "10:45", "20:15"]
+const JANITORTASK_EXECUTION_PERIODICITY_DAYSOFMONTH = 5; // The task will be executed on the given days of each month. Desired days/hour/minute are specified as an array in the "periodicityDaysOfMonth" config key in the syntax ["day@hour:minute", ...] For example: ["1@12:00", "15@18:30", "20@00:00"] (Take into account days of month that do not exist)
 
 /**
- * Janitor
- *
- * Executes maintenance tasks and checks.
+ * Allows an app to program tasks to be executed automatically and periodically.
  *
  * It adds two actions:
  *  /janitor/run
- *      Runs all the tasks that must be run at the time of request.
- *      Needs the "key" GET parameter.
+ *      Runs all the tasks that must run at the time of request.
  *      Can receive the "task" GET parameter with the name of a task to be individually executed. It considers all configured tasks if not specified.
  *
  *  /janitor/status
  *      Presents a page with a tasks report status
- *      Needs the "key" GET parameter.
- *
- * Configuration example for Janitor.config.php:
- * <code>
- * $janitorConfig = [
- * 	"key" => false, // The key string needed to run janitor tasks and to access the status page. Must be overloaded by janitor.config.php
- *  "logDatabaseProviderName" => "main", // The name of the DatabaseProvider to use for storing Janitor log
- *  "logTableName" => "cherrycake_janitor_log", // The name of the table used to store Janitor log
- *  "cherrycakeJanitorTasks" => [ // An array of names of Cherrycake JanitorTask classes to be run
- *  ],
- *  "appJanitorTasks" => [ // An array of names of App JanitorTask classes to be run
- *  ]
- * ];
- * </code>
  *
  * @package Cherrycake
  * @category Modules
@@ -61,9 +42,17 @@ class Janitor  extends \Cherrycake\Module {
 	 * @var array $config Holds the default configuration for this module
 	 */
 	protected $config = [
-		"key" => "",
-		"logDatabaseProviderName" => "main",
-		"logTableName" => "cherrycake_janitor_log"
+		"logDatabaseProviderName" => "main", // The name of the DatabaseProvider to use for storing Janitor log.
+		"logTableName" => "cherrycake_janitor_log", // The name of the table used to store Janitor log.
+		"coreJanitorTasks" => [ // An array of names of Cherrycake core JanitorTask classes to run.
+			"JanitorTaskJanitorPurge",
+			"JanitorTaskLogCommit",
+			"JanitorTaskSessionPurge",
+			"JanitorTaskStatsCommit",
+			"JanitorTaskSystemLogCommit",
+			"JanitorTaskSystemLogPurge"
+		],
+		"appJanitorTasks" => [] // An array of names of App JanitorTask classes to run.
 	];
 
 	/**
@@ -80,20 +69,6 @@ class Janitor  extends \Cherrycake\Module {
 	var $janitorTasks;
 
 	/**
-	 * init
-	 *
-	 * Initializes the module and loads the Ui components
-	 *
-	 * @return boolean Whether the module has been initted ok
-	 */
-	function init() {
-		if (!parent::init())
-			return false;
-
-		return true;
-	}
-
-	/**
 	 * mapActions
 	 *
 	 * Maps the Actions to which this module must respond
@@ -103,7 +78,7 @@ class Janitor  extends \Cherrycake\Module {
 
 		$e->Actions->mapAction(
 			"janitorRun",
-			new \Cherrycake\ActionPlainText([
+			new \Cherrycake\ActionCli([
 				"moduleType" => \Cherrycake\ACTION_MODULE_TYPE_CORE,
 				"moduleName" => "Janitor",
 				"methodName" => "run",
@@ -120,10 +95,6 @@ class Janitor  extends \Cherrycake\Module {
 					],
 					"parameters" => [
 						new \Cherrycake\RequestParameter([
-							"name" => "key",
-							"type" => \Cherrycake\REQUEST_PARAMETER_TYPE_GET
-						]),
-						new \Cherrycake\RequestParameter([
 							"name" => "task",
 							"type" => \Cherrycake\REQUEST_PARAMETER_TYPE_GET
 						]),
@@ -138,10 +109,10 @@ class Janitor  extends \Cherrycake\Module {
 
 		$e->Actions->mapAction(
 			"janitorStatus",
-			new \Cherrycake\ActionHtml([
+			new \Cherrycake\ActionCli([
 				"moduleType" => \Cherrycake\ACTION_MODULE_TYPE_CORE,
 				"moduleName" => "Janitor",
-				"methodName" => "status",
+				"methodName" => "showPlainStatus",
 				"request" => new \Cherrycake\Request([
 					"pathComponents" => [
 						new \Cherrycake\RequestPathComponent([
@@ -151,15 +122,6 @@ class Janitor  extends \Cherrycake\Module {
 						new \Cherrycake\RequestPathComponent([
 							"type" => \Cherrycake\REQUEST_PATH_COMPONENT_TYPE_FIXED,
 							"string" => "status"
-						])
-					],
-					"parameters" => [
-						new \Cherrycake\RequestParameter([
-							"name" => "key",
-							"type" => \Cherrycake\REQUEST_PARAMETER_TYPE_GET,
-							"securityRules" => [
-								\Cherrycake\SECURITY_RULE_NOT_EMPTY
-							]
 						])
 					]
 				])
@@ -176,12 +138,9 @@ class Janitor  extends \Cherrycake\Module {
 		if (is_array($this->janitorTasks))
 			return;
 
-		global $e;
-		$e->loadCoreModuleClass("Janitor", "JanitorTask");
-
 		// Sets up Janitor tasks
-		if (is_array($cherrycakeJanitorTasks = $this->getConfig("cherrycakeJanitorTasks")))
-			foreach($cherrycakeJanitorTasks as $cherrycakeJanitorTask)
+		if (is_array($coreJanitorTasks = $this->getConfig("coreJanitorTasks")))
+			foreach($coreJanitorTasks as $cherrycakeJanitorTask)
 				$this->addCherrycakeJanitorTask($cherrycakeJanitorTask);
 
 		if (is_array($appJanitorTasks = $this->getConfig("appJanitorTasks")))
@@ -197,10 +156,7 @@ class Janitor  extends \Cherrycake\Module {
 	 * @param string $janitorTaskName The name of the class of the Cherrycake Janitor task to add
 	 */
 	function addCherrycakeJanitorTask($janitorTaskName) {
-		global $e;
-
 		if (!isset($this->janitorTasks[$janitorTaskName])) {
-			$e->loadCoreModuleClass("Janitor", $janitorTaskName);
 			eval("\$this->janitorTasks[\"".$janitorTaskName."\"] = new \\Cherrycake\\".$janitorTaskName."();");
 			$this->janitorTasks[$janitorTaskName]->init();
 		}
@@ -215,9 +171,7 @@ class Janitor  extends \Cherrycake\Module {
 	 */
 	function addAppJanitorTask($janitorTaskName) {
 		global $e;
-
 		if (!isset($this->janitorTasks[$janitorTaskName])) {
-			$e->loadAppModuleClass("Janitor", $janitorTaskName);
 			eval("\$this->janitorTasks[\"".$janitorTaskName."\"] = new \\".$e->getAppNamespace()."\\".$janitorTaskName."();");
 			$this->janitorTasks[$janitorTaskName]->init();
 		}
@@ -234,31 +188,12 @@ class Janitor  extends \Cherrycake\Module {
 	}
 
 	/**
-	 * checkKey
-	 *
-	 * Checks if the given key allows access to Janitor
-	 *
-	 * @param string $key The key to check
-	 * @return bool Whether the key is correct or not
-	 */
-	function checkKey($key) {	
-		if ($this->getConfig("key") === false || $key != $this->getConfig("key")) {
-			global $e;
-			$e->Errors->trigger(\Cherrycake\ERROR_SYSTEM, ["errorDescription" => "Wrong Janitor key provided"]);
-			return false;
-		}
-		return true;
-	}
-
-	/**
 	 * run
 	 *
-	 * Runs Janitor to determine which tasks need to be executed now, and executes them.
+	 * Determines which tasks need to be executed now and executes them. If a task name is passed via Request in the task parameter, only that task will be executed, if due to be executed. If, additionally, the isForceRun parameter is passed as true, the task name will be executed even if it's not due to be executed.
+	 * @param Request $request A Request object, passed by the Actions module when calling this method as the result of an action.
 	 */
 	function run($request) {
-		if (!$this->checkKey($request->key))
-			return false;
-
 		$task = $request->task;
 		$isForceRun = $request->isForceRun;
 
@@ -369,14 +304,46 @@ class Janitor  extends \Cherrycake\Module {
 	}
 
 	/**
-	 * status
-	 *
-	 * Presents a page with Janitor's current status
+	 * Shows the status of the Janitor tasks in plain text
 	 */
-	function status($request) {
-		if (!$this->checkKey($request->key))
-			return;
-		echo $this->getStatusHtml();
+	function showPlainStatus($request) {
+		global $e;
+		$this->loadTasks();
+
+		$r = "";
+		foreach ($this->janitorTasks as $janitorTaskName => $janitorTask) {
+			$taskStatus = $janitorTask->getStatus();
+
+			$r .=
+				"Task: ".$janitorTask->getName()."\n".
+				"Description: ".$janitorTask->getDescription()."\n".
+				"Result: ".$this->getJanitorTaskReturnCodeDescription($taskStatus["lastExecutionResultCode"] ?? false)."\n".
+				"Periodicity: ".$janitorTask->getPeriodicityDebugInfo()."\n";
+
+			if (!$taskStatus)
+				$r .= "Never executed\n";
+			else {
+				$r .=
+					"Last execution: ".
+					date("j/n/Y H:i:s", $taskStatus["lastExecutionTimestamp"])." (".date_default_timezone_get().") took ".number_format($taskStatus["lastExecutionSeconds"]*1000)." ms.\n";
+					
+					if (isset($taskStatus["lastExecutionResultDescription"])) {
+						if (is_array($taskStatus["lastExecutionResultDescription"])) {
+							foreach ($taskStatus["lastExecutionResultDescription"] as $key => $value)
+								$r .= ". ".$key.": ".$value."\n";
+						}
+						else
+							$r .= ". ".$taskStatus["lastExecutionResultDescription"];
+					}
+					else
+						$r .= "No report\n";
+				$r .= "\n";
+			}
+		}
+
+		$e->Output->setResponse(new \Cherrycake\ResponseTextPlain([
+			"payload" => $r
+		]));
 	}
 
 	/**
@@ -387,7 +354,8 @@ class Janitor  extends \Cherrycake\Module {
 	 * @return array An (n-dimensional hash array containing status info for janitor tasks
 	 */
 	function getStatus() {
-		while (list($janitorTaskName, $janitorTask) = each($this->janitorTasks)) {
+		$this->loadTasks();
+		foreach ($this->janitorTasks as $janitorTaskName => $janitorTask) {
 			$r[$janitorTaskName] = $janitorTask->getStatus();
 		}
 		reset($this->janitorTasks);
@@ -433,16 +401,17 @@ class Janitor  extends \Cherrycake\Module {
 
 		$this->loadTasks();
 
-		while (list($janitorTaskName, $janitorTask) = each($this->janitorTasks)) {
+		$r = "";
+		foreach ($this->janitorTasks as $janitorTaskName => $janitorTask) {
 			$taskStatus = $janitorTask->getStatus();
 
 			$r .=
-				"<table class=\"".($setup["tableClass"] ? $setup["tableClass"] : "debugInfo")."\">".
+				"<table class=\"".($setup["tableClass"] ?? false ? $setup["tableClass"] : "debugInfo")."\">".
 				"<tr>".
 					"<th colspan=2>".
 						"<h2>".$janitorTask->getName()."</h2>".
 						"<h3>".$janitorTask->getDescription()."</h3>".
-						$this->getJanitorTaskReturnCodeDescription($taskStatus["lastExecutionResultCode"]).
+						$this->getJanitorTaskReturnCodeDescription($taskStatus["lastExecutionResultCode"] ?? false).
 					"</th>".
 				"</tr>".
 				"<tr>".
@@ -465,7 +434,7 @@ class Janitor  extends \Cherrycake\Module {
 						"<td>";
 
 							if (is_array($taskStatus["lastExecutionResultDescription"])) {
-								while (list($key, $value) = each($taskStatus["lastExecutionResultDescription"]))
+								foreach ($taskStatus["lastExecutionResultDescription"] as $key => $value)
 									$r .= "<b>".$key.":</b> ".$value."<br>";
 							}
 							else

@@ -16,8 +16,7 @@ const ERROR_NO_PERMISSION = 3; // Errors causes when the user didn't have permis
 /**
  * Errors
  *
- * Module to manage application errors in a neat way.
- * It takes configuration from the App-layer configuration file.
+ * Module to manage application and core errors.
  * Errors will be shown on screen if isDevel is set to true or if client's IP is on underMaintenanceExceptionIps, both variables from config/cherrycake.config.php
  *
  * Configuration example for patterns.config.php:
@@ -321,10 +320,10 @@ class Errors  extends \Cherrycake\Module {
 								ERROR_NOT_FOUND => "Not found",
 								ERROR_NO_PERMISSION => "No permission"
 							][$errorType]."\n".
-							($setup["errorSubType"] ? "Subtype: ".$setup["errorSubType"]."\n" : null).
-							($setup["errorDescription"] ? "Description: ".$setup["errorDescription"]."\n" : null).
-							($setup["errorVariables"] ? "Variables:\n".print_r($setup["errorVariables"], true)."\n" : null).
-							"Backtrace:\n".strip_tags(implode($backtrace_info, "\n"))
+							($setup["errorSubType"] ?? false ? "Subtype: ".$setup["errorSubType"]."\n" : null).
+							($setup["errorDescription"] ?? false ? "Description: ".$setup["errorDescription"]."\n" : null).
+							($setup["errorVariables"] ?? false ? "Variables:\n".print_r($setup["errorVariables"], true)."\n" : null).
+							"Backtrace:\n".strip_tags(implode("\n", $backtrace_info))
 					]));
 				}
 				else {

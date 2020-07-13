@@ -146,6 +146,9 @@ namespace Cherrycake {
 			if (!isset($setup["isCli"]))
 				$setup["isCli"] = defined("STDIN");
 			
+			if (!isset($setup["appName"]))
+				$setup["appName"] = md5(($_SERVER["HOSTNAME"] ?? false ?: "").$_SERVER["DOCUMENT_ROOT"]);
+			
 			foreach ([
 				"appName",
 				"isDevel",
@@ -700,9 +703,8 @@ namespace Cherrycake {
 			// If it has get parameters, parse them and put them in $_GET
 			$_GET = $this->parseCommandLineArguments(array_slice($argv, 2));
 
-			if (!$action->request->retrieveParameterValues()) {
+			if (!$action->request->retrieveParameterValues())
 				die;
-			}
 
 			$action->run();
 		}
@@ -768,9 +770,9 @@ namespace Cherrycake {
 				"memoryUsePeak" => memory_get_peak_usage(),
 				"memoryAllocated" => memory_get_usage(true),
 				"memoryAllocatedPeak" => memory_get_peak_usage(true),
-				"hostname" => $_SERVER["HOSTNAME"],
-				"host" => $_SERVER["HTTP_HOST"],
-				"ip" => $_SERVER["REMOTE_ADDR"],
+				"hostname" => $_SERVER["HOSTNAME"] ?? false,
+				"host" => $_SERVER["HTTP_HOST"] ?? false,
+				"ip" => $_SERVER["REMOTE_ADDR"] ?? false,
 				"os" => PHP_OS,
 				"phpVersion" => phpversion(),			
 				"serverSoftware" => $_SERVER["SERVER_SOFTWARE"],

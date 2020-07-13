@@ -34,11 +34,11 @@ class SystemLogEvents extends \Cherrycake\Items {
 			"type" => ["default" => false],
             "fromTimestamp" => ["default" => false],
 			"toTimestamp" => ["default" => false],
-			"order" => ["chronological"]
+			"order" => ["default" => ["chronological"]]
 		]);
 		
 		$p["orders"] = [
-			"chronological" => "timestamp desc"
+			"chronological" => "dateAdded desc"
 		];
         
         if ($p["type"] ?? false)

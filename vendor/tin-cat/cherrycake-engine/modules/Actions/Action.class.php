@@ -38,7 +38,7 @@ class Action {
 	/**
 	 * @var string $responseClass The name of the Response class this Action is expected to return
 	 */
-	private $responseClass;
+	protected $responseClass;
 
 	/**
 	 * @var Request $request The Request that triggers this Action
@@ -71,9 +71,14 @@ class Action {
 	private $isSensibleToBruteForceAttacks;
 
 	/**
-	 * @var integer $timeout When set, this action must have this specific timeout.
+	 * @var mixed $timeout When set, this action must have this specific timeout.
 	 */
 	private $timeout = false;
+
+	/**
+	 * @var boolean $isCli When set to true, this action will only be able to be executed via the command line CLI interface
+	 */
+	protected $isCli = false;
 
 	/**
 	 * Request
@@ -86,7 +91,7 @@ class Action {
 		$this->moduleType = isset($setup["moduleType"]) ? $setup["moduleType"] : false;
 		$this->moduleName = isset($setup["moduleName"]) ? $setup["moduleName"] : false;
 		$this->methodName = isset($setup["methodName"]) ? $setup["methodName"] : false;
-		$this->request = isset($setup["request"]) ? $setup["request"] : false;
+		$this->request = isset($setup["request"]) ? $setup["request"] : new Request;
 		$this->isCache = isset($setup["isCache"]) ? $setup["isCache"] : false;
 		$this->isSensibleToBruteForceAttacks = isset($setup["isSensibleToBruteForceAttacks"]) ? $setup["isSensibleToBruteForceAttacks"] : false;
 		$this->timeout = isset($setup["timeout"]) ? $setup["timeout"] : false;
@@ -112,6 +117,13 @@ class Action {
 	}
 
 	/**
+	 * @return boolean Whether this Action is intended for a command line request or not
+	 */
+	function isCli() {
+		return $this->isCli;
+	}
+
+	/**
 	 * run
 	 *
 	 * Executes this action by loading the corresponding module and calling the proper method. Manages the cache for this action if needed.
@@ -119,6 +131,11 @@ class Action {
 	 */
 	function run() {
 		global $e;
+
+		if ($this->isCli && !$e->isCli()) {
+			$e->Errors->trigger(\Cherrycake\ERROR_SYSTEM, ["errorDescription" => "This action only runs on the CLI interface"]);
+			return true;
+		}
 
 		if ($this->isCache) {
 			$cacheKey = $this->request->getCacheKey($this->cachePrefix);

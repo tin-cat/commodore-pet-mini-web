@@ -13,6 +13,19 @@ namespace Cherrycake;
 $UserBuildsConfig = [
 	"builds" => [
 		[
+            "serialNumber" => 14,
+            "name" => "Richard Morley",
+            "date" => mktime(0, 0, 0, 7, 13, 2020),
+            "text" => "(The Commodore PET) was the first computer I ever laid my hands on.  I clearly remember that moment, some 40 odd years ago. My father took me to an engineering show at the local collage.  A lot of local companies were there. [...] Sitting on a table was a Commodore PET!  I couldn't tell you the model, but I remember it did have a cassette drive. [...] There was a fella making this machine do, what seamed to me, to be amazing things. [...] I waited for what seamed to be hours to have a go on this amazing machine. [...] It was at this point that reality hit me and I realized I did not have a clue how to operate any kind of computer. I hit a few keys in what the PET would have seen as a random order. The best response I got from it was \"syntax error\" lol. I got bored quite quick, but never really lost my fascination of computers."
+        ],
+		[
+            "serialNumber" => 13,
+            "name" => "Tony Landi 🇬🇧",
+			"url" => "http://www.operation8bit.org",
+            "date" => mktime(0, 0, 0, 7, 13, 2020),
+            "text" => "Tony is a fellow retrocomputing geek that shares his love for iconic ancient computers in his Youtube channel \"<a href=\"https://www.youtube.com/channel/UCrDSUT4kGkdIJ7bRodG3LLw\" target=\"external\">Operation 8-Bit</a>\". He has documented his entire build of the Commodore PET Mini in <a href=\"https://www.youtube.com/watch?v=rRSatuUY9FA\" target=\"external\">this video</a>. All the proceedings from their channel and the classic computer restoration work they do are donated to charities, which is an extra reason to follow them on the networks."
+        ],
+		[
             "serialNumber" => 12,
             "name" => "Jonathan Dean 🇬🇧",
 			"url" => "https://twitter.com/JonathanPGDean",
