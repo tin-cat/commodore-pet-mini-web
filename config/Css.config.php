@@ -13,7 +13,7 @@ namespace Cherrycake;
 global $e;
 
 $CssConfig = [
-	"lastModifiedTimestamp" => mktime(4, 0, 0, 7, 13, 2020), // The global version
+	"lastModifiedTimestamp" => mktime(5, 0, 0, 7, 13, 2020), // The global version
 	"isMinify" => !$e->isDevel(),
 	"sets" => [ // An array of Css sets configured.
 		"main" => [
