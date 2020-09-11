@@ -114,6 +114,27 @@ class Contribute  extends \Cherrycake\Module {
 				])
 			])
 		);
+
+		$e->Actions->mapACtion(
+			"contributionWorkingKeyboard",
+			new \Cherrycake\ActionHtml([
+				"moduleType" => \Cherrycake\ACTION_MODULE_TYPE_APP,
+				"moduleName" => "Contribute",
+				"methodName" => "workingKeyboard",
+				"request" => new \Cherrycake\Request([
+					"pathComponents" => [
+                        new \Cherrycake\RequestPathComponent([
+							"type" => \Cherrycake\REQUEST_PATH_COMPONENT_TYPE_FIXED,
+							"string" => "contribute"
+                        ]),
+						new \Cherrycake\RequestPathComponent([
+							"type" => \Cherrycake\REQUEST_PATH_COMPONENT_TYPE_FIXED,
+							"string" => "working-keyboard"
+                        ])
+                    ]
+				])
+			])
+		);
 	}
 
 	/**
@@ -165,6 +186,20 @@ class Contribute  extends \Cherrycake\Module {
 		global $e;
 		$e->UiComponentPanel->setOutputResponse([
 			"content" => $e->Patterns->parse("Contribute/KeyboardGamePad.html"),
+			"mainOptionSelected" => "contribute",
+			"mainSubOptionSelected" => "keyboardGamePad"
+		]);
+		return true;
+	}
+
+	/**
+	 * Outputs the workingKeyboard
+	 * @return boolean True if the request could be attended, false otherwise.
+	 */
+	function workingKeyboard() {
+		global $e;
+		$e->UiComponentPanel->setOutputResponse([
+			"content" => $e->Patterns->parse("Contribute/WorkingKeyboard.html"),
 			"mainOptionSelected" => "contribute",
 			"mainSubOptionSelected" => "keyboardGamePad"
 		]);

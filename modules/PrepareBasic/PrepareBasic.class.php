@@ -167,6 +167,10 @@ class PrepareBasic  extends \Cherrycake\Module {
 							"title" => "Keyboard game pad",
 							"href" => $e->Actions->getAction("contributionKeyboardGamePad")->request->buildUrl()
 						]),
+						"workingKeyboard" => new \Cherrycake\UiComponentMenuOption([
+							"title" => "A working keyboard",
+							"href" => $e->Actions->getAction("contributionWorkingKeyboard")->request->buildUrl()
+						]),
 						"howToContribute" => new \Cherrycake\UiComponentMenuOption([
 							"title" => "How to contribute",
 							"href" => $e->Actions->getAction("howToContribute")->request->buildUrl()

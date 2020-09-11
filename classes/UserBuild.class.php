@@ -21,6 +21,10 @@ class UserBuild extends \Cherrycake\BasicObject {
         return $r;
     }
 
+	function getSerialNumberTextOverride() {
+		return $this->serialNumberTextOverride ?? false;
+	}
+
     function getName() {
         return $this->name;
     }

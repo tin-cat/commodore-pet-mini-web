@@ -14,7 +14,7 @@
             ?>
 				<hr>
 				<a name="<?=$userBuild->getSerialNumber()?>"></a>
-                <h2>Serial No.<?=$userBuild->getSerialNumber()?></h2>
+                <h2>Serial No.<?=$userBuild->getSerialNumberTextOverride() ?: $userBuild->getSerialNumber()?></h2>
                 <p>
                     <b>Build by <?php
 						if ($userBuild->getUrl()){
