@@ -201,7 +201,7 @@ class Contribute  extends \Cherrycake\Module {
 		$e->UiComponentPanel->setOutputResponse([
 			"content" => $e->Patterns->parse("Contribute/WorkingKeyboard.html"),
 			"mainOptionSelected" => "contribute",
-			"mainSubOptionSelected" => "keyboardGamePad"
+			"mainSubOptionSelected" => "workingKeyboard"
 		]);
 		return true;
 	}
