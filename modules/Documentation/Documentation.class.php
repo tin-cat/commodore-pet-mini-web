@@ -96,8 +96,15 @@ class Documentation  extends \Cherrycake\Module {
 	 */
 	function viewPage($request) {
 		global $e;
+
+		// $documentationPages = $e->PrepareBasic->getConfig("documentationPages");
+		// if (!isset($documentationPages[$request->sectionName]))
+		// 	return false;
         
         $documentationPatternFileName = "Documentation/".$request->pageName.".html";
+
+		if (!file_exists($documentationPatternFileName))
+			return false;
 
         $e->Stats->trigger(new \CherrycakeApp\StatsEventDocumentationPageView([
             "pageName" => $request->pageName
@@ -122,6 +129,14 @@ class Documentation  extends \Cherrycake\Module {
 		global $e;
         
         $documentationPatternFileName = "Documentation/".$request->sectionName."/".$request->pageName.".html";
+
+		$documentationPages = $e->PrepareBasic->getConfig("documentationPages");
+		if (!isset($documentationPages[$request->sectionName]))
+			return false;
+		
+		if (!isset($documentationPages[$request->sectionName]["subPages"][$request->pageName]))
+			return false;
+		
         
         $e->Stats->trigger(new \CherrycakeApp\StatsEventDocumentationPageView([
             "pageName" => $request->section."/".$request->pageName

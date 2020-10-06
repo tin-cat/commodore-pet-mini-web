@@ -17,7 +17,7 @@
 	<h1>
 		<?php
 			echo
-				$errorDescription
+				$errorDescription && $e->isDevel()
 				?
 				$errorDescription
 				:

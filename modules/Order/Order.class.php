@@ -36,22 +36,22 @@ class Order  extends \Cherrycake\Module {
 	 */
 	public static function mapActions() {
 		global $e;
-		$e->Actions->mapAction(
-			"order",
-			new \Cherrycake\ActionHtml([
-				"moduleType" => \Cherrycake\ACTION_MODULE_TYPE_APP,
-				"moduleName" => "Order",
-				"methodName" => "home",
-				"request" => new \Cherrycake\Request([
-					"pathComponents" => [
-                        new \Cherrycake\RequestPathComponent([
-							"type" => \Cherrycake\REQUEST_PATH_COMPONENT_TYPE_FIXED,
-							"string" => "order"
-                        ])
-                    ]
-				])
-			])
-		);
+		// $e->Actions->mapAction(
+		// 	"order",
+		// 	new \Cherrycake\ActionHtml([
+		// 		"moduleType" => \Cherrycake\ACTION_MODULE_TYPE_APP,
+		// 		"moduleName" => "Order",
+		// 		"methodName" => "home",
+		// 		"request" => new \Cherrycake\Request([
+		// 			"pathComponents" => [
+        //                 new \Cherrycake\RequestPathComponent([
+		// 					"type" => \Cherrycake\REQUEST_PATH_COMPONENT_TYPE_FIXED,
+		// 					"string" => "order"
+        //                 ])
+        //             ]
+		// 		])
+		// 	])
+		// );
 	}
 
 	/**
