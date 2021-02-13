@@ -1,9 +1,0 @@
-RewriteEngine On
-
-# If requested resource exists as a file or directory, go for it and get rid of other rules
-RewriteCond %{DOCUMENT_ROOT}/$1 -f [OR]
-RewriteCond %{DOCUMENT_ROOT}/$1 -d
-RewriteRule (.*) - [L]
-
-# If the request resource does not exists, send the query to the Engine
-RewriteRule (.*) / [L]
