@@ -14,6 +14,12 @@ $UserBuildsConfig = [
 	"builds" => [
 		[
             "serialNumber" => 14,
+            "name" => "Jan Palsbom",
+            "date" => mktime(0, 0, 0, 3, 15, 2021),
+            "text" => "I finally finished my build of your excellent PET mini project! It has been a lot of fun and a nice little learning experience. The 3D prints, electronic parts and stickers were all ordered online and assembled as they slowly arrived from all parts of the world!"
+        ],
+		[
+            "serialNumber" => 1400000,
 			"serialNumberTextOverride" => "0013+1",
             "name" => "Richard Morley",
             "date" => mktime(0, 0, 0, 7, 13, 2020),
