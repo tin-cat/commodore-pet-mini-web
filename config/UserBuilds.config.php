@@ -15,7 +15,8 @@ $UserBuildsConfig = [
         [
             "serialNumber" => 15,
             "name" => "Gianluca Costamagna 🇮🇹",
-            "date" => mktime(0, 0, 0, 11, 11, 2024)
+            "date" => mktime(0, 0, 0, 11, 11, 2024),
+            "text" => ""
         ],
 		[
             "serialNumber" => 14,
