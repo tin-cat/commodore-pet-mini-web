@@ -12,6 +12,11 @@ namespace Cherrycake;
 
 $UserBuildsConfig = [
 	"builds" => [
+        [
+            "serialNumber" => 15,
+            "name" => "Gianluca Costamagna 🇮🇹",
+            "date" => mktime(0, 0, 0, 11, 11, 2024)
+        ],
 		[
             "serialNumber" => 14,
             "name" => "Jan Palsbom",
